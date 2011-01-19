@@ -1,0 +1,5 @@
+# This file lists a mapping from internal files to published files that will
+# be included in the released version
+
+README => README
+CHANGELOG => CHANGELOG
