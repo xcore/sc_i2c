@@ -3,6 +3,7 @@
 // I2C master
 
 #include <xs1.h>
+#include <stdio.h>
 #include "i2c.h"
 
 #ifndef I2C_TI_COMPATIBILITY
@@ -199,13 +200,16 @@ int i2c_rd(int addr, int device, struct r_i2c &i2c)
 }
 #endif
 
-int i2c_wr(int addr, int data, int device, struct r_i2c &i2c)
+//int i2c_wr(int addr, int data, int device, struct r_i2c &i2c)
+int i2c_wr(int addr, int device, struct i2c_data_info &i2c_data,  struct r_i2c &i2c)
 {
    timer gt;
    unsigned time;
    int Temp, CtlAdrsData, i;
    // three device ACK
    int ack[3];
+   unsigned int data;
+   unsigned int j;
 
    // initial values.
    i2c.scl <: 1;
@@ -297,37 +301,46 @@ int i2c_wr(int addr, int data, int device, struct r_i2c &i2c)
    CtlAdrsData = (data & 0xFF);
 #endif
    // shift second 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
-      Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 0;
+   for(j=0; j < i2c_data.data_len; j++){
+	   CtlAdrsData = (i2c_data.data[j] & 0xFF);
+	   for (i = 0; i < 8; i += 1)
+	   {
+		   Temp = (CtlAdrsData >> (7 - i)) & 0x1;
+		   i2c.sda <: Temp;
+		   gt :> time;
+		   time += (I2C_BIT_TIME / 2);
+		   gt when timerafter(time) :> void;
+		   i2c.scl <: 1;
+		   gt :> time;
+		   time += (I2C_BIT_TIME / 2);
+		   gt when timerafter(time) :> void;
+		   i2c.scl <: 0;
+	   }
+	   // turn the data to input
+	   i2c.sda :> Temp;
+	   gt :> time;
+	   time += (I2C_BIT_TIME / 2);
+	   gt when timerafter(time) :> void;
+	   i2c.scl <: 1;
+	   // sample second ACK.
+	   i2c.sda :> ack[2];
+	   gt :> time;
+	   time += (I2C_BIT_TIME / 2);
+	   gt when timerafter(time) :> void;
+	   i2c.scl <: 0;
+	   //ack[2]=0;
+	   if(ack[2] == 1)
+		   break;
    }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[2];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 0;
+   i2c.sda <: 0;
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> void;
    i2c.scl <: 1;
    // put the data to a good value for next round.
+   time += (I2C_BIT_TIME / 4);
+   gt when timerafter(time) :> void;
    i2c.sda  <: 1;
-
+   printf("\n Value of ack = %d\n", ack[2]);
    return ((ack[0]==0) && (ack[1]==0) && (ack[2]==0));   
 }
