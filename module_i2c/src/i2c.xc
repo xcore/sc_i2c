@@ -7,12 +7,12 @@
 #include "i2c.h"
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_rd(int addr, int device, struct r_i2c &i2c)
+int i2c_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c)
 {
   //   int result;
    timer gt;
    unsigned time;
-   int Temp, CtlAdrsData, i;
+   int Temp, CtlAdrsData, i,j;
    // three device ACK
    int ack[3];
    int rdData;
@@ -151,50 +151,53 @@ int i2c_rd(int addr, int device, struct r_i2c &i2c)
 
    rdData = 0;
    // shift second 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
+   for (j=0; j < i2c_data.data_len; j++){
+	   for (i = 0; i < 8; i += 1)
+	   {
+		   gt :> time;
+		   time += (I2C_BIT_TIME / 2);
+		   gt when timerafter(time) :> int _;
+		   i2c.scl <: 1;
 
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 1;
+		   i2c.sda :> Temp;
+		   rdData = (rdData << 1) | (Temp & 1);
 
-      i2c.sda :> Temp;
-      rdData = (rdData << 1) | (Temp & 1);
+		   gt :> time;
+		   time += (I2C_BIT_TIME / 2);
+		   gt when timerafter(time) :> int _;
+		   i2c.scl <: 0;
 
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 0;
+		   //Send ACK
+		   if(j <(i2c_data.data_len-1)){
+			   i2c.sda <: 0;
+
+			   gt :> time;
+			   time += (I2C_BIT_TIME / 2);
+			   gt when timerafter(time) :> int _;
+			   i2c.scl <: 1;
+
+			   gt :> time;
+			   time += (I2C_BIT_TIME / 2);
+			   gt when timerafter(time) :> int _;
+			   i2c.scl <: 0;
+		   }
+	   }
+	   i2c_data.data[j]=rdData;
    }
 
-   // turn the data to input
-   i2c.sda :> Temp;
+   //Send Stop
+   i2c.sda <: 0;
+
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
    i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[2];
+
    gt :> time;
-   time += (I2C_BIT_TIME / 2);
+   time += (I2C_BIT_TIME / 4);
    gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // put the data to a good value for next round.
-   i2c.sda  <: 1;
-   // validate all items are ACK properly.
-   //Result = 0;
-   //for (i = 0; i < 3; i += 1)
-   //{
-      //if ((ack[i]&1) != 0)
-      //{
-         //Result = Result | (1 << i);
-      //}
-   //}
+   i2c.sda <: 1;
+
 
    return rdData;
 }
