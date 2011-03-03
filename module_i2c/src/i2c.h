@@ -30,7 +30,7 @@ struct i2c_data_info {
 	unsigned int data_len;
 };
 
-int i2c_rd(int addr, int device, struct r_i2c &i2c);
+int i2c_rd(int addr, int device, struct i2c_data_info &i2c_data,struct r_i2c &i2c);
 int i2c_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c);
 
 #endif
