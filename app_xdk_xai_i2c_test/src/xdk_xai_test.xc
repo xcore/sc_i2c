@@ -39,6 +39,7 @@
 
 on stdcore[1] : struct r_i2c i2c = { XS1_PORT_4B, XS1_PORT_4A };
 struct i2c_data_info i2c_data;
+unsigned int i;
 int main()
 {
 	//struct i2c_data_info i2c_data;
@@ -61,8 +62,13 @@ int main()
 			i2c_data.data[1]=0x01;
 			i2c_data.data[2]=0x55;
 			i2c_data.data_len=3;
-			i2c_wr(0x06, 0x12, i2c_data, i2c);
+			//i2c_wr(0x06, 0x12, i2c_data, i2c);
 			printf("Done");
+			i2c_data.data_len = 10;
+			i2c_rd(0x06, 0x9C,i2c_data, i2c);
+			for (i=0; i< i2c_data.data_len;i++){
+				printf("data = %d\n",i2c_data.data[i]);
+			}
 			/*printstrln("writing 0x12 to register 6");
 			i2c_wr(0x06, 0x12, 0x9C, i2c);
 			printstrln("writing 0x34 to register 7");
