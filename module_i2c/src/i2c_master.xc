@@ -11,7 +11,6 @@
 
 int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
 {
-  //   int result;
    timer gt;
    unsigned time;
    int Temp, CtlAdrsData, i,j;
