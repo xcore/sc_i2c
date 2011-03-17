@@ -37,8 +37,16 @@
 #include <stdio.h>
 #include "i2c.h"
 
-on stdcore[1] : struct r_i2c i2c = { XS1_PORT_4B, XS1_PORT_4A };
+on stdcore[1] : struct r_i2c i2c_master = { XS1_PORT_1B, XS1_PORT_1A };
+on stdcore[1] : struct r_i2c i2c_slave  = { XS1_PORT_1D, XS1_PORT_1C };
+on stdcore[1] : out port st_det = XS1_PORT_1H;
+
 struct i2c_data_info i2c_data;
+struct i2c_data_info i2c_slave_data;
+
+//i2c_data.data_len = 1;
+//i2c_data.data[0] = 0x55;
+
 unsigned int i;
 int main()
 {
@@ -46,43 +54,19 @@ int main()
 	//i2c_data.data[0]=0;
 	par {
 		on stdcore[1] : {
-			//printstrln("NOTE connect XAI to core 1");
-			//printstrln("NOTE crossover cable required");
-			//printstrln("NOTE set 4-th DIP switch bank to OFF ON OFF ON");
-
-			//printstrln("I2C device 0x9C");
-
-			// read device ID
-			//printstr("reading register 1 (device ID): ");
-			//printint(i2c_rd(0x01, 0x9C, i2c));
-			printstrln(" (expected 6)");
-
-			// write multiplier value
-			i2c_data.data[0]=0x80;
-			i2c_data.data[1]=0x01;
-			i2c_data.data[2]=0x55;
-			i2c_data.data_len=3;
-			//i2c_wr(0x06, 0x12, i2c_data, i2c);
-			printf("Done");
-			i2c_data.data_len = 10;
-			i2c_rd(0x06, 0x9C,i2c_data, i2c);
-			for (i=0; i< i2c_data.data_len;i++){
-				printf("data = %d\n",i2c_data.data[i]);
+			i2c_slave_rd(0x12,i2c_slave_data,i2c_slave,st_det);
+			printf("Data Len = %d\n",i2c_slave_data.data_len);
+			for(i=0; i < i2c_slave_data.data_len; i++ ){
+				printf("Data = %x \n",i2c_slave_data.data[i]);
 			}
-			/*printstrln("writing 0x12 to register 6");
-			i2c_wr(0x06, 0x12, 0x9C, i2c);
-			printstrln("writing 0x34 to register 7");
-			i2c_wr(0x07, 0x34, 0x9C, i2c);
-			printstrln("writing 0x56 to register 8");
-			i2c_wr(0x08, 0x56, 0x9C, i2c);
-
-			// read back
-			printstr("reading register 6: 0x");
-			printhexln(i2c_rd(0x06, 0x9C, i2c));
-			printstr("reading register 7: 0x");
-			printhexln(i2c_rd(0x07, 0x9C, i2c));
-			printstr("reading register 8: 0x");
-			printhexln(i2c_rd(0x08, 0x9C, i2c));*/
+		}
+		on stdcore[1] : {
+			i2c_data.data_len = 4;
+			i2c_data.data[0] = 0x89;
+			i2c_data.data[1] = 0x51;
+			i2c_data.data[2] = 0x21;
+			i2c_data.data[3] = 0xA1;
+			i2c_master_wr(0x06, 0x12, i2c_data, i2c_master);
 		}
 	}
   return 0;
