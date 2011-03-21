@@ -33,8 +33,8 @@ struct i2c_data_info {
 	unsigned int data_len;
 };
 
-int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data,struct r_i2c &i2c_master);
-int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
-int i2c_slave_rd(int dev_addr, struct i2c_data_info &i2c_data_slave, struct r_i2c &i2c_slave,out port st_det);
+int i2c_master_rx(int addr, int device, struct i2c_data_info &i2c_data,struct r_i2c &i2c_master);
+int i2c_master_tx(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
+int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_data_slave, struct r_i2c &i2c_slave,out port st_det);
 
 #endif
