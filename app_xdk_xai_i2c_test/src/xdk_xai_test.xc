@@ -35,13 +35,17 @@
 #include <platform.h>
 #include <print.h>
 #include <stdio.h>
+#include <syscall.h>
+#include <stdlib.h>
 #include "i2c.h"
 
-on stdcore[1] : struct r_i2c i2c_master = { XS1_PORT_1B, XS1_PORT_1A };
+on stdcore[1] : struct r_i2c i2c_master1 = { XS1_PORT_1B, XS1_PORT_1A };
+on stdcore[1] : struct r_i2c i2c_master2 = { XS1_PORT_1F, XS1_PORT_1E };
 on stdcore[1] : struct r_i2c i2c_slave  = { XS1_PORT_1D, XS1_PORT_1C };
 on stdcore[1] : out port st_det = XS1_PORT_1H;
 
-struct i2c_data_info i2c_data;
+struct i2c_data_info i2c_data1;
+struct i2c_data_info i2c_data2;
 struct i2c_data_info i2c_slave_data;
 
 //i2c_data.data_len = 1;
@@ -54,19 +58,28 @@ int main()
 	//i2c_data.data[0]=0;
 	par {
 		on stdcore[1] : {
-			i2c_slave_rd(0x12,i2c_slave_data,i2c_slave,st_det);
+			i2c_slave_rx(0x12,i2c_slave_data,i2c_slave,st_det);
 			printf("Data Len = %d\n",i2c_slave_data.data_len);
 			for(i=0; i < i2c_slave_data.data_len; i++ ){
 				printf("Data = %x \n",i2c_slave_data.data[i]);
 			}
+			exit(0);
 		}
 		on stdcore[1] : {
-			i2c_data.data_len = 4;
-			i2c_data.data[0] = 0x89;
-			i2c_data.data[1] = 0x51;
-			i2c_data.data[2] = 0x21;
-			i2c_data.data[3] = 0xA1;
-			i2c_master_wr(0x06, 0x12, i2c_data, i2c_master);
+			i2c_data1.data_len = 4;
+			i2c_data1.data[0] = 0x89;
+			i2c_data1.data[1] = 0x41;
+			i2c_data1.data[2] = 0x21;
+			i2c_data1.data[3] = 0xA1;
+			i2c_master_tx(0x06, 0x12, i2c_data1, i2c_master1);
+		}
+		on stdcore[1] : {
+			i2c_data2.data_len = 4;
+			i2c_data2.data[0] = 0x89;
+			i2c_data2.data[1] = 0x41;
+			i2c_data2.data[2] = 0x01;
+			i2c_data2.data[3] = 0xA1;
+			i2c_master_tx(0x06, 0x12, i2c_data2, i2c_master2);
 		}
 	}
   return 0;
