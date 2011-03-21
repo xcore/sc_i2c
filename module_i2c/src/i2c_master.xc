@@ -9,46 +9,57 @@
 
 #ifndef I2C_TI_COMPATIBILITY
 
-int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
+int i2c_master_rx(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
 {
+  //   int result;
    timer gt;
    unsigned time;
    int Temp, CtlAdrsData, i,j;
    // three device ACK
    int ack[3];
    int rdData;
-   int high_state;
+   int sda_high;
+   unsigned int scl_high;
 
    //set_port_pull_up(i2c.scl);
    //set_port_pull_up(i2c.sda);
    set_port_pull_up(i2c_master.scl);
    set_port_pull_up(i2c_master.sda);
    // initial values.
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    //i2c_master.sda  <: 1;
-   i2c_master.sda :> high_state;
+   i2c_master.sda :> sda_high;
    sync(i2c_master.sda);
    gt :> time;
    time += I2C_BIT_TIME;
    gt when timerafter(time) :> int _;
    // start bit on SDI
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    i2c_master.sda  <: 0;
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
    i2c_master.scl <: 0;
    // shift 7bits of address and 1bit R/W (fixed to write).
-   // WARNING: Assume MSB first.
+   // Sending Device ID
    for (i = 0; i < 8; i += 1)
    {
       Temp = (device >> (7 - i)) & 0x1;
       if(Temp ==0) i2c_master.sda <: Temp;
-      else i2c_master.sda :> high_state;
+      else i2c_master.sda :> sda_high;
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
-      i2c_master.scl <: 1;
+      //i2c_master.scl <: 1;
+      i2c_master.scl :> scl_high;
+      if(Temp){
+    	  i2c_master.sda :> sda_high;
+    	  if(!sda_high){
+    		  return(0);
+    	  }
+      }
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
@@ -59,7 +70,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    // sample first ACK.
    i2c_master.sda :> ack[0];
    gt :> time;
@@ -74,11 +86,18 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    {
       Temp = (CtlAdrsData >> (7 - i)) & 0x1;
       if(Temp ==0) i2c_master.sda <: Temp;
-      else i2c_master.sda :> high_state;
+      else i2c_master.sda :> sda_high;
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
-      i2c_master.scl <: 1;
+      //i2c_master.scl <: 1;
+      i2c_master.scl :> scl_high;
+      if(Temp){
+    	  i2c_master.sda :> sda_high;
+    	  if(!sda_high){
+    		  return(0);
+    	  }
+      }
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
@@ -89,7 +108,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    // sample second ACK.
    i2c_master.sda :> ack[1];
    gt :> time;
@@ -103,8 +123,9 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    time += I2C_BIT_TIME;
    gt when timerafter(time) :> int _;
    // start bit on SDI
-   i2c_master.scl <: 1;
-   i2c_master.sda :> high_state;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.sda :> sda_high;
    time += I2C_BIT_TIME;
    gt when timerafter(time) :> int _;
    i2c_master.scl <: 0;
@@ -113,14 +134,16 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
 
 
    // send address and read
-   i2c_master.scl <: 1;
-   i2c_master.sda :> high_state;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.sda :> sda_high;
    sync(i2c_master.sda);
    gt :> time;
    time += I2C_BIT_TIME;
    gt when timerafter(time) :> int _;
    // start bit on SDI
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    i2c_master.sda  <: 0;
    gt :> time;
    time += (I2C_BIT_TIME / 2);
@@ -136,7 +159,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
-      i2c_master.scl <: 1;
+      //i2c_master.scl <: 1;
+      i2c_master.scl :> scl_high;
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> int _;
@@ -147,7 +171,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    // sample first ACK.
    i2c_master.sda :> ack[0];
    gt :> time;
@@ -164,7 +189,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
 		   gt :> time;
 		   time += (I2C_BIT_TIME / 2);
 		   gt when timerafter(time) :> int _;
-		   i2c_master.scl <: 1;
+		   //i2c_master.scl <: 1;
+		   i2c_master.scl :> scl_high;
 
 		   i2c_master.sda :> Temp;
 		   rdData = (rdData << 1) | (Temp & 1);
@@ -181,7 +207,8 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
 			   gt :> time;
 			   time += (I2C_BIT_TIME / 2);
 			   gt when timerafter(time) :> int _;
-			   i2c_master.scl <: 1;
+			   //i2c_master.scl <: 1;
+			   i2c_master.scl :> scl_high;
 
 			   gt :> time;
 			   time += (I2C_BIT_TIME / 2);
@@ -198,12 +225,13 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> int _;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
 
    gt :> time;
    time += (I2C_BIT_TIME / 4);
    gt when timerafter(time) :> int _;
-   i2c_master.sda :> high_state;
+   i2c_master.sda :> sda_high;
 
 
    return rdData;
@@ -211,7 +239,7 @@ int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r
 #endif
 
 //int i2c_wr(int addr, int data, int device, struct r_i2c &i2c)
-int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
+int i2c_master_tx(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
 {
    timer gt;
    unsigned time;
@@ -221,21 +249,24 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    unsigned int data;
    unsigned int j;
    unsigned int temp;
-   int high_state;
+   unsigned int sda_high;
+   unsigned int scl_high;
    set_port_pull_up(i2c_master.scl);
    set_port_pull_up(i2c_master.sda);
-
    // initial values.
-   i2c_master.scl <: 1;
-   i2c_master.sda :> high_state;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.sda :> sda_high;
    sync(i2c_master.sda);
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    gt :> time;
    time += I2C_BIT_TIME;
    gt when timerafter(time) :> void;
 
    // start bit on SDI
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
    i2c_master.sda  <: 0;
    gt :> time;
    time += (I2C_BIT_TIME / 2);
@@ -243,16 +274,25 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    i2c_master.scl <: 0;
 
    // shift 7bits of address and 1bit R/W (fixed to write).
-   // WARNING: Assume MSB first.
+   // Sending Device ID
    for (i = 0; i < 8; ++i)
    {
       Temp = (device >> (7 - i)) & 0x1;
       if(!Temp) i2c_master.sda <: Temp;
-      else i2c_master.sda :> high_state;
+      else i2c_master.sda :> sda_high;
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> void;
-      i2c_master.scl <: 1;
+      //i2c_master.scl <: 1;
+      i2c_master.scl :> scl_high;
+      i2c_master.scl when pinseq(1) :> void;
+      // Checking for bit(Arbitration)
+      if(Temp){
+    	  i2c_master.sda :> sda_high;
+    	  if(!sda_high){
+    		  return(0);
+    	  }
+      }
       //i2c_master.scl :> Temp;
       i2c_master.scl when pinseq(1) :> void;
       gt :> time;
@@ -266,7 +306,9 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> void;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.scl when pinseq(1) :> void;
 
    // sample first ACK.
    i2c_master.sda :> ack[0];
@@ -283,6 +325,7 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
 #endif
 
    // shift first 8 bits.
+   //Sending Address
    for (i = 0; i < 8; i += 1)
    {
 #ifdef I2C_TI_COMPATIBILITY
@@ -291,11 +334,20 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
       Temp = (CtlAdrsData >> (7 - i)) & 0x1;
 #endif
       if(!Temp) i2c_master.sda <: Temp;
-      else i2c_master.sda :> high_state;
+      else i2c_master.sda :> sda_high;
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> void;
-      i2c_master.scl <: 1;
+      //i2c_master.scl <: 1;
+      i2c_master.scl :> scl_high;
+      i2c_master.scl when pinseq(1) :> void;
+      // Checking for bit(Arbitration)
+      if(Temp){
+    	  i2c_master.sda :> sda_high;
+    	  if(!sda_high){
+    		  return(0);
+    	  }
+      }
       gt :> time;
       time += (I2C_BIT_TIME / 2);
       gt when timerafter(time) :> void;
@@ -306,7 +358,9 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> void;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.scl when pinseq(1) :> void;
    // sample second ACK.
    i2c_master.sda :> ack[1];
    gt :> time;
@@ -321,17 +375,31 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    CtlAdrsData = (data & 0xFF);
 #endif
    // shift second 8 bits.
+   //Sending Data
    for(j=0; j < i2c_data.data_len; j++){
 	   CtlAdrsData = (i2c_data.data[j] & 0xFF);
 	   for (i = 0; i < 8; ++i)
 	   {
 		   Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-		   if(!Temp) i2c_master.sda <: Temp;
-		   else i2c_master.sda :> high_state;
+		   if(Temp == 0) {
+			   i2c_master.sda <: Temp;
+		   }
+		   else {
+			   i2c_master.sda :> sda_high;
+		   }
 		   gt :> time;
 		   time += (I2C_BIT_TIME / 2);
 		   gt when timerafter(time) :> void;
-		   i2c_master.scl <: 1;
+		   //i2c_master.scl <: 1;
+		   i2c_master.scl :> scl_high;
+		   i2c_master.scl when pinseq(1) :> void;
+		   // Checking for bit(Arbitration)
+		   if(Temp){
+			   i2c_master.sda :> sda_high;
+			   if(!sda_high){
+				   return(0);
+			   }
+		   }
 		   gt :> time;
 		   time += (I2C_BIT_TIME / 2);
 		   gt when timerafter(time) :> void;
@@ -342,7 +410,9 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
 	   gt :> time;
 	   time += (I2C_BIT_TIME / 2);
 	   gt when timerafter(time) :> void;
-	   i2c_master.scl <: 1;
+	   //i2c_master.scl <: 1;
+	   i2c_master.scl :> scl_high;
+	   i2c_master.scl when pinseq(1) :> void;
 	   // sample second ACK.
 	   i2c_master.sda :> ack[2];
 	   gt :> time;
@@ -358,11 +428,13 @@ int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r
    gt :> time;
    time += (I2C_BIT_TIME / 2);
    gt when timerafter(time) :> void;
-   i2c_master.scl <: 1;
+   //i2c_master.scl <: 1;
+   i2c_master.scl :> scl_high;
+   i2c_master.scl when pinseq(1) :> void;
    // put the data to a good value for next round.
-   time += (I2C_BIT_TIME / 4);
+   time += (I2C_BIT_TIME /4);
    gt when timerafter(time) :> void;
-   i2c_master.sda :> high_state;
+   i2c_master.sda :> sda_high;
    //printf("\n Value of ack = %d\n", ack[2]);
    return ((ack[0]==0) && (ack[1]==0) && (ack[2]==0));   
 }
