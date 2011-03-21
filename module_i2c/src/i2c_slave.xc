@@ -4,13 +4,15 @@
 #include <syscall.h>
 #include "i2c.h"
 
-int i2c_slave_rd(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det)
+int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det)
 {
 	unsigned int clk;
 	unsigned int rx_addr;
 	unsigned int rx_data;
 	unsigned int stop_det;
 	unsigned int temp;
+	unsigned int time;
+	timer t;
 	int x,i;
 	unsigned int while_break;
 	//out port test;
@@ -51,7 +53,17 @@ int i2c_slave_rd(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 			st_det <: 1;
 			break;
 		}
+		i2c_slave.scl <: 0;
+		t:> time;
+		time = time + (3*I2C_BIT_TIME);
+		t when timerafter (time) :> void;
+
 		i2c_slave.sda <: 0;
+		t:> time;
+		time = time + (3*I2C_BIT_TIME);
+		t when timerafter (time) :> void;
+
+		i2c_slave.scl :> temp;
 		i2c_slave.scl when pinseq(1) :> void;
 		i2c_slave.scl when pinseq(0) :> void;
 		i2c_slave.sda :> temp;
@@ -84,7 +96,17 @@ int i2c_slave_rd(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 				else break;
 			}
 			if(!stop_det) {
+				i2c_slave.scl <: 0;
+				t:> time;
+				time = time + (3*I2C_BIT_TIME);
+				t when timerafter (time) :> void;
+
 				i2c_slave.sda <: 0;
+				t:> time;
+				time = time + (3*I2C_BIT_TIME);
+				t when timerafter (time) :> void;
+
+				i2c_slave.scl :> temp;
 				i2c_slave.scl when pinseq(1) :> void;
 				i2c_slave_data.data_len++;
 				i2c_slave_data.data[x] = rx_data;
