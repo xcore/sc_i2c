@@ -18,6 +18,7 @@
 // where fref defaults to 100MHz
 #ifndef I2C_BIT_TIME
 #define I2C_BIT_TIME 1000
+//#define I2C_MASTER_TX
 #endif
 
 
@@ -31,10 +32,13 @@ struct r_i2c {
 struct i2c_data_info {
 	unsigned int data[100];
 	unsigned int data_len;
+	unsigned int master_num;
 };
 
-int i2c_master_rx(int addr, int device, struct i2c_data_info &i2c_data,struct r_i2c &i2c_master);
-int i2c_master_tx(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
+int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data,struct r_i2c &i2c_master);
+int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
 int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_data_slave, struct r_i2c &i2c_slave,out port st_det);
+int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det);
+void wait_func(int div_factor);
 
 #endif
