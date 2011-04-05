@@ -55,6 +55,7 @@ struct i2c_data_info i2c_slave_data2;
 //i2c_data.data[0] = 0x55;
 
 unsigned int i,j,ret_m1,ret_m2,ret_sl1,ret_sl2;
+unsigned int ret_1,ret_2;
 int main()
 {
 	//struct i2c_data_info i2c_data;
@@ -62,7 +63,7 @@ int main()
 	par {
 #ifdef I2C_MASTER_TX
 			on stdcore[1] : {
-				i2c_slave_rx(0x12,i2c_slave_data1,i2c_slave1,st_det1);
+				i2c_slave_rx(0x10,i2c_slave_data1,i2c_slave1,st_det1);
 				printf("Data Len = %d\n",i2c_slave_data1.data_len);
 				for(i=0; i < i2c_slave_data1.data_len; i++ ){
 					printf("Data = %x \n",i2c_slave_data1.data[i]);
@@ -71,24 +72,29 @@ int main()
 			}
 			on stdcore[1] : {
 				i2c_data1.data_len = 4;
-				i2c_data1.data[0] = 0x80;
+				i2c_data1.data[0] = 0x81;
 				i2c_data1.data[1] = 0x40;
-				i2c_data1.data[2] = 0x21;
+				i2c_data1.data[2] = 0x81;
 				i2c_data1.data[3] = 0xA1;
-				i2c_master_tx(0x12, 0x06, i2c_data1, i2c_master1);
+				i2c_data1.clock_mul=1;
+				ret_1=i2c_master_tx(0x10, 0x06, i2c_data1, i2c_master1);
+				printf("Return Master 1  = %d\n",ret_1);
 			}
 			on stdcore[1] : {
 				i2c_data2.data_len = 4;
 				i2c_data2.data[0] = 0x80;
-				i2c_data2.data[1] = 0x41;
+				i2c_data2.data[1] = 0x40;
 				i2c_data2.data[2] = 0x81;
-				i2c_data2.data[3] = 0xA1;
-				i2c_master_tx(0x12, 0x06, i2c_data2, i2c_master2);
+				i2c_data2.data[3] = 0xA0;
+				i2c_data2.clock_mul=4;
+				ret_2=i2c_master_tx(0x12, 0x06, i2c_data2, i2c_master2);
+				printf("Return Master 2  = %d\n",ret_2);
 			}
 #else
 		on stdcore[1] : {
 				i2c_data1.data_len = 4;
 				i2c_data1.master_num=1;
+				i2c_data1.clock_mul=4;
 				ret_m1=i2c_master_rx(0x10, 0x06, i2c_data1, i2c_master1);
 				printf("ret m1 = %d\n",ret_m1);
 				if(ret_m1){
@@ -102,6 +108,7 @@ int main()
 		on stdcore[1] : {
 						i2c_data2.data_len = 10;
 						i2c_data2.master_num=2;
+						i2c_data2.clock_mul=1;
 						ret_m2=i2c_master_rx(0x02, 0x06, i2c_data2, i2c_master2);
 						printf("ret m2 = %d\n",ret_m2);
 						if(ret_m2){
