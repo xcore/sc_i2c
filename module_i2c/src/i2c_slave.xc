@@ -44,7 +44,6 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 		}
 
 		if((rx_addr & 0xFE) != dev_addr){
-			printf("rx_addr = %h",rx_addr);
 			break;
 		}
 		else if((rx_addr & 0x01) == 1){
@@ -133,7 +132,6 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 				i2c_slave.sda :> temp;
 			}
 			else {
-				printf("STOP \n");
 				return 1;
 			}
 		}
@@ -180,7 +178,6 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		}
 
 		if((rx_addr & 0xFE) != dev_addr){
-			printf("dev addr %x.. Slave num = %d\n",rx_addr,i2c_slave_data.master_num);
 			return 0;
 			break;
 		}
