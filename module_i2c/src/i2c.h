@@ -38,8 +38,8 @@ struct i2c_data_info {
 
 int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data,struct r_i2c &i2c_master);
 int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
-int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_data_slave, struct r_i2c &i2c_slave,out port st_det);
-int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det);
+int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_data_slave, struct r_i2c &i2c_slave);
+int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave);
 void wait_func(int div_factor, unsigned int clock_mul,port scl,int edge);
 
 #endif
