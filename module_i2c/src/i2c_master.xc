@@ -51,7 +51,6 @@ int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
       if(Temp){
     	  i2c_master.sda :> sda_high;
     	  if(!sda_high) {
-    		  printf("Master num = %d\n",i2c_data.master_num);
     		  return(0);
     	  }
       }
@@ -339,7 +338,6 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    // put the data to a good value for next round.
    wait_func(4,clock_mul,i2c_master.scl,1);
    i2c_master.sda :> sda_high;
-   //printf("\n Value of ack = %d\n", ack[2]);
    return (1);
 }
 
