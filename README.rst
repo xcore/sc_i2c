@@ -39,8 +39,8 @@ Instructions for Building Project and running the simulation.
 The Software Components for I2C are built using XMOS Development Environment (XDE) Version: 10.4.2 (build 1752) or later.
 The module can be simulated using test bench.
 Following steps is to followed to run the simulation
-	In run configuration, select simulator.
-	Select simulator Tab.
+	#. In run configuration, select simulator.
+	#. Select simulator Tab.
 	Tick enable tracing.
 	Tick Pads.
 	In Local Tracing options click on ADD button and select ports.
