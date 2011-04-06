@@ -4,7 +4,7 @@
 #include <syscall.h>
 #include "i2c.h"
 
-int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det)
+int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave)
 {
 	unsigned int clk;
 	unsigned int rx_addr;
@@ -20,7 +20,6 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
 	temp=0;
-	st_det <: 0;
 	i2c_slave.sda :> temp;
 	while(1){
 		//Start Detect
@@ -28,14 +27,12 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 			i2c_slave.sda when pinseq(0) :> void;
 			i2c_slave.scl :> clk;
 			if(clk == 1){
-				st_det <: 1;
 				break;
 			}
 			else
 				i2c_slave.sda when pinseq(1) :> void;
 		}
 		i2c_slave.scl when pinseq(0) :> void;
-		st_det <: 0;
 		//address read
 		rx_addr =0;
 		for(i=7; i >= 0; --i){
@@ -47,12 +44,10 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 		}
 
 		if((rx_addr & 0xFE) != dev_addr){
-			st_det <: 1;
 			printf("rx_addr = %h",rx_addr);
 			break;
 		}
 		else if((rx_addr & 0x01) == 1){
-			st_det <: 1;
 			break;
 		}
 		i2c_slave.scl <: 0;
@@ -139,7 +134,7 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 			}
 			else {
 				printf("STOP \n");
-				return;
+				return 1;
 			}
 		}
 		//return;
@@ -148,24 +143,19 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 }
 
 
-int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave,out port st_det)
+int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave)
 {
 	unsigned int clk;
 	unsigned int rx_addr;
 	unsigned int rx_data;
-	unsigned int stop_det;
 	unsigned int Temp;
-	unsigned int time;
 	unsigned int sda_high;
-	timer t;
 	int i,j;
-	unsigned int while_break;
 	unsigned int nack,start_det;
 	//out port test;
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
 	Temp=0;
-	st_det <: 0;
 	i2c_slave.sda :> Temp;
 	while(1){
 		//Start Detect
@@ -173,14 +163,12 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 			i2c_slave.sda when pinseq(0) :> void;
 			i2c_slave.scl :> clk;
 			if(clk == 1){
-				st_det <: 1;
 				break;
 			}
 			else
 				i2c_slave.sda when pinseq(1) :> void;
 		}
 		i2c_slave.scl when pinseq(0) :> void;
-		st_det <: 0;
 		//address read
 		rx_addr =0;
 		for(i=7; i >= 0; --i){
@@ -192,13 +180,11 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		}
 
 		if((rx_addr & 0xFE) != dev_addr){
-			st_det <: 1;
 			printf("dev addr %x.. Slave num = %d\n",rx_addr,i2c_slave_data.master_num);
 			return 0;
 			break;
 		}
 		else if((rx_addr & 0x01) == 1){
-			st_det <: 1;
 			break;
 		}
 
@@ -215,7 +201,6 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		}
 
 		if((rx_addr) != sub_addr){
-			st_det <: 1;
 			break;
 		}
 		i2c_slave.sda <: 0;
