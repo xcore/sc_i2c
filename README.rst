@@ -41,31 +41,31 @@ The module can be simulated using test bench.
 Following steps is to followed to run the simulation
 	#. In run configuration, select simulator.
 	#. Select simulator Tab.
-	Tick enable tracing.
-	Tick Pads.
-	In Local Tracing options click on ADD button and select ports.
-	Select Pins tab.
-	Enable Pin connections
-	Click on Add Button.
-	Connect Port XS1_PORT_1B to XS1_PORT_1F.
-	Connect Port XS1_PORT_1A to XS1_PORT_1E.
-	Connect Port XS1_PORT_1B to XS1_PORT_1D.
-	Connect Port XS1_PORT_1A to XS1_PORT_1C.
-	Connect Port XS1_PORT_1B to XS1_PORT_1G
-	Connect Port XS1_PORT_1A to XS1_PORT_1H.
-	Connect Port XS1_PORT_1F to XS1_PORT_1D
-	Connect Port XS1_PORT_1E to XS1_PORT_1C.
-	Connect Port XS1_PORT_1F to XS1_PORT_1G.
-	Connect Port XS1_PORT_1E to XS1_PORT_1H.
-	Connect Port XS1_PORT_1D to XS1_PORT_1G.
-	Connect Port XS1_PORT_1C to XS1_PORT_1H.
-	In i2c_test_def.h keep MASTER_TX uncommenting for master transmit and slave receive.
-	or Comment MASTER_TX for slave transmit and master receive.
-      For single master and single slave comment MASTER2 and SLAVE2 or comment MASTER1 and SLAVE1.
-      for single slave and two masters select MASTER1 and MASTER2 comment SLAVE1 or SLAVE2.
-      for two slaves and single master select SLAVE1 and SLAVE2 comment MASTER1 or MASTER2.
-      for two master and two slaves select both  MASTER1 and MASTER2, and SLAVE1 and SLAVE2.
-      run the simulation. Check for valid data on the console window.
+	#. Tick enable tracing.
+	#. Tick Pads.
+	#. In Local Tracing options click on ADD button and select ports.
+	#. Select Pins tab.
+	#. Enable Pin connections
+	#. Click on Add Button.
+	#. Connect Port XS1_PORT_1B to XS1_PORT_1F.
+	#. Connect Port XS1_PORT_1A to XS1_PORT_1E.
+	#. Connect Port XS1_PORT_1B to XS1_PORT_1D.
+	#. Connect Port XS1_PORT_1A to XS1_PORT_1C.
+	#. Connect Port XS1_PORT_1B to XS1_PORT_1G
+	#. Connect Port XS1_PORT_1A to XS1_PORT_1H.
+	#. Connect Port XS1_PORT_1F to XS1_PORT_1D
+	#. Connect Port XS1_PORT_1E to XS1_PORT_1C.
+	#. Connect Port XS1_PORT_1F to XS1_PORT_1G.
+	#. Connect Port XS1_PORT_1E to XS1_PORT_1H.
+	#. Connect Port XS1_PORT_1D to XS1_PORT_1G.
+	#. Connect Port XS1_PORT_1C to XS1_PORT_1H.
+	#. In i2c_test_def.h keep MASTER_TX uncommenting for master transmit and slave receive.
+	#. For Comment MASTER_TX for slave transmit and master receive.
+        #. For single master and single slave comment MASTER2 and SLAVE2 or comment MASTER1 and SLAVE1.
+        #. for single slave and two masters select MASTER1 and MASTER2 comment SLAVE1 or SLAVE2.
+        #. for two slaves and single master select SLAVE1 and SLAVE2 comment MASTER1 or MASTER2.
+        #. for two master and two slaves select both  MASTER1 and MASTER2, and SLAVE1 and SLAVE2.
+        #. run the simulation. Check for valid data on the console window.
       
 Support
 =======
