@@ -144,7 +144,7 @@ int main()
 				i2c_slave_data1.data[9] = 0x01;
 				i2c_slave_data1.data_len = 10;
 				i2c_slave_data1.master_num=1;
-				ret_sl1=i2c_slave_tx(0x02, 0x06, i2c_slave_data1, i2c_slave1, st_det1);
+				ret_sl1=i2c_slave_tx(0x02, 0x06, i2c_slave_data1, i2c_slave1);
 			}
 		#endif
 		#ifdef SLAVE2
@@ -155,7 +155,7 @@ int main()
 				i2c_slave_data2.data[3] = 0x55;
 				i2c_slave_data2.data_len = 4;
 				i2c_slave_data2.master_num=2;
-				ret_sl2=i2c_slave_tx(0x10, 0x06, i2c_slave_data2, i2c_slave2, st_det2);
+				ret_sl2=i2c_slave_tx(0x10, 0x06, i2c_slave_data2, i2c_slave2);
 			}
 		#endif
 #endif
