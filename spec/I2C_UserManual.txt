@@ -1,0 +1,76 @@
+Overview 
+========
+
+I2C Component provides the ability to write and read I2C based slave devices.
+It incorporates features like multimaster capability, clock stretching and clock synchronization.
+
+Components 
+----------
+
+i2c master write
+++++++++++++++++++++++++
+
+i2c master write component writes the data into i2c slave devices.
+ 
+i2c master read
++++++++++++++++++++++++
+
+i2c master read component read the data from i2c slave devices.
+
+
+Programming Guide 
+=================
+ 
+API (Application Programming Interface)
+---------------------------------------
+
+   int i2c_master_wr(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
+
+   This function receives the device address of the slave, the internal address of the slave into which data has to 
+   be written, structure containing information about the length of the data and the data itself and the structure 
+   containing ports for scl and sda. The device address and the internal address and the data are serially transmitted 
+   on sda line.
+
+   int i2c_master_rd(int addr, int device, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master);
+
+   This function receives the device address of the slave, the internal address of the slave from which data has to 
+   be read, structure to store the length of received data and the data itself and the structure 
+   containing ports for scl and sda.  The device address and the internal address are sent serially and the data received 
+   is stored in a structure.
+
+Resource Usage
+==============
+
+The following table details the resource usage of each single I2C master read and write.
+   
+
+ +----------------+---------------+----------------+
+ |   Memory       |  Size(KB)     | percentage(%)  |
+ +================+===============+================+
+ | Stack Memory   |     0.313     |    0.12        |
+ +----------------+---------------+----------------+			
+ | Data Memory    |     1.552     |    0.59        |
+ +----------------+---------------+----------------+
+ |Program Memory  |     27.562    |    10.51       | 
+ +----------------+---------------+----------------+ 
+ |Free(available) |     23.2717   |    88.77       |                      
+ +----------------+---------------+----------------+
+
+
+Timing Constraints 
+==================
+
+I2C Master work at 400Kbps and below.
+
+Validation 
+==========
+   
+Test Bench is provided for testing I2C Master. Both I2C master read and write is tested.
+i2C Master is tested for following features
+1. Multimaster capability
+2. Clock synchronization.
+3. Clock stretching.
+
+README.rst file provided guides to setup the simulation environment and the RESULT.rst file gives
+the details of tests and the test results.
+
