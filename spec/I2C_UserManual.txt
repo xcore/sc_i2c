@@ -38,6 +38,17 @@ API (Application Programming Interface)
    containing ports for scl and sda.  The device address and the internal address are sent serially and the data received 
    is stored in a structure.
 
+Macros
+------
+
+   #define MASTER_TX : if used enables the MASTER Transmit. If commented enables the MASTER receive.
+
+   #define MASTER1 : If used enables the MASTER1 in testbench and if commented disables the MASTER1.
+   #define MASTER2 : If used enables the MASTER2 in testbench and if commented disables the MASTER2.
+   #define SLAVE1  : If used enables the SLAVE1 in testbench and if commented disables the SLAVE1.
+   #define SLAVE2  : If used enables the SLAVE2 in testbench and if commented disables the SLAVE2.
+
+
 Resource Usage
 ==============
 
@@ -53,7 +64,7 @@ The following table details the resource usage of each single I2C master read an
  +----------------+---------------+----------------+
  |Program Memory  |     27.562    |    10.51       | 
  +----------------+---------------+----------------+ 
- |Free(available) |     23.2717   |    88.77       |                      
+ |Free(available) |     232.717   |    88.77       |                      
  +----------------+---------------+----------------+
 
 
