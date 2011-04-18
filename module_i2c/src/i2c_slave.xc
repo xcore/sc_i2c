@@ -3,7 +3,15 @@
 #include <stdlib.h>
 #include <syscall.h>
 #include "i2c.h"
-
+ /**
+ * \fn       _i2c_slave_rx
+ * \brief    The function receives the data whenever master address it in write mode.
+ * 			 The first byte received will be the address and second byte onwards will be data.
+ * \param    device address , data length and data in a structure in which number of data bytes received and
+ *           the bytes are stored, sda and scl port in a structure.
+ * \return   0 if transaction is not scuccesfull
+ * 			 1 if transaction is scuccesfull
+ */
 int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave)
 {
 	unsigned int clk;
@@ -16,14 +24,12 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 	int x,i;
 	unsigned int while_break;
 	unsigned int rpt_start_det;
-	//out port test;
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
 	temp=0;
 	i2c_slave.sda :> temp;
 	while(1){
-		//Start Detect
-		while(1){
+		while(1){                                 // To Wait for start bit
 			i2c_slave.sda when pinseq(0) :> void;
 			i2c_slave.scl :> clk;
 			if(clk == 1){
@@ -33,20 +39,18 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 				i2c_slave.sda when pinseq(1) :> void;
 		}
 		i2c_slave.scl when pinseq(0) :> void;
-		//address read
 		rx_addr =0;
-		for(i=7; i >= 0; --i){
-			//i2c_slave.scl :> clk;
+		for(i=7; i >= 0; --i){  // To read the address.
 			i2c_slave.scl when pinseq(1) :> void;
 			i2c_slave.sda :> temp;
 			rx_addr = rx_addr | (temp << i);
 			i2c_slave.scl when pinseq(0) :> void;
 		}
 
-		if((rx_addr & 0xFE) != dev_addr){
+		if((rx_addr & 0xFE) != dev_addr){  // Compare the received address with the device address.
 			break;
 		}
-		else if((rx_addr & 0x01) == 1){
+		else if((rx_addr & 0x01) == 1){ // To compare the read/write bit for write operation.
 			break;
 		}
 		i2c_slave.scl <: 0;
@@ -54,7 +58,7 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 		time = time + (3*I2C_BIT_TIME);
 		t when timerafter (time) :> void;
 
-		i2c_slave.sda <: 0;
+		i2c_slave.sda <: 0;  //Sending ACK signal to the Master.
 		t:> time;
 		time = time + (3*I2C_BIT_TIME);
 		t when timerafter (time) :> void;
@@ -68,15 +72,15 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 		rpt_start_det = 0;
 		x=0;
 		//For data Read
-		while(!stop_det){
+		while(!stop_det){   // Read the data till STOP signal
 			rx_data=0;
 			for(i=7; i >= 0; --i){
 				i2c_slave.scl when pinseq(1) :> void;
 				i2c_slave.sda :> temp;
 				rx_data = rx_data | (temp << i);
 				if(i == 7) while_break = 0;
-				while(!while_break && i == 7){
-				if(x > 0){
+				while(!while_break && i == 7){  // Checks at only MSB.
+				if(x > 0){  // Checking for STOP bit after 1st byte reception
 					select {
 						case i2c_slave.scl when pinseq(0) :> void:
 							while_break = 1;
@@ -90,9 +94,9 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 						}
 				}
 				else
-					if(temp)
+					if(temp) // Checks for START bit if MSB is 1
 					{
-						select {
+						select {  // To Check for repeat START.
 							case i2c_slave.scl when pinseq(0) :> void:
 								while_break = 1;
 								break;
@@ -108,7 +112,6 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 						while_break = 1;
 				}
 
-				//if(rpt_start_det) return 0;
 				if(stop_det == 0) i2c_slave.scl when pinseq(0) :> void;
 				else break;
 			}
@@ -118,15 +121,15 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 				time = time + (3*I2C_BIT_TIME);
 				t when timerafter (time) :> void;
 
-				i2c_slave.sda <: 0;
+				i2c_slave.sda <: 0;  // Sending ACK.
 				t:> time;
 				time = time + (3*I2C_BIT_TIME);
 				t when timerafter (time) :> void;
 
 				i2c_slave.scl :> temp;
 				i2c_slave.scl when pinseq(1) :> void;
-				i2c_slave_data.data_len++;
-				i2c_slave_data.data[x] = rx_data;
+				i2c_slave_data.data_len++;  // Updates the data length
+				i2c_slave_data.data[x] = rx_data; //Stores the Data Received in the array.
 				x++;
 				i2c_slave.scl when pinseq(0) :> void;
 				i2c_slave.sda :> temp;
@@ -140,6 +143,14 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 	return 0;
 }
 
+/**
+* \fn       _i2c_slave_tx
+* \brief    The function transmits the data stored whenever master address it in read mode.
+* \param    device address , sub address, data length and data in a structure in which number of data bytes
+*           are stored for transmitting , sda and scl port in a structure.
+* \return   0 if transaction is not scuccesfull
+* 			 1 if transaction is scuccesfull
+*/
 
 int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_data, struct r_i2c &i2c_slave)
 {
@@ -150,14 +161,12 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 	unsigned int sda_high;
 	int i,j;
 	unsigned int nack,start_det;
-	//out port test;
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
 	Temp=0;
 	i2c_slave.sda :> Temp;
 	while(1){
-		//Start Detect
-		while(1){
+		while(1){        // To Wait for start bit
 			i2c_slave.sda when pinseq(0) :> void;
 			i2c_slave.scl :> clk;
 			if(clk == 1){
@@ -169,38 +178,36 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		i2c_slave.scl when pinseq(0) :> void;
 		//address read
 		rx_addr =0;
-		for(i=7; i >= 0; --i){
-			//i2c_slave.scl :> clk;
+		for(i=7; i >= 0; --i){  // Reading address
 			i2c_slave.scl when pinseq(1) :> void;
 			i2c_slave.sda :> Temp;
 			rx_addr = (rx_addr | (Temp << i));
 			i2c_slave.scl when pinseq(0) :> void;
 		}
 
-		if((rx_addr & 0xFE) != dev_addr){
+		if((rx_addr & 0xFE) != dev_addr){  // Compare the received address with the device address.
 			return 0;
 			break;
 		}
-		else if((rx_addr & 0x01) == 1){
+		else if((rx_addr & 0x01) == 1){ // To compare the read/write bit for write operation.
 			break;
 		}
 
-		i2c_slave.sda <: 0;
+		i2c_slave.sda <: 0; // Sending ACK
 		i2c_slave.scl when pinseq(1) :> void;
 		i2c_slave.scl when pinseq(0) :> void;
 		rx_addr = 0;
-		for(i=7; i >= 0; --i){
-			//i2c_slave.scl :> clk;
+		for(i=7; i >= 0; --i){  //Reading Sub-address
 			i2c_slave.scl when pinseq(1) :> void;
 			i2c_slave.sda :> Temp;
 			rx_addr = rx_addr | (Temp << i);
 			i2c_slave.scl when pinseq(0) :> void;
 		}
 
-		if((rx_addr) != sub_addr){
+		if((rx_addr) != sub_addr){ //To Compare sub-address.
 			break;
 		}
-		i2c_slave.sda <: 0;
+		i2c_slave.sda <: 0;  //To send ACK.
 		i2c_slave.scl when pinseq(1) :> void;
 		i2c_slave.scl when pinseq(0) :> void;
 		i2c_slave.sda :> sda_high;
@@ -209,7 +216,7 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		i2c_slave.sda :> Temp;
 		start_det = 0;
 
-		select {
+		select {  // To Check for repeat START.
 		case i2c_slave.sda when pinseq(0) :> void:
 			{
 				if(Temp == 1)
@@ -227,14 +234,14 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 
 		rx_addr=0;
 
-		for(i=7; i >= 0; --i){
+		for(i=7; i >= 0; --i){  //To receive Dev-address.
 			i2c_slave.scl when pinseq(1) :> void;
 			i2c_slave.sda :> Temp;
 			rx_addr = ((Temp << i) | rx_addr);
 			i2c_slave.scl when pinseq(0) :> void;
 		}
-		if(((rx_addr & 0xFE) == dev_addr) && ((rx_addr & 0x1) == 1)){
-			i2c_slave.sda <: 0;
+		if(((rx_addr & 0xFE) == dev_addr) && ((rx_addr & 0x1) == 1)){ // To check for device address and
+			i2c_slave.sda <: 0;                                       // read/write bit for read.
 		}
 		else return 0;
 
@@ -245,7 +252,7 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 		while(!nack){
 			rx_data = i2c_slave_data.data[j];
 			j++;
-			for(i=7; i >=0 ;--i){
+			for(i=7; i >=0 ;--i){ //To transmit data from slave.
 				Temp = (rx_data >> i) & 0x01;
 				i2c_slave.sda <: Temp;
 				i2c_slave.scl when pinseq(1) :> void ;
