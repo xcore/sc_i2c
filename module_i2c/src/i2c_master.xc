@@ -337,9 +337,16 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
 
 /**
 * \fn       _wait_func
-* \brief    The function is called to insert wait state between scl high and low, and low to high. During clock
-*           syncronization, scl is pulled low before the wait time is elapsed if another master pulls scl low.
+* \brief    The function is called to insert wait state between scl high and low, and low to high.
+*           During clock syncronization, scl is pulled low before the wait time is elapsed if another
+*           master pulls scl low.
 * \param    div_factor,clock_mul,scl,edge
+*           clock_mul : to change the frequency of SCL.
+*           edge : If scl transition is from 1 to 0 and if any other master pulls the clock low before
+*           this master pulls low, there is no point in waiting for the wait-period to pull the clock low
+*           by this master. This is used in clock syncronization.
+*           if edge =1 if required clock transition is from 1 to 0.
+*           edge = 0 if required clock transition is from 0 to 1.
 * \return   none
 */
 
