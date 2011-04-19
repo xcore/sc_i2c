@@ -44,8 +44,11 @@ Macros
    #define MASTER_TX : if used enables the MASTER Transmit. If commented enables the MASTER receive.
 
    #define MASTER1 : If used enables the MASTER1 in testbench and if commented disables the MASTER1.
+
    #define MASTER2 : If used enables the MASTER2 in testbench and if commented disables the MASTER2.
+
    #define SLAVE1  : If used enables the SLAVE1 in testbench and if commented disables the SLAVE1.
+
    #define SLAVE2  : If used enables the SLAVE2 in testbench and if commented disables the SLAVE2.
 
 
@@ -79,9 +82,13 @@ Validation
    
 Test Bench is provided for testing I2C Master. Both I2C master read and write is tested.
 i2C Master is tested for following features
+
 1. Multimaster capability
+
 2. Clock synchronization.
+
 3. Clock stretching.
+
 
 README.rst file provided guides to setup the simulation environment and the RESULT.rst file gives
 the details of tests and the test results.
