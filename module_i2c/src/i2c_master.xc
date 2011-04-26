@@ -27,8 +27,8 @@ int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    unsigned int scl_high;
    unsigned int clock_mul;
 
-   set_port_pull_up(i2c_master.scl);
-   set_port_pull_up(i2c_master.sda);
+   //set_port_pull_up(i2c_master.scl);
+   //set_port_pull_up(i2c_master.sda);
 
    clock_mul = i2c_data.clock_mul;
    i2c_master.scl :> scl_high;
@@ -200,8 +200,8 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    unsigned int sda_high;
    unsigned int scl_high;
    unsigned int clock_mul;
-   set_port_pull_up(i2c_master.scl);
-   set_port_pull_up(i2c_master.sda);
+   //set_port_pull_up(i2c_master.scl);
+   //set_port_pull_up(i2c_master.sda);
 
    clock_mul = i2c_data.clock_mul;
    i2c_master.scl :> scl_high;
