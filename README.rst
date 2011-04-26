@@ -3,7 +3,7 @@ XCORE.com I2C Master Component
 
 :Status:  Feature complete
 
-:Maintainer:  Gopalakrishna NL (github: nlgk2001)
+:Maintainer:  Dan Wilkinson (github: djpwilk)
 
 The I2C Component provides the ability to write and read the I2C Compatible Slave devices.
 
