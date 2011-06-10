@@ -7,15 +7,34 @@
 #include <stdio.h>
 #include "i2c.h"
 
+
+
+/**
+ *  \fn      i2c_slave_init
+ *  \brief   initialise an I2C 2-wire slave device
+ *  \param   i2c_slave  the port control structure
+ */
+void i2c_master_init(struct r_i2c &i2c_master)
+{
+#ifdef __XS1_G__
+	// Only G4 devices have internal pull-ups
+	set_port_pull_up(i2c_master.scl);
+	set_port_pull_up(i2c_master.sda);
+#endif
+
+	// Set the ports into idle
+	i2c_master.scl <: 1;
+	i2c_master.sda <: 1;
+}
+
  /**
- * \fn       _i2c_master_rx
+ * \fn       i2c_master_rx
  * \brief    The function is called whenever required to read from a I2C Slave device.
  *           The data received and the length of the data is stored in i2c_data structure.
  * \param    device address, sub address, data length and data in a structure, sda and scl port in a structure
  * \return   0 if transaction is not scuccesfull
  * 			 1 if transaction is scuccesfull
  */
-
 int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
 {
   //   int result;
@@ -26,9 +45,6 @@ int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    int sda_high;
    unsigned int scl_high;
    unsigned int clock_mul;
-
-   //set_port_pull_up(i2c_master.scl);
-   //set_port_pull_up(i2c_master.sda);
 
    clock_mul = i2c_data.clock_mul;
    i2c_master.scl :> scl_high;
@@ -188,8 +204,8 @@ int i2c_master_rx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
 * \brief    The function is called whenever required to write a I2C Slave device. The data and the length of data
 *           is obtained from i2c_data structure.
 * \param    device address, sub address, data length and data in a structure, sda and scl port in a structure
-* \return   0 if transaction is not scuccesfull
-* 			1 if transaction is scuccesfull
+* \return   0 if transaction is not successful
+* 			1 if transaction is successful
 */
 int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, struct r_i2c &i2c_master)
 {
@@ -200,8 +216,6 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    unsigned int sda_high;
    unsigned int scl_high;
    unsigned int clock_mul;
-   //set_port_pull_up(i2c_master.scl);
-   //set_port_pull_up(i2c_master.sda);
 
    clock_mul = i2c_data.clock_mul;
    i2c_master.scl :> scl_high;

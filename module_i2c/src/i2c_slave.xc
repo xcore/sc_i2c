@@ -3,8 +3,18 @@
 #include <stdlib.h>
 #include <syscall.h>
 #include "i2c.h"
- /**
- * \fn       _i2c_slave_rx
+
+/**
+ *  \fn      i2c_slave_init
+ *  \brief   initialise an I2C 2-wire slave device
+ *  \param   i2c_slave  the port control structure
+ */
+void i2c_slave_init(struct r_i2c &i2c_slave)
+{
+}
+
+/**
+ * \fn       i2c_slave_rx
  * \brief    The function receives the data whenever master address it in write mode.
  * 			 The first byte received will be the address and second byte onwards will be data.
  * \param    device address , data length and data in a structure in which number of data bytes received and
