@@ -7,7 +7,17 @@
 #include <stdio.h>
 #include "i2c.h"
 
+#ifdef __i2c_conf_h_exists__
+#include "i2c_conf.h"
+#endif
 
+#ifndef I2C_SINGLE_MASTER
+#define OUTPUT_HIGH(p)  { p <: 1; }
+#define OUTPUT_LOW(p)   { p <: 0; }
+#else
+#define OUTPUT_HIGH(p)  { int x; p :> x; }
+#define OUTPUT_LOW(p)   { p <: 0; }
+#endif
 
 /**
  *  \fn      i2c_slave_init
@@ -17,9 +27,11 @@
 void i2c_master_init(struct r_i2c &i2c_master)
 {
 #ifdef __XS1_G__
+#ifndef SINGLE_MASTER
 	// Only G4 devices have internal pull-ups
 	set_port_pull_up(i2c_master.scl);
 	set_port_pull_up(i2c_master.sda);
+#endif
 #endif
 
 	// Set the ports into idle
@@ -214,64 +226,79 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
    unsigned int data;
    unsigned int j;
    unsigned int sda_high;
-   unsigned int scl_high;
    unsigned int clock_mul;
 
    clock_mul = i2c_data.clock_mul;
-   i2c_master.scl :> scl_high;
-   i2c_master.sda :> sda_high;
+
+   // Initial state is both high
+   OUTPUT_HIGH(i2c_master.scl);
+   OUTPUT_HIGH(i2c_master.sda);
+
    sync(i2c_master.sda);
 
-   i2c_master.scl :> scl_high;
+   OUTPUT_HIGH(i2c_master.scl);
    wait_func(2,clock_mul,i2c_master.scl,1);
 
-   // start bit on SDI
-   i2c_master.scl :> scl_high;
-   i2c_master.sda  <: 0; //Generating START Bit
+   // Clock high, data low for start bit
+   OUTPUT_HIGH(i2c_master.scl);
+   OUTPUT_LOW(i2c_master.sda);
    wait_func(2,clock_mul,i2c_master.scl,1);
-   i2c_master.scl <: 0;
+
+   // Clock low at start of first address bit
+   OUTPUT_LOW(i2c_master.scl);
 
    for (i = 0; i < 8; ++i) // To Send 7-Bit Device ID and 1-Bit R/W Bit(Fixed to write).
    {
+	  // Drive for 0, pull-up for 1
       Temp = (device >> (7 - i)) & 0x1;
-      if(!Temp) i2c_master.sda <: Temp;
-      else i2c_master.sda :> sda_high;
+      if(!Temp) OUTPUT_LOW(i2c_master.sda)
+      else OUTPUT_HIGH(i2c_master.sda);
+
       wait_func(2,clock_mul,i2c_master.scl,0);
-      i2c_master.scl :> scl_high;
+
+      // Raise clock and wait to make sure it raises
+      OUTPUT_HIGH(i2c_master.scl);
       i2c_master.scl when pinseq(1) :> void;
-      // Checking for bit(Arbitration)
+
+      // Checking for bit (Arbitration - bit may be low if 2 masters are conflicting)
       if(Temp){
     	  i2c_master.sda :> sda_high;
     	  if(!sda_high){
     		  return(0);
     	  }
       }
+
+      // Second half cycle of bit
       wait_func(2,clock_mul,i2c_master.scl,1);
-      i2c_master.scl <: 0;
+
+      // Clock low at start of next bit
+      OUTPUT_LOW(i2c_master.scl);
    }
 
    i2c_master.sda :> Temp;   // turn the data to input
    wait_func(2,clock_mul,i2c_master.scl,0);
    //i2c_master.scl <: 1;
-   i2c_master.scl :> scl_high;
+   OUTPUT_HIGH(i2c_master.scl);
    i2c_master.scl when pinseq(1) :> void;
 
    i2c_master.sda :> ack; // Sample Acknowledge.
    if(ack) return (0);
 
    wait_func(2,clock_mul,i2c_master.scl,1);
-   i2c_master.scl <: 0;
-   i2c_master.sda <: 0;
+   OUTPUT_LOW(i2c_master.scl);
+   OUTPUT_LOW(i2c_master.sda);
 
    CtlAdrsData = (sub_addr & 0xFF);
 
    for (i = 0; i < 8; i += 1) // To Send 8-Bit Sub address.
    {
       Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-      if(!Temp) i2c_master.sda <: Temp;
-      else i2c_master.sda :> sda_high;
+      if(!Temp) OUTPUT_LOW(i2c_master.sda)
+      else OUTPUT_HIGH(i2c_master.sda);
+
       wait_func(2,clock_mul,i2c_master.scl,0);
-      i2c_master.scl :> scl_high;
+
+      OUTPUT_HIGH(i2c_master.scl);
       i2c_master.scl when pinseq(1) :> void;
 
       // Checking for bit(Arbitration)
@@ -282,13 +309,13 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
     	  }
       }
       wait_func(2,clock_mul,i2c_master.scl,1);
-      i2c_master.scl <: 0;
+      OUTPUT_LOW(i2c_master.scl);
    }
 
    i2c_master.sda :> Temp; // turn the data to input
    wait_func(2,clock_mul,i2c_master.scl,0);
 
-   i2c_master.scl :> scl_high;
+   OUTPUT_HIGH(i2c_master.scl);
    i2c_master.scl when pinseq(1) :> void;
 
    i2c_master.sda :> ack;  // Sample Acknowledge.
@@ -307,12 +334,12 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
 	   for (i = 0; i < 8; ++i)                     //To Send 8-Bit data
 	   {
 		   Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-		   if(Temp == 0) i2c_master.sda <: Temp;
-		   else i2c_master.sda :> sda_high;
+		   if(!Temp) OUTPUT_LOW(i2c_master.sda)
+		   else OUTPUT_HIGH(i2c_master.sda);
 
 		   wait_func(2,clock_mul,i2c_master.scl,0);
-		   //i2c_master.scl <: 1;
-		   i2c_master.scl :> scl_high;
+
+		   OUTPUT_HIGH(i2c_master.scl);
 		   i2c_master.scl when pinseq(1) :> void;
 
 		   // Checking for bit(Arbitration)
@@ -323,29 +350,31 @@ int i2c_master_tx(int device, int sub_addr, struct i2c_data_info &i2c_data, stru
 			   }
 		   }
 		   wait_func(2,clock_mul,i2c_master.scl,1);
-		   i2c_master.scl <: 0;
+		   OUTPUT_LOW(i2c_master.scl);
 	   }
 
 	   i2c_master.sda :> Temp;// turn the data to input
 	   wait_func(2,clock_mul,i2c_master.scl,0);
-	   //i2c_master.scl <: 1;
-	   i2c_master.scl :> scl_high;
+
+	   OUTPUT_HIGH(i2c_master.scl);
 	   i2c_master.scl when pinseq(1) :> void;
 
 	   i2c_master.sda :> ack; // Sample Acknowledge.
 	   if(ack) return(0);
 
 	   wait_func(2,clock_mul,i2c_master.scl,1);
-	   i2c_master.scl <: 0;
+	   OUTPUT_LOW(i2c_master.scl);
    }
-   i2c_master.sda <: 0;
+
+   OUTPUT_LOW(i2c_master.sda);
    wait_func(2,clock_mul,i2c_master.scl,0);
 
-   i2c_master.scl :> scl_high; //Sending Stop.
+   // Send stop
+   OUTPUT_HIGH(i2c_master.scl);
    i2c_master.scl when pinseq(1) :> void;
 
    wait_func(4,clock_mul,i2c_master.scl,1);
-   i2c_master.sda :> sda_high;
+   OUTPUT_HIGH(i2c_master.sda);
    return (1);
 }
 
