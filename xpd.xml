@@ -8,6 +8,7 @@
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
     <maintainer>djpwilk</maintainer>
+    <release parenthash = "c5638337ac2838336d2a02bfc7633d928e46536c" version = "2.0.0beta0"></release>
     <scope>example</scope>
     <vendor>XMOS</vendor>
     <xpd_version>1.0</xpd_version>
