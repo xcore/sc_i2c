@@ -11,7 +11,7 @@
 #include "i2c_conf.h"
 #endif
 
-#ifndef I2C_SINGLE_MASTER
+#ifdef I2C_SINGLE_MASTER
 #define OUTPUT_HIGH(p)  { p <: 1; }
 #define OUTPUT_LOW(p)   { p <: 0; }
 #else
@@ -26,14 +26,6 @@
  */
 void i2c_master_init(struct r_i2c &i2c_master)
 {
-#ifdef __XS1_G__
-#ifndef SINGLE_MASTER
-	// Only G4 devices have internal pull-ups
-	set_port_pull_up(i2c_master.scl);
-	set_port_pull_up(i2c_master.sda);
-#endif
-#endif
-
 	// Set the ports into idle
 	i2c_master.scl <: 1;
 	i2c_master.sda <: 1;
