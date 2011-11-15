@@ -22,16 +22,17 @@
 #define I2C_MASTER_TX
 #endif
 
-
+#ifndef I2C_MAX_DATA
+#define I2C_MAX_DATA 100
+#endif
 
 struct r_i2c {
 	port scl;
 	port sda;
 };
 
-
 struct i2c_data_info {
-	unsigned int data[100];
+	unsigned int data[I2C_MAX_DATA];
 	unsigned int data_len;
 	unsigned int master_num;
 	unsigned int clock_mul;
