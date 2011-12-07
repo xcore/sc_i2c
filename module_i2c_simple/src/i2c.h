@@ -24,16 +24,14 @@
 // where fref defaults to 100MHz
 #ifndef I2C_BIT_TIME
 #define I2C_BIT_TIME 1000
-#else
-#error blah
 #endif
 #ifndef I2C_MAX_DATA
 #define I2C_MAX_DATA 1
 #endif
 
 struct r_i2c {
-  out port scl;
-  port sda;
+    port scl;
+    port sda;
 };
 
 struct i2c_data_info {              // TODO: remove structure, make two reference parameters.
@@ -43,19 +41,51 @@ struct i2c_data_info {              // TODO: remove structure, make two referenc
 	unsigned int clock_mul;         // Value not used.
 };
 
+/**Function that initialises the ports on an I2C device.
+ *
+ * \param i2c_master struct containing the clock and data ports. Both
+ *                   should be declared as unbuffered bidirectional ports.
+ */
 void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c_master));
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_rx(int device, int sub_addr,
+/**Function that reads a register from an I2C device.
+ * 
+ * Note that this function uses the same interface as module_i2c but that
+ * the fields master_num and clock_mul are ignored by this function.
+ *
+ * \param device     Bus address of device, even number between 0x00 and 0xFE.
+ * 
+ * \param reg_addr   Address of register to read, value between 0x00 and 0x7F.
+ * 
+ * \param i2c_data   place where data is stored, data_len is always set to 1,
+ *                   data[0] is set to the value read.
+ *
+ * \param i2c_master struct containing the clock and data ports. Both
+ *                   should be declared as unbuffered bidirectional ports.
+ */
+int i2c_master_rx(int device, int reg_addr,
                   REFERENCE_PARAM(struct i2c_data_info, i2c_data),
                   REFERENCE_PARAM(struct r_i2c, i2c_master));
 #endif
 
-int i2c_master_tx(int device, int sub_addr,
+/**Function that writes to a register on an I2C device.
+ * 
+ * Note that this function uses the same interface as module_i2c but that
+ * the fields master_num and clock_mul are ignored by this function.
+ *
+ * \param device     Bus address of device, even number between 0x00 and 0xFE.
+ * 
+ * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
+ * 
+ * \param i2c_data   place where data is taken from, data_len is always assumed to be 1,
+ *                   the lower byte of data[0] is written.
+ *
+ * \param i2c_master struct containing the clock and data ports. Both
+ *                   should be declared as unbuffered bidirectional ports.
+ */
+int i2c_master_tx(int device, int reg_addr,
                   REFERENCE_PARAM(struct i2c_data_info, i2c_data),
                   REFERENCE_PARAM(struct r_i2c, i2c_master));
-
-//int i2c_rd(int addr, int device, struct r_i2c &i2c);
-//int i2c_wr(int addr, int data, int device, struct r_i2c &i2c);
 
 #endif
