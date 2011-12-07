@@ -19,7 +19,7 @@ void i2c_master_init(struct r_i2c &i2c_master)
 }
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_rx(int addr, int device, struct i2c_data_info &data, struct r_i2c &i2c)
+int i2c_master_rx(int device, int addr, struct i2c_data_info &data, struct r_i2c &i2c)
 {
   //   int result;
    timer gt;
@@ -213,7 +213,7 @@ int i2c_master_rx(int addr, int device, struct i2c_data_info &data, struct r_i2c
 }
 #endif
 
-int i2c_master_tx(int addr, int device, struct i2c_data_info &s_data, struct r_i2c &i2c)
+int i2c_master_tx(int device, int addr, struct i2c_data_info &s_data, struct r_i2c &i2c)
 {
    timer gt;
    int data = s_data.data[0];
