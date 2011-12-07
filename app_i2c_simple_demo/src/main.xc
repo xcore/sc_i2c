@@ -9,8 +9,6 @@ struct r_i2c i2cPorts = {
 
 int main(void) {
     struct i2c_data_info data;
-    timer t;
-    int time;
 
     data.data_len = 1;
     data.data[0] = 0x12;
