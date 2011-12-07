@@ -24,16 +24,14 @@
 // where fref defaults to 100MHz
 #ifndef I2C_BIT_TIME
 #define I2C_BIT_TIME 1000
-#else
-#error blah
 #endif
 #ifndef I2C_MAX_DATA
 #define I2C_MAX_DATA 1
 #endif
 
 struct r_i2c {
-  out port scl;
-  port sda;
+    port scl;
+    port sda;
 };
 
 struct i2c_data_info {              // TODO: remove structure, make two reference parameters.
