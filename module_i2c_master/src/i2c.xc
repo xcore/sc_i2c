@@ -3,7 +3,7 @@
 // University of Illinois/NCSA Open Source License posted in
 // LICENSE.txt and at <http://github.xcore.com/>
 
-// I2C master
+// I2C master, complete.
 
 #include <xs1.h>
 #include <xclib.h>
@@ -84,7 +84,7 @@ static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
 
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_rx(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
+int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    int i;
    int rdData = 0;
 
@@ -103,9 +103,25 @@ int i2c_master_rx(int device, int addr, unsigned char data[], int nbytes, struct
    data[0] = rdData;
    return 1;
 }
+
+int i2c_master_rx(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
+   int i;
+   int rdData = 0;
+
+   startBit(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device | 1);
+   for (i = 8; i != 0; i--) {
+       int temp = highPulseSample(i2c.scl, i2c.sda);
+       rdData = (rdData << 1) | temp;
+   }
+   (void) highPulseSample(i2c.scl, i2c.sda);
+   stopBit(i2c.scl, i2c.sda);
+   data[0] = rdData;
+   return 1;
+}
 #endif
 
-int i2c_master_tx(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
+int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
    int data = s_data[0];
    int ack;
 

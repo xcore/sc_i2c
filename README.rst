@@ -1,5 +1,5 @@
 XCORE.com I2C Master Component
-..............................................
+..............................
 
 :Status:  Feature complete
 
@@ -36,6 +36,8 @@ Firmware Overview
 
 The Component is in the form of a function library and can be called in a thread.
 
+Module_i2c is meant to be deprecated, once module_i2c_master is completed,
+and once the slave part has been moved to module_i2c_slave.
 
 Known Issues
 ============
