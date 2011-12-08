@@ -20,10 +20,18 @@
 #include <xs1.h>
 #include <xccompat.h>
 
-// I2C clock frequency is fref/I2C_BIT_TIME
-// where fref defaults to 100MHz
 #ifndef I2C_BIT_TIME
+/**
+ * I2C speed, default is 1000 ref clocks (100 Khz), set to 252 for 400 Khz.
+ */
 #define I2C_BIT_TIME 1000
+#endif
+
+#ifndef I2C_MASTER_NUM
+/**
+ * Master number - set this to the number of the master.
+ */
+#define I2C_MASTER_NUM 0
 #endif
 
 struct r_i2c {
@@ -50,9 +58,7 @@ void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c_master));
  * 
  * \param data       Array where data is stored.
  *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module.
- *                   This parameter is provided for compatibililty with module_i2c_complete.
+ * \param nbytes     Number of bytes to read and store in data.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
@@ -74,9 +80,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  * 
  * \param data       Array where data is stored.
  *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module.
- *                   This parameter is provided for compatibililty with module_i2c_complete.
+ * \param nbytes     Number of bytes to read and store in data.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.

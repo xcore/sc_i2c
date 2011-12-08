@@ -1,4 +1,4 @@
-TARGET = XK-1
+TARGET = usb_audio_s1
 APP_NAME =
 XCC_FLAGS = -g -O1
 USED_MODULES = module_i2c_simple
