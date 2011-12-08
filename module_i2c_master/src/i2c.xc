@@ -93,13 +93,18 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
    tx8(i2c.scl, i2c.sda, addr);
    stopBit(i2c.scl, i2c.sda);
    startBit(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device | 1);
    for(int j = 0; j < nbytes; j++) {
-       tx8(i2c.scl, i2c.sda, device | 1);
        for (i = 8; i != 0; i--) {
            int temp = highPulseSample(i2c.scl, i2c.sda);
            rdData = (rdData << 1) | temp;
        }
-       (void) highPulseSample(i2c.scl, i2c.sda);
+       if (j != nbytes - 1) {
+          i2c.sda <: 0 ;
+          highPulse(i2c.scl);
+       } else {
+           (void) highPulseSample(i2c.scl, i2c.sda);
+       }
        data[j] = rdData;
    }
    stopBit(i2c.scl, i2c.sda);
