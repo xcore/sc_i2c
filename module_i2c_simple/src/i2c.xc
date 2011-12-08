@@ -3,346 +3,113 @@
 // University of Illinois/NCSA Open Source License posted in
 // LICENSE.txt and at <http://github.xcore.com/>
 
-                                   
-///////////////////////////////////////////////////////////////////////////////
-//
 // I2C master
 
 #include <xs1.h>
+#include <xclib.h>
 #include "i2c.h"
 
-void i2c_master_init(struct r_i2c &i2c_master)
-{
-	// Set the ports into idle
-	i2c_master.scl <: 1;
-	i2c_master.sda <: 1;
+void i2c_master_init(struct r_i2c &i2c_master) {
+	i2c_master.scl :> void;
+    i2c_master.sda :> void;
+}
+
+static void waitQuarter(void) {
+    timer gt;
+    int time;
+
+    gt :> time;
+    time += I2C_BIT_TIME / 4;
+    gt when timerafter(time) :> int _;
+}
+
+static void waitHalf(void) {
+    waitQuarter();
+    waitQuarter();
+}
+
+static int highPulseSample(port i2c_scl, port ?i2c_sda) {
+    int temp;
+    if (!isnull(i2c_sda)) {
+        i2c_sda :> int _;
+    }
+    waitQuarter();
+    i2c_scl :> void;
+    waitQuarter();
+    if (!isnull(i2c_sda)) {
+        i2c_sda :> temp;
+    }
+    waitQuarter();
+    i2c_scl <: 0;
+    waitQuarter();
+    return temp;
+}
+
+static void highPulse(port i2c_scl) {
+    highPulseSample(i2c_scl, null);
+}
+
+static void startBit(port i2c_scl, port i2c_sda) {
+    waitQuarter();
+    i2c_sda  <: 0;
+    waitHalf();
+    i2c_scl  <: 0;
+    waitQuarter();
+}
+
+static void stopBit(port i2c_scl, port i2c_sda) {
+    i2c_sda <: 0;
+    waitQuarter();
+    i2c_scl :> void;
+    waitHalf();
+    i2c_sda :> void;
+    waitQuarter();
+}
+
+static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
+    unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
+    for (int i = 8; i != 0; i--) {
+        i2c_sda <: >> CtlAdrsData;
+        highPulse(i2c_scl);
+    }
+    return highPulseSample(i2c_scl, i2c_sda);
 }
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_rx(int device, int addr, struct i2c_data_info &data, struct r_i2c &i2c)
-{
-  //   int result;
-   timer gt;
-   unsigned time;
-   int Temp, CtlAdrsData, i;
-   // three device ACK
-   int ack[3];
-   int rdData;
+int i2c_master_rx(int device, int addr, struct i2c_data_info &data, struct r_i2c &i2c) {
+   int i;
+   int rdData = 0;
 
-
-
-   // initial values.
-   i2c.scl <: 1;
-   i2c.sda  <: 1;
-   sync(i2c.sda);
-   gt :> time;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> int _;
-   // start bit on SDI
-   i2c.scl <: 1;
-   i2c.sda  <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-   // shift 7bits of address and 1bit R/W (fixed to write).
-   // WARNING: Assume MSB first.
-   for (i = 0; i < 8; i += 1)
-   {
-      Temp = (device >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 0;
+   startBit(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device);
+   tx8(i2c.scl, i2c.sda, addr);
+   stopBit(i2c.scl, i2c.sda);
+   startBit(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device | 1);
+   for (i = 8; i != 0; i--) {
+       int temp = highPulseSample(i2c.scl, i2c.sda);
+       rdData = (rdData << 1) | temp;
    }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // sample first ACK.
-   i2c.sda :> ack[0];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-
-   CtlAdrsData = (addr & 0xFF);
-
-   // shift first 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
-      Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 0;
-   }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[1];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-
-
-   // stop bit
-   gt :> time;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> int _;
-   // start bit on SDI
-   i2c.scl <: 1;
-   i2c.sda  <: 1;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> int _;
-
-
-   // send address and read
-   i2c.scl <: 1;
-   i2c.sda  <: 1;
-   sync(i2c.sda);
-   gt :> time;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> int _;
-   // start bit on SDI
-   i2c.scl <: 1;
-   i2c.sda  <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-   // shift 7bits of address and 1bit R/W (fixed to write).
-   // WARNING: Assume MSB first.
-   for (i = 0; i < 8; i += 1)
-   {
-      int deviceAddr = device | 1;
-      Temp = (deviceAddr >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 0;
-   }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // sample first ACK.
-   i2c.sda :> ack[0];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-
-
-   rdData = 0;
-   // shift second 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
-
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 1;
-
-      i2c.sda :> Temp;
-      rdData = (rdData << 1) | (Temp & 1);
-
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> int _;
-      i2c.scl <: 0;
-   }
-
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[2];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> int _;
-   i2c.scl <: 1;
-   // put the data to a good value for next round.
-   i2c.sda  <: 1;
-   // validate all items are ACK properly.
-   //Result = 0;
-   //for (i = 0; i < 3; i += 1)
-   //{
-      //if ((ack[i]&1) != 0)
-      //{
-         //Result = Result | (1 << i);
-      //}
-   //}
+   (void) highPulseSample(i2c.scl, i2c.sda);
+   stopBit(i2c.scl, i2c.sda);
    data.data[0] = rdData;
-   data.data_len = 8;
+   data.data_len = 1;
    return 1;
 }
 #endif
 
-int i2c_master_tx(int device, int addr, struct i2c_data_info &s_data, struct r_i2c &i2c)
-{
-   timer gt;
+int i2c_master_tx(int device, int addr, struct i2c_data_info &s_data, struct r_i2c &i2c) {
    int data = s_data.data[0];
-   unsigned time;
-   int Temp, CtlAdrsData, i;
-   // three device ACK
-   int ack[3];
+   int ack;
 
-   // initial values.
-   i2c.scl <: 1;
-   i2c.sda  <: 1;
-   sync(i2c.sda);
-
-   gt :> time;
-   time += I2C_BIT_TIME;
-   gt when timerafter(time) :> void;
-
-   // start bit on SDI
-   i2c.scl <: 1;
-   i2c.sda  <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 0;
-
-   // shift 7bits of address and 1bit R/W (fixed to write).
-   // WARNING: Assume MSB first.
-   for (i = 0; i < 8; i += 1)
-   {
-      Temp = (device >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 0;
-   }
-
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 1;
-
-   // sample first ACK.
-   i2c.sda :> ack[0];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 0;
-
+   startBit(i2c.scl, i2c.sda);
+   ack = tx8(i2c.scl, i2c.sda, device);
 #ifdef I2C_TI_COMPATIBILITY
-   CtlAdrsData = ((addr & 0x7F) << 9) | (data & 0x1FF);
+   ack |= tx8(i2c.scl, i2c.sda, addr << 1 | (data >> 8) & 1);
 #else
-   CtlAdrsData = (addr & 0xFF);
+   ack |= tx8(i2c.scl, i2c.sda, addr);
 #endif
-
-   // shift first 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
-#ifdef I2C_TI_COMPATIBILITY
-      Temp = (CtlAdrsData >> (15 - i)) & 0x1;
-#else
-      Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-#endif
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 0;
-   }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[1];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 0;
-
-#ifdef I2C_TI_COMPATIBILITY
-
-#else
-   CtlAdrsData = (data & 0xFF);
-#endif
-   // shift second 8 bits.
-   for (i = 0; i < 8; i += 1)
-   {
-      Temp = (CtlAdrsData >> (7 - i)) & 0x1;
-      i2c.sda <: Temp;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 1;
-      gt :> time;
-      time += (I2C_BIT_TIME / 2);
-      gt when timerafter(time) :> void;
-      i2c.scl <: 0;
-   }
-   // turn the data to input
-   i2c.sda :> Temp;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 1;
-   // sample second ACK.
-   i2c.sda :> ack[2];
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 0;
-   gt :> time;
-   time += (I2C_BIT_TIME / 2);
-   gt when timerafter(time) :> void;
-   i2c.scl <: 1;
-   // put the data to a good value for next round.
-   i2c.sda  <: 1;
-
-   return ((ack[0]==0) && (ack[1]==0) && (ack[2]==0));   
+   ack |= tx8(i2c.scl, i2c.sda, data);
+   stopBit(i2c.scl, i2c.sda);
+   return ack == 0;
 }
