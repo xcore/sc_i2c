@@ -4,22 +4,33 @@
 #include "i2c.h"
 
 struct r_i2c i2cPorts = {
-    XS1_PORT_4E,
-    XS1_PORT_4F,
+    XS1_PORT_4C,
+    XS1_PORT_1G,
 };
 //::
 
+port p32a = XS1_PORT_32A;
+
 //::main program
 int main(void) {
-    struct i2c_data_info data;
+    unsigned char data[1];
+    timer t; int time;
 
+    p32a <: 0;
+    t :> time;
+    t when timerafter(time+1000) :> void;
+    p32a <: ~0;
     i2c_master_init(i2cPorts);
-    data.data[0] = 0x12;
-    i2c_master_tx(0x90, 0x07, data, i2cPorts);
-    data.data[0] = 0x78;
-    i2c_master_tx(0x90, 0x08, data, i2cPorts);
-    i2c_master_rx(0x90, 0x07, data, i2cPorts);
-    printf("%02x (should be 0x12)\n", data.data[0]);
+    for(int i = 0; i < 10; i++) {
+        i2c_master_rx(0x90, i, data, 1, i2cPorts);
+        printf("%d: %02x\n", i, data[0]);
+    }
+    data[0] = 0x12;
+    i2c_master_tx(0x90, 0x07, data, 1, i2cPorts);
+    data[0] = 0x78;
+    i2c_master_tx(0x90, 0x08, data, 1, i2cPorts);
+    i2c_master_rx(0x90, 0x07, data, 1, i2cPorts);
+    printf("0x%02x (should be 0x12)\n", data[0]);
     return 0;
 }
 //::

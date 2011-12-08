@@ -10,10 +10,25 @@ The I2C Component provides the ability to write and read the I2C Compatible Slav
 Key Features
 ============
 
-  * Works at 100 Kbps and 400 Kbps
-  * Supports Clock stretching
-  * Supports Multi master capability.
-  * Supports Clock synchronization.
+module_i2c:
+ 
+* Works at 100 Kbps and 400 Kbps
+* Supports Clock stretching
+* Supports Multi master capability.
+* Supports Clock synchronization.
+
+module_i2c_simple:
+
+* Small footprint 
+* Works at 100 Kbps and 400 Kbps
+
+module_i2c_master:
+
+* Small footprint
+* Works at 100 Kbps and 400 Kbps
+* TODO Supports Clock stretching
+* TODO Supports Multi master capability.
+* TODO Supports Clock synchronization.
 
 
 Firmware Overview
@@ -32,7 +47,7 @@ does not support HS-Mode.
 Required Modules
 =================
 
-   * xcommon git\@github.com:xmos/xcommon.git
+* xcommon git\@github.com:xmos/xcommon.git
 
 Instructions for Building Project and running the simulation.
 ================================

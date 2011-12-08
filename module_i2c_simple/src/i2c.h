@@ -25,20 +25,10 @@
 #ifndef I2C_BIT_TIME
 #define I2C_BIT_TIME 1000
 #endif
-#ifndef I2C_MAX_DATA
-#define I2C_MAX_DATA 1
-#endif
 
 struct r_i2c {
     port scl;
     port sda;
-};
-
-struct i2c_data_info {              // TODO: remove structure, make two reference parameters.
-	unsigned int data[I2C_MAX_DATA];
-	unsigned int data_len;
-	unsigned int master_num;        // Value not used.
-	unsigned int clock_mul;         // Value not used.
 };
 
 /**Function that initialises the ports on an I2C device.
@@ -58,14 +48,18 @@ void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c_master));
  * 
  * \param reg_addr   Address of register to read, value between 0x00 and 0x7F.
  * 
- * \param i2c_data   place where data is stored, data_len is always set to 1,
- *                   data[0] is set to the value read.
+ * \param data       Array where data is stored.
+ *
+ * \param nbytes     Number of bytes to read and store in data. This parameter
+ *                   must be set to '1' and is ignored in this module.
+ *                   This parameter is provided for compatibililty with module_i2c_complete.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
  */
 int i2c_master_rx(int device, int reg_addr,
-                  REFERENCE_PARAM(struct i2c_data_info, i2c_data),
+                  unsigned char data[],
+                  int nbytes,
                   REFERENCE_PARAM(struct r_i2c, i2c_master));
 #endif
 
@@ -78,14 +72,18 @@ int i2c_master_rx(int device, int reg_addr,
  * 
  * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
  * 
- * \param i2c_data   place where data is taken from, data_len is always assumed to be 1,
- *                   the lower byte of data[0] is written.
+ * \param data       Array where data is stored.
+ *
+ * \param nbytes     Number of bytes to read and store in data. This parameter
+ *                   must be set to '1' and is ignored in this module.
+ *                   This parameter is provided for compatibililty with module_i2c_complete.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
  */
 int i2c_master_tx(int device, int reg_addr,
-                  REFERENCE_PARAM(struct i2c_data_info, i2c_data),
+                  unsigned char data[],
+                  int nbytes,
                   REFERENCE_PARAM(struct r_i2c, i2c_master));
 
 #endif
