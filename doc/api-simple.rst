@@ -14,14 +14,19 @@ Symbolic constants
 
 .. doxygendefine:: I2C_BIT_TIME
 
+Types
+=====
+
+.. doxygenstruct:: r_i2c
+
 API
 ===
 
 .. doxygenfunction:: i2c_master_init
 
-.. doxygenfunction:: i2c_master_rx
+.. doxygenfunction:: i2c_master_read_reg
 
-.. doxygenfunction:: i2c_master_tx
+.. doxygenfunction:: i2c_master_write_reg
 
 
 Example
@@ -31,12 +36,12 @@ Example
 An example program is shown below. An input port and a clock block must be
 declared. Neither should be configured:
 
-.. literalinclude:: app_example_rx/src/main.xc
+.. literalinclude:: app_i2c_simple_demo/src/main.xc
   :start-after: //::declaration
   :end-before: //::
 
 
 
-.. literalinclude:: app_example_rx/src/main.xc
+.. literalinclude:: app_i2c_simple_demo/src/main.xc
   :start-after: //::main program
   :end-before: //::
