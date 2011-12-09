@@ -65,7 +65,14 @@ static void stopBit(struct r_i2c &i2c) {
 static int tx8(struct r_i2c &i2c, unsigned data) {
     unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
     for (int i = 8; i != 0; i--) {
-        i2c.sda <: >> CtlAdrsData;
+        if (CtlAdrsData & 1) {
+           // High, let float
+           i2c.sda :> void;
+           CtlAdrsData >>= 1;
+        } else {
+           // Low, drive
+           i2c.sda <: >> CtlAdrsData;
+        }
         highPulse(i2c, 0);
     }
     return highPulse(i2c, 1);
