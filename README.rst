@@ -21,14 +21,16 @@ module_i2c_simple:
 
 * Small footprint 
 * Works at 100 Kbps and 400 Kbps
+* Single system-wide I2C bus with XCore acting as the single master.
 
 module_i2c_master:
 
 * Small footprint
 * Works at 100 Kbps and 400 Kbps
-* TODO Supports Clock stretching
-* TODO Supports Multi master capability.
-* TODO Supports Clock synchronization.
+* Multiple I2C busses
+* Supports Clock stretching
+* TODO Support for Multi master capability.
+* TODO Support for Clock synchronization.
 
 
 Firmware Overview

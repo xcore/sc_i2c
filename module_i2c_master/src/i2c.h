@@ -37,6 +37,8 @@
 struct r_i2c {
     port scl;
     port sda;
+    int clockTicks;
+    int masterNumber;
 };
 
 /**Function that initialises the ports on an I2C device.

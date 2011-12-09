@@ -10,6 +10,8 @@ Important characteristics of S/PDIF software are the following:
 
 * The speed supported. Normal speeds are 100 Kb/s and 400 Kb/s. 
 
+* Whether there is a single I2C bus or multiple I2C busses.
+
 * Whether there is a single master or multiple masters.
 
 * Whether clock stretching is supported.
@@ -19,7 +21,7 @@ module_i2c_simple
 -----------------
 
 This module supports single master, at 100 or 400 kb/s without clock
-stretching.
+stretching, on a single I2C bus.
 
 +---------------------------+-----------------------+------------------------+
 | Functionality provided    | Resources required    | Status                 | 
@@ -36,14 +38,14 @@ module_i2c_master
 -----------------
 
 This module will support single master, at 100 or 400 kb/s with clock
-stretching. It will provide the same interface as module_i2c_simple.
+stretching on multiple I2C busses. It will provide the same interface as module_i2c_simple.
 
 +---------------------------+-----------------------+------------------------+
 | Functionality provided    | Resources required    | Status                 | 
 |                           +-----------+-----------+                        |
 |                           | ports     | Memory    |                        |
 +---------------------------+-----------+-----------+------------------------+
-| Multi master              | 2         | ??? bytes | To be implemented      |
+| Multi master              | 2         |600+? bytes| To be implemented      |
 +---------------------------+-----------+-----------+------------------------+
 
 The interface comprises three functions, init, rx, and tx that are called
@@ -54,5 +56,6 @@ module_i2c
 ----------
 
 This module will no longer be maintained, and new users are encouraged to
-use the new interface.
+use the new interface on module_i2c_simple, module_i2c_master, and/or
+module_i2c_slave.
 

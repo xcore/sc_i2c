@@ -6,10 +6,15 @@
 struct r_i2c i2cPorts = {
     XS1_PORT_4C,
     XS1_PORT_1G,
+    1000,
+    0,
 };
 //::
 
 port p32a = XS1_PORT_32A;
+
+// We do not really need to init - this part resets the codec on the test
+// board instead, but it shouldn't go into the documentation.
 
 #define i2c_master_init xxx
 
@@ -24,8 +29,8 @@ void i2c_master_init(struct r_i2c &x) {
 
 //::main program
 int main(void) {
-    unsigned char data[1];
-
+    unsigned char data[10], data2[10];
+    
     i2c_master_init(i2cPorts);
     data[0] = 0x12;
     i2c_master_write_reg(0x90, 0x07, data, 1, i2cPorts);
