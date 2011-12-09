@@ -6,6 +6,8 @@
 struct r_i2c i2cPorts = {
     XS1_PORT_4C,
     XS1_PORT_1G,
+    1000,
+    0,
 };
 //::
 
@@ -27,7 +29,7 @@ void i2c_master_init(struct r_i2c &x) {
 
 //::main program
 int main(void) {
-    unsigned char data[10];
+    unsigned char data[10], data2[10];
     
     i2c_master_init(i2cPorts);
     data[0] = 0x12;

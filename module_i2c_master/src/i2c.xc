@@ -98,9 +98,6 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 }
 
 int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
-   int i;
-   int rdData = 0;
-
    startBit(i2c);
    tx8(i2c, device);
    tx8(i2c, addr);
@@ -111,13 +108,12 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 #endif
 
 int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
-   int data = s_data[0];
    int ack;
 
    startBit(i2c);
    ack = tx8(i2c, device);
 #ifdef I2C_TI_COMPATIBILITY
-   ack |= tx8(i2c, addr << 1 | (data >> 8) & 1);
+   ack |= tx8(i2c, addr << 1 | (s_data[0] >> 8) & 1);
 #else
    ack |= tx8(i2c, addr);
 #endif

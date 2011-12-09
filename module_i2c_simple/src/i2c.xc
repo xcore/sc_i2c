@@ -76,14 +76,10 @@ static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
 }
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
+int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    int i;
    int rdData = 0;
 
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device);
-   tx8(i2c.scl, i2c.sda, addr);
-   stopBit(i2c.scl, i2c.sda);
    startBit(i2c.scl, i2c.sda);
    tx8(i2c.scl, i2c.sda, device | 1);
    for (i = 8; i != 0; i--) {
@@ -96,20 +92,12 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
    return 1;
 }
 
-int i2c_master_rx(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
-   int i;
-   int rdData = 0;
-
+int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device | 1);
-   for (i = 8; i != 0; i--) {
-       int temp = highPulseSample(i2c.scl, i2c.sda);
-       rdData = (rdData << 1) | temp;
-   }
-   (void) highPulseSample(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device);
+   tx8(i2c.scl, i2c.sda, addr);
    stopBit(i2c.scl, i2c.sda);
-   data[0] = rdData;
-   return 1;
+   return i2c_master_rx(device, data, nbytes, i2c);
 }
 #endif
 

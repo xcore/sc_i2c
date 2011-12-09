@@ -24,6 +24,8 @@ API
 
 .. doxygenfunction:: i2c_master_init
 
+.. doxygenfunction:: i2c_master_rx
+
 .. doxygenfunction:: i2c_master_read_reg
 
 .. doxygenfunction:: i2c_master_write_reg
@@ -33,14 +35,15 @@ Example
 =======
 
 
-An example program is shown below. An input port and a clock block must be
-declared. Neither should be configured:
+An example program is shown below. Two unbuffered undirectional ports must be
+declared. Neither should be configured .In this example, the SCL is
+connected to the lowest bit of port 4C, and SDA is connected to port 1G:
 
 .. literalinclude:: app_i2c_simple_demo/src/main.xc
   :start-after: //::declaration
   :end-before: //::
 
-
+The main program calls ``_read_reg`` and ``_write_reg`` as appropriate:
 
 .. literalinclude:: app_i2c_simple_demo/src/main.xc
   :start-after: //::main program
