@@ -45,13 +45,14 @@ static int highPulse(struct r_i2c &i2c, int doSample) {
     return temp;
 }
 
-static void startBit(struct r_i2c &i2c, int waitFor) {
-    if (wait) {
+static void startBit(struct r_i2c &i2c, int waitForQuiet) {
+    if (waitForQuiet) {
         timer t;
-        t :> time;
+        int time;
         int done = 0;
         int sdaState = 1;
         int sclState = 1;
+        t :> time;
         while(!done) {
             select {
             case i2c.sda when pinsneq(sdaState) :> sdaState:
@@ -60,7 +61,7 @@ static void startBit(struct r_i2c &i2c, int waitFor) {
             case i2c.scl when pinsneq(sclState) :> sclState:
                 t :> time;
                 break;
-            sdaState && sclState => case t when timerafter(t+I2C_BIT_TIME) :> void:
+            case sdaState && sclState => t when timerafter(time+i2c.clockTicks) :> void:
                 done = 1;
                 break;
             }
@@ -102,7 +103,6 @@ static int tx8(struct r_i2c &i2c, unsigned data) {
             highPulse(i2c, 0);
         }
         CtlAdrsData >>= 1;
-        if (i2c.sda
     }
     return highPulse(i2c, 1);
 }
@@ -131,9 +131,6 @@ static int i2c_master_do_rx(int device, unsigned char data[], int nbytes, struct
 }
 
 int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2c) {
-   int i;
-   int rdData = 0;
-
    startBit(i2c, 1);
    return i2c_master_do_rx(device, data, nbytes, i2c);
 }

@@ -37,16 +37,17 @@ when required.
 module_i2c_master
 -----------------
 
-This module will support single master, at 100 or 400 kb/s with clock
-stretching on multiple I2C busses. It will provide the same interface as module_i2c_simple.
+This module will support must master, at 100 or 400 kb/s with clock
+stretching on multiple I2C busses. It provides virtually the same interface as
+module_i2c_simple.
 
-+---------------------------+-----------------------+------------------------+
-| Functionality provided    | Resources required    | Status                 | 
-|                           +-----------+-----------+                        |
-|                           | ports     | Memory    |                        |
-+---------------------------+-----------+-----------+------------------------+
-| Multi master              | 2         |600+? bytes| To be implemented      |
-+---------------------------+-----------+-----------+------------------------+
++---------------------------+------------------------+------------------------+
+| Functionality provided    | Resources required     | Status                 | 
+|                           +-----------+------------+                        |
+|                           | ports     | Memory     |                        |
++---------------------------+-----------+------------+------------------------+
+| Multi master              | 2         | 800? bytes | To be implemented      |
++---------------------------+-----------+------------+------------------------+
 
 The interface comprises three functions, init, rx, and tx that are called
 when required.
