@@ -1,13 +1,22 @@
 module_i2c_simple
 '''''''''''''''''
 
-The S/PDIF receive module comprises a single thread that parses data as it
-arrives on a one-bit port and that outputs words of data onto a streaming
-channel end. Each word of data carries 24 bits of data and 4 bits of
-channel information.
+This I2C module comprises four functions that implement I2C master. It is a
+small and simple version of the protocol with limitations (described
+below), a full version with a compatible interface is available in
+``module_i2c_master``, but is has a bigger memory footprint.
 
-This modules requires the reference clock to be exactly 100 Mhz.
+The three restrictions of this module are:
 
+#. It does not implement clock-stretching: it should only be used when
+   slaves do not attempt to stretch the clock.
+
+#. It does not implement multi-master: it should only be used when the
+   XCore is the only master on the I2C bus.
+
+#. The speed of the bus is defined using a compile-time define
+   (``I2C_BIT_TIME``), and when using this module with multiple I2C busses
+   they will all run at the same speed.
 
 Symbolic constants
 ==================
@@ -36,7 +45,7 @@ Example
 
 
 An example program is shown below. Two unbuffered undirectional ports must be
-declared. Neither should be configured .In this example, the SCL is
+declared. Neither should be configured. In this example, SCL is
 connected to the lowest bit of port 4C, and SDA is connected to port 1G:
 
 .. literalinclude:: app_i2c_simple_demo/src/main.xc
