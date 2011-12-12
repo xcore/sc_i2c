@@ -19,7 +19,7 @@ static void waitQuarter(void) {
     int time;
 
     gt :> time;
-    time += I2C_BIT_TIME / 4;
+    time += (I2C_BIT_TIME + 3) / 4;
     gt when timerafter(time) :> int _;
 }
 
