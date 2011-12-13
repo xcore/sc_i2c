@@ -7,7 +7,6 @@ struct r_i2c i2cPorts = {
     XS1_PORT_4C,
     XS1_PORT_1G,
     1000,
-    0,
 };
 //::
 

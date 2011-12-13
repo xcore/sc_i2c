@@ -7,6 +7,7 @@
 
 #include <xs1.h>
 #include <xclib.h>
+#include <stdio.h>
 #include "i2c.h"
 
 void i2c_master_init(struct r_i2c &i2c_master) {
@@ -104,7 +105,8 @@ static int tx8(struct r_i2c &i2c, unsigned data) {
         }
         CtlAdrsData >>= 1;
     }
-    return highPulse(i2c, 1);
+//    printf("Sent all bits\n");
+    return highPulse(i2c, 1) == 0;
 }
 
 #ifndef I2C_TI_COMPATIBILITY
@@ -139,7 +141,11 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
     startBit(i2c, 1);
     if (!tx8(i2c, device)) return floatWires(i2c);
     if (!tx8(i2c, addr)) return floatWires(i2c);
-//   stopBit(i2c);         // do not stop but restart for multi master.
+//    stopBit(i2c);          // do not stop but restart for multi master.
+    i2c.sda :> void;       // stop bit, but not as we know it - restart.
+    waitQuarter(i2c);
+    i2c.scl :> void;       // stop bit, but not as we know it - restart.
+    waitQuarter(i2c);
     startBit(i2c, 0);      // Do not wait on start-bit - just do it.
     return i2c_master_do_rx(device, data, nbytes, i2c);
 }
@@ -157,7 +163,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
    if (!tx8(i2c, addr)) return floatWires(i2c);
 #endif
    for(int j = 0; j < nbytes; j++) {
-       if (!tx8(i2c, s_data[j])) floatWires(i2c);
+       if (!tx8(i2c, s_data[j])) return floatWires(i2c);
    }
    stopBit(i2c);
    return ack == 0;

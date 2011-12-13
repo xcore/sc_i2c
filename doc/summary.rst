@@ -1,7 +1,7 @@
 I2C interface
 =============
 
-I2C is the philips 2 wire interface, used to configure many digital chips.
+I2C is the Philips 2 wire interface, used to configure many digital chips.
 
 Important characteristics of S/PDIF software are the following:
 
@@ -20,15 +20,16 @@ Important characteristics of S/PDIF software are the following:
 module_i2c_simple
 -----------------
 
-This module supports single master, at 100 or 400 kb/s without clock
-stretching, on a single I2C bus.
+This module supports single master, at 100 or 400, 1000 kbit/s without clock
+stretching. If multiple I2C busses are required, they should use the same
+bit rate.
 
 +---------------------------+-----------------------+------------------------+
 | Functionality provided    | Resources required    | Status                 | 
 |                           +-----------+-----------+                        |
 |                           | ports     | Memory    |                        |
 +---------------------------+-----------+-----------+------------------------+
-| Single master             | 2         | 400 bytes | Implemented            |
+| Single master             | 2         | 460 bytes | Implemented            |
 +---------------------------+-----------+-----------+------------------------+
 
 The interface comprises three functions, init, rx, and tx that are called
@@ -37,7 +38,7 @@ when required.
 module_i2c_master
 -----------------
 
-This module will support must master, at 100 or 400 kb/s with clock
+This module will support must master, at 100 or 400, 1000 kbit/s with clock
 stretching on multiple I2C busses. It provides virtually the same interface as
 module_i2c_simple.
 
@@ -46,11 +47,17 @@ module_i2c_simple.
 |                           +-----------+------------+                        |
 |                           | ports     | Memory     |                        |
 +---------------------------+-----------+------------+------------------------+
-| Multi master              | 2         | 800? bytes | To be implemented      |
+| Multi master              | 2         | 800? bytes | Implemented, untested  |
 +---------------------------+-----------+------------+------------------------+
 
 The interface comprises three functions, init, rx, and tx that are called
 when required.
+
+
+module_i2c_slave
+----------------
+
+To be provided.
 
 
 module_i2c
