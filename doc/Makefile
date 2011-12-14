@@ -1,7 +1,6 @@
-REPO=../../sc_spdif
-SPHINX_PROJECT_NAME=S/PDIF
-VERSION=1v0
-DOXYGEN_DIRS=$(REPO)/module_spdif_rx $(REPO)/module_spdif_tx
+REPO=../../sc_i2c
+VERSION=2v0
+DOXYGEN_DIRS=$(REPO)/module_i2c_simple
 SOURCE_INCLUDE_DIRS=$(REPO)
 XDOC_DIR ?= ../../xdoc
 include $(XDOC_DIR)/Makefile.inc

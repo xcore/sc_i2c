@@ -19,7 +19,7 @@ static void waitQuarter(void) {
     int time;
 
     gt :> time;
-    time += I2C_BIT_TIME / 4;
+    time += (I2C_BIT_TIME + 3) / 4;
     gt when timerafter(time) :> int _;
 }
 
@@ -76,14 +76,10 @@ static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
 }
 
 #ifndef I2C_TI_COMPATIBILITY
-int i2c_master_rx(int device, int addr, struct i2c_data_info &data, struct r_i2c &i2c) {
+int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    int i;
    int rdData = 0;
 
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device);
-   tx8(i2c.scl, i2c.sda, addr);
-   stopBit(i2c.scl, i2c.sda);
    startBit(i2c.scl, i2c.sda);
    tx8(i2c.scl, i2c.sda, device | 1);
    for (i = 8; i != 0; i--) {
@@ -92,14 +88,21 @@ int i2c_master_rx(int device, int addr, struct i2c_data_info &data, struct r_i2c
    }
    (void) highPulseSample(i2c.scl, i2c.sda);
    stopBit(i2c.scl, i2c.sda);
-   data.data[0] = rdData;
-   data.data_len = 1;
+   data[0] = rdData;
    return 1;
+}
+
+int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
+   startBit(i2c.scl, i2c.sda);
+   tx8(i2c.scl, i2c.sda, device);
+   tx8(i2c.scl, i2c.sda, addr);
+   stopBit(i2c.scl, i2c.sda);
+   return i2c_master_rx(device, data, nbytes, i2c);
 }
 #endif
 
-int i2c_master_tx(int device, int addr, struct i2c_data_info &s_data, struct r_i2c &i2c) {
-   int data = s_data.data[0];
+int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
+   int data = s_data[0];
    int ack;
 
    startBit(i2c.scl, i2c.sda);
