@@ -32,8 +32,8 @@ bit rate.
 | Single master             | 2         | 460 bytes | Implemented            |
 +---------------------------+-----------+-----------+------------------------+
 
-The interface comprises three functions, init, rx, and tx that are called
-when required.
+The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.
 
 module_i2c_master
 -----------------
@@ -47,11 +47,11 @@ module_i2c_simple.
 |                           +-----------+------------+                        |
 |                           | ports     | Memory     |                        |
 +---------------------------+-----------+------------+------------------------+
-| Multi master              | 2         | 800? bytes | Implemented, untested  |
+| Multi master              | 2         | 900 bytes  | Implemented            |
 +---------------------------+-----------+------------+------------------------+
 
-The interface comprises three functions, init, rx, and tx that are called
-when required.
+The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.
 
 
 module_i2c_slave

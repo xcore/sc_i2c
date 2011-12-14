@@ -25,12 +25,11 @@ module_i2c_simple:
 
 module_i2c_master:
 
-* Small footprint
 * Works at 100 Kbps and 400 Kbps
 * Multiple I2C busses
 * Supports Clock stretching
-* TODO Support for Multi master capability.
-* TODO Support for Clock synchronization.
+* Support for Multi master capability.
+* Support for Clock synchronization.
 
 
 Firmware Overview
