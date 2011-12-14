@@ -1,5 +1,5 @@
 XCORE.com I2C Master Component
-..............................................
+..............................
 
 :Status:  Feature complete
 
@@ -10,10 +10,26 @@ The I2C Component provides the ability to write and read the I2C Compatible Slav
 Key Features
 ============
 
-  * Works at 100 Kbps and 400 Kbps
-  * Supports Clock stretching
-  * Supports Multi master capability.
-  * Supports Clock synchronization.
+module_i2c:
+ 
+* Works at 100 Kbps and 400 Kbps
+* Supports Clock stretching
+* Supports Multi master capability.
+* Supports Clock synchronization.
+
+module_i2c_simple:
+
+* Small footprint 
+* Works at 100 Kbps and 400 Kbps
+* Single system-wide I2C bus with XCore acting as the single master.
+
+module_i2c_master:
+
+* Works at 100 Kbps and 400 Kbps
+* Multiple I2C busses
+* Supports Clock stretching
+* Support for Multi master capability.
+* Support for Clock synchronization.
 
 
 Firmware Overview
@@ -21,6 +37,8 @@ Firmware Overview
 
 The Component is in the form of a function library and can be called in a thread.
 
+Module_i2c is meant to be deprecated, once module_i2c_master is completed,
+and once the slave part has been moved to module_i2c_slave.
 
 Known Issues
 ============
@@ -32,7 +50,7 @@ does not support HS-Mode.
 Required Modules
 =================
 
-   * xcommon git\@github.com:xmos/xcommon.git
+* xcommon git\@github.com:xmos/xcommon.git
 
 Instructions for Building Project and running the simulation.
 ================================

@@ -1,0 +1,15 @@
+*/.build*/*
+*/bin/*
+*.o
+*.xe
+*.vcd
+*.s
+*.xi
+*.i
+*.a
+doc/.doxygen/
+doc/.sources/
+doc/Doxyfile-e
+doc/_build/
+doc/index.pdf
+doc/.linked_dirs
