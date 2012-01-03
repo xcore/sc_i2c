@@ -81,7 +81,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
    int rdData = 0;
 
    startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device | 1);
+   tx8(i2c.scl, i2c.sda, (device<<1) | 1);
    for (i = 8; i != 0; i--) {
        int temp = highPulseSample(i2c.scl, i2c.sda);
        rdData = (rdData << 1) | temp;
@@ -94,7 +94,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 
 int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device);
+   tx8(i2c.scl, i2c.sda, device<<1);
    tx8(i2c.scl, i2c.sda, addr);
    stopBit(i2c.scl, i2c.sda);
    return i2c_master_rx(device, data, nbytes, i2c);
@@ -106,7 +106,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
    int ack;
 
    startBit(i2c.scl, i2c.sda);
-   ack = tx8(i2c.scl, i2c.sda, device);
+   ack = tx8(i2c.scl, i2c.sda, device<<1);
 #ifdef I2C_TI_COMPATIBILITY
    ack |= tx8(i2c.scl, i2c.sda, addr << 1 | (data >> 8) & 1);
 #else
