@@ -34,9 +34,12 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 	int x,i;
 	unsigned int while_break;
 	unsigned int rpt_start_det;
+	#ifdef (__XS1_G__)
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
+	#endif
 	temp=0;
+	i2c_slave_data.data_len = 0;  // Initialise the data length
 	i2c_slave.sda :> temp;
 	while(1){
 		while(1){                                 // To Wait for start bit
@@ -57,10 +60,7 @@ int i2c_slave_rx(int dev_addr, struct i2c_data_info &i2c_slave_data, struct r_i2
 			i2c_slave.scl when pinseq(0) :> void;
 		}
 
-		if((rx_addr & 0xFE) != dev_addr){  // Compare the received address with the device address.
-			break;
-		}
-		else if((rx_addr & 0x01) == 1){ // To compare the read/write bit for write operation.
+		if(((rx_addr & 0x01) == 1)&&(rx_addr>>1) != dev_addr){  // Compare the received address and R/W bit
 			break;
 		}
 		i2c_slave.scl <: 0;
@@ -171,8 +171,10 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 	unsigned int sda_high;
 	int i,j;
 	unsigned int nack,start_det;
+	#ifdef (__XS1_G__)
 	set_port_pull_up(i2c_slave.scl);
 	set_port_pull_up(i2c_slave.sda);
+	#endif
 	Temp=0;
 	i2c_slave.sda :> Temp;
 	while(1){
@@ -268,6 +270,7 @@ int i2c_slave_tx(int dev_addr, int sub_addr, struct i2c_data_info &i2c_slave_dat
 				i2c_slave.scl when pinseq(1) :> void ;
 				i2c_slave.scl when pinseq(0) :> void ;
 			}
+			i2c_slave.sda :> void;
 			i2c_slave.scl when pinseq(1) :> void ;
 			i2c_slave.sda :> nack;
 			i2c_slave.scl when pinseq(0) :> void ;
