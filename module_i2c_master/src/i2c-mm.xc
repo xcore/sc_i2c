@@ -114,7 +114,7 @@ static int i2c_master_do_rx(int device, unsigned char data[], int nbytes, struct
    int i;
    int rdData = 0;
 
-   if (!tx8(i2c, device | 1)) return floatWires(i2c);
+   if (!tx8(i2c, device<<1 | 1)) return floatWires(i2c);
    for(int j = 0; j < nbytes; j++) {
        for (i = 8; i != 0; i--) {
            int temp = highPulse(i2c, 1);
@@ -139,7 +139,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 
 int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
     startBit(i2c, 1);
-    if (!tx8(i2c, device)) return floatWires(i2c);
+    if (!tx8(i2c, device<<1)) return floatWires(i2c);
     if (!tx8(i2c, addr)) return floatWires(i2c);
 //    stopBit(i2c);          // do not stop but restart for multi master.
     i2c.sda :> void;       // stop bit, but not as we know it - restart.
@@ -154,7 +154,7 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 
 int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
    startBit(i2c, 1);
-   if (!tx8(i2c, device)) return floatWires(i2c);
+   if (!tx8(i2c, device<<1)) return floatWires(i2c);
 #ifdef I2C_TI_COMPATIBILITY
    if (!tx8(i2c, addr << 1 | (s_data[0] >> 8) & 1)) return floatWires(i2c);
 #else
