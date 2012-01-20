@@ -67,5 +67,7 @@ int main(void) {
         beMaster(1, 82, i2cTwo, sync);
     }
     i2c_master_write_reg(82, 0x0, data, 1, i2cOne);
+
+    return 0;
 }
 //::
