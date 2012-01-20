@@ -17,11 +17,12 @@ module_i2c:
 * Supports Multi master capability.
 * Supports Clock synchronization.
 
-module_i2c_simple:
+module_i2c_simple / module_i2c_single_port:
 
 * Small footprint 
 * Works at 100 Kbps and 400 Kbps
 * Single system-wide I2C bus with XCore acting as the single master.
+* SDA and SCL can be on a single wide port (module_i2c_single_port)
 
 module_i2c_master:
 
@@ -30,7 +31,6 @@ module_i2c_master:
 * Supports Clock stretching
 * Support for Multi master capability.
 * Support for Clock synchronization.
-
 
 Firmware Overview
 =================

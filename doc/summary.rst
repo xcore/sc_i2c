@@ -59,6 +59,25 @@ module_i2c_slave
 
 To be provided.
 
+module_i2c_single_port
+----------------------
+
+This module supports single master, at 100 or 400, 1000 kbit/s without clock
+stretching, where both SCL and SDA are shared on a single port (4, 8, 16,
+or 32 bits wide).
+
++---------------------------+-----------------------+------------------------+
+| Functionality provided    | Resources required    | Status                 | 
+|                           +-----------+-----------+                        |
+|                           | ports     | Memory    |                        |
++---------------------------+-----------+-----------+------------------------+
+| Single master             | 1         | 360 bytes | Implemented            |
++---------------------------+-----------+-----------+------------------------+
+
+The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.
+
+Note that this module is not extensively tested.
 
 module_i2c
 ----------
