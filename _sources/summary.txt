@@ -2,8 +2,7 @@ I2C interface
 =============
 
 I2C is the Philips 2 wire interface, used to configure many digital chips.
-
-Important characteristics of S/PDIF software are the following:
+I2C software has the following options:
 
 * Whether we are a *master* or a *slave*. Devices that are configured are
   slaves, the master configures other devices. 
