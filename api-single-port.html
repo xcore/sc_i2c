@@ -84,18 +84,27 @@ or multi-master.</p>
 <p>By default set to 1000 for 100 Kbit devices, but it can be overriden to 250 for 400 Kbit devices.</p>
 </dd></dl>
 
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygendefine: Cannot find define &#8220;SCL_HIGH&#8221; in doxygen xml output</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygendefine: Cannot find define &#8220;SDA_HIGH&#8221; in doxygen xml output</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">doxygendefine: Cannot find define &#8220;S_REST&#8221; in doxygen xml output</p>
-</div>
+<dl class="macro">
+<dt id="SCL_HIGH">
+<tt class="descname">SCL_HIGH</tt><a class="headerlink" href="#SCL_HIGH" title="Permalink to this definition">¶</a></dt>
+<dd><p>This constant defines the bit value of a high clock on the I2C port.</p>
+<p>The default value is 2, meaning that this is on bit 1 of the port. Set to 1, 4, 8, ... for other bits of the port.</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="SDA_HIGH">
+<tt class="descname">SDA_HIGH</tt><a class="headerlink" href="#SDA_HIGH" title="Permalink to this definition">¶</a></dt>
+<dd><p>This constant defines the bit value of a high data bit on the I2C port.</p>
+<p>The default value is 1, meaning that this is on bit 0 of the port. Set to 2, 4, 8, ... for other bits of the port.</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="S_REST">
+<tt class="descname">S_REST</tt><a class="headerlink" href="#S_REST" title="Permalink to this definition">¶</a></dt>
+<dd><p>This constant defines the bit value of the other bits of the I2C port.</p>
+<p>The default value is 0xC, meaning that bits 2 and 3 are kept high. Note that on occassions the other bits are left to float, so external resistors shall be used to reinforce the detault value</p>
+</dd></dl>
+
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
