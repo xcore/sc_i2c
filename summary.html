@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>I2C interface &mdash;  2v0 documentation</title>
+    <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2v0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://mathjax.connectmv.com/MathJax.js"></script>
+    <script type="text/javascript" src="_static/xcomment.js"></script>
+    <link rel="top" title=" 2v0 documentation" href="index.html" />
+    <link rel="next" title="module_i2c_simple" href="api-simple.html" />
+    <link rel="prev" title="Documentation" href="index.html" /> 
+
+<script>
+function setheight() {
+h1 = document.getElementById('d1').style.height;
+h2 = document.getElementById('d2').style.height;
+
+if (parseInt(h1) > parseInt(h2)) {
+document.getElementById('d2').style.height=h1 + "px";
+}
+else {
+document.getElementById('d1').style.height=h2 + "px";
+}
+
+}
+</script>
+</head>
+
+<body onload="setheight();">
+
+  
+
+    <div class="document" id='d1'>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+<div style="float: right">
+<a href="index.html"
+                        title="previous chapter"> &lt&lt </a>
+<a href="api-simple.html"
+                        title="next chapter"> &gt&gt </a></p>
+</div>
+
+            
+  <div class="section" id="i2c-interface">
+<h1>I2C interface<a class="headerlink" href="#i2c-interface" title="Permalink to this headline">¶</a></h1>
+<p>I2C is the Philips 2 wire interface, used to configure many digital chips.</p>
+<p>Important characteristics of S/PDIF software are the following:</p>
+<ul class="simple">
+<li>Whether we are a <em>master</em> or a <em>slave</em>. Devices that are configured are
+slaves, the master configures other devices.</li>
+<li>The speed supported. Normal speeds are 100 Kb/s and 400 Kb/s.</li>
+<li>Whether there is a single I2C bus or multiple I2C busses.</li>
+<li>Whether there is a single master or multiple masters.</li>
+<li>Whether clock stretching is supported.</li>
+</ul>
+<div class="section" id="module-i2c-simple">
+<h2>module_i2c_simple<a class="headerlink" href="#module-i2c-simple" title="Permalink to this headline">¶</a></h2>
+<p>This module supports single master, at 100 or 400, 1000 kbit/s without clock
+stretching. If multiple I2C busses are required, they should use the same
+bit rate.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="15%" />
+<col width="15%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">Functionality provided</td>
+<td colspan="2">Resources required</td>
+<td rowspan="2">Status</td>
+</tr>
+<tr class="row-even"><td>ports</td>
+<td>Memory</td>
+</tr>
+<tr class="row-odd"><td>Single master</td>
+<td>2</td>
+<td>460 bytes</td>
+<td>Implemented</td>
+</tr>
+</tbody>
+</table>
+<p>The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.</p>
+</div>
+<div class="section" id="module-i2c-master">
+<h2>module_i2c_master<a class="headerlink" href="#module-i2c-master" title="Permalink to this headline">¶</a></h2>
+<p>This module will support must master, at 100 or 400, 1000 kbit/s with clock
+stretching on multiple I2C busses. It provides virtually the same interface as
+module_i2c_simple.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="15%" />
+<col width="16%" />
+<col width="32%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">Functionality provided</td>
+<td colspan="2">Resources required</td>
+<td rowspan="2">Status</td>
+</tr>
+<tr class="row-even"><td>ports</td>
+<td>Memory</td>
+</tr>
+<tr class="row-odd"><td>Multi master</td>
+<td>2</td>
+<td>900 bytes</td>
+<td>Implemented</td>
+</tr>
+</tbody>
+</table>
+<p>The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.</p>
+</div>
+<div class="section" id="module-i2c-slave">
+<h2>module_i2c_slave<a class="headerlink" href="#module-i2c-slave" title="Permalink to this headline">¶</a></h2>
+<p>To be provided.</p>
+</div>
+<div class="section" id="module-i2c-single-port">
+<h2>module_i2c_single_port<a class="headerlink" href="#module-i2c-single-port" title="Permalink to this headline">¶</a></h2>
+<p>This module supports single master, at 100 or 400, 1000 kbit/s without clock
+stretching, where both SCL and SDA are shared on a single port (4, 8, 16,
+or 32 bits wide).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="15%" />
+<col width="15%" />
+<col width="33%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2">Functionality provided</td>
+<td colspan="2">Resources required</td>
+<td rowspan="2">Status</td>
+</tr>
+<tr class="row-even"><td>ports</td>
+<td>Memory</td>
+</tr>
+<tr class="row-odd"><td>Single master</td>
+<td>1</td>
+<td>360 bytes</td>
+<td>Implemented</td>
+</tr>
+</tbody>
+</table>
+<p>The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.</p>
+<p>Note that this module is not extensively tested.</p>
+</div>
+<div class="section" id="module-i2c">
+<h2>module_i2c<a class="headerlink" href="#module-i2c" title="Permalink to this headline">¶</a></h2>
+<p>This module will no longer be maintained, and new users are encouraged to
+use the new interface on module_i2c_simple, module_i2c_master, and/or
+module_i2c_slave.</p>
+</div>
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" id='d2'>
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html"> (2v0)</a></h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">I2C interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c-simple">module_i2c_simple</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c-master">module_i2c_master</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c-slave">module_i2c_slave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c-single-port">module_i2c_single_port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c">module_i2c</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api-simple.html">module_i2c_simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-master.html">module_i2c_master</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-full.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-full.html#programming-guide">Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-full.html#resource-usage">Resource Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-full.html#timing-constraints">Timing Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-full.html#validation">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-single-port.html">module_i2c_simple</a></li>
+</ul>
+
+<div id="searchbox" style="display: none;margin-bottom: 10px;">
+  <h3>Search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+
+    <div class="footer">
+    </div>
+  </body>
+</html>
+
+
+

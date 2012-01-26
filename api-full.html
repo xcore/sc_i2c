@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &mdash;  2v0 documentation</title>
+    <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2v0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://mathjax.connectmv.com/MathJax.js"></script>
+    <script type="text/javascript" src="_static/xcomment.js"></script>
+    <link rel="top" title=" 2v0 documentation" href="index.html" />
+    <link rel="next" title="module_i2c_simple" href="api-single-port.html" />
+    <link rel="prev" title="module_i2c_master" href="api-master.html" /> 
+
+<script>
+function setheight() {
+h1 = document.getElementById('d1').style.height;
+h2 = document.getElementById('d2').style.height;
+
+if (parseInt(h1) > parseInt(h2)) {
+document.getElementById('d2').style.height=h1 + "px";
+}
+else {
+document.getElementById('d1').style.height=h2 + "px";
+}
+
+}
+</script>
+</head>
+
+<body onload="setheight();">
+
+  
+
+    <div class="document" id='d1'>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+<div style="float: right">
+<a href="api-master.html"
+                        title="previous chapter"> &lt&lt </a>
+<a href="api-single-port.html"
+                        title="next chapter"> &gt&gt </a></p>
+</div>
+
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>I2C Component provides the ability to write and read I2C based slave devices.
+It incorporates features like multimaster capability, clock stretching and clock synchronization.</p>
+<div class="section" id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="i2c-master-write">
+<h3>i2c master write<a class="headerlink" href="#i2c-master-write" title="Permalink to this headline">¶</a></h3>
+<p>i2c master write component writes the data into i2c slave devices.</p>
+</div>
+<div class="section" id="i2c-master-read">
+<h3>i2c master read<a class="headerlink" href="#i2c-master-read" title="Permalink to this headline">¶</a></h3>
+<p>i2c master read component read the data from i2c slave devices.</p>
+</div>
+</div>
+</div>
+<div class="section" id="programming-guide">
+<h1>Programming Guide<a class="headerlink" href="#programming-guide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="api-application-programming-interface">
+<h2>API (Application Programming Interface)<a class="headerlink" href="#api-application-programming-interface" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>int i2c_master_wr(int addr, int device, struct i2c_data_info &amp;i2c_data, struct r_i2c &amp;i2c_master);</p>
+<p>This function receives the device address of the slave, the internal address of the slave into which data has to
+be written, structure containing information about the length of the data and the data itself and the structure
+containing ports for scl and sda. The device address and the internal address and the data are serially transmitted
+on sda line.</p>
+<p>int i2c_master_rd(int addr, int device, struct i2c_data_info &amp;i2c_data, struct r_i2c &amp;i2c_master);</p>
+<p>This function receives the device address of the slave, the internal address of the slave from which data has to
+be read, structure to store the length of received data and the data itself and the structure
+containing ports for scl and sda.  The device address and the internal address are sent serially and the data received
+is stored in a structure.</p>
+</div></blockquote>
+</div>
+<div class="section" id="macros">
+<h2>Macros<a class="headerlink" href="#macros" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>#define MASTER_TX : if used enables the MASTER Transmit. If commented enables the MASTER receive.</p>
+<p>#define MASTER1 : If used enables the MASTER1 in testbench and if commented disables the MASTER1.</p>
+<p>#define MASTER2 : If used enables the MASTER2 in testbench and if commented disables the MASTER2.</p>
+<p>#define SLAVE1  : If used enables the SLAVE1 in testbench and if commented disables the SLAVE1.</p>
+<p>#define SLAVE2  : If used enables the SLAVE2 in testbench and if commented disables the SLAVE2.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="resource-usage">
+<h1>Resource Usage<a class="headerlink" href="#resource-usage" title="Permalink to this headline">¶</a></h1>
+<p>The following table gives the details of the memory foot print of the functions used.</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="47%" />
+<col width="53%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">Size(in Bytes)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>i2c_master_tx</td>
+<td>790</td>
+</tr>
+<tr class="row-odd"><td>i2c_master_rx</td>
+<td>914</td>
+</tr>
+<tr class="row-even"><td>i2c_slave_rx</td>
+<td>584</td>
+</tr>
+<tr class="row-odd"><td>i2c-slave_tx</td>
+<td>526</td>
+</tr>
+<tr class="row-even"><td>wait_func</td>
+<td>74</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="timing-constraints">
+<h1>Timing Constraints<a class="headerlink" href="#timing-constraints" title="Permalink to this headline">¶</a></h1>
+<p>I2C Master work at 400Kbps and below.</p>
+</div>
+<div class="section" id="validation">
+<h1>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h1>
+<p>Test Bench is provided for testing I2C Master. Both I2C master read and write is tested.
+i2C Master is tested for following features</p>
+<ol class="arabic simple">
+<li>Multimaster capability</li>
+<li>Clock synchronization.</li>
+<li>Clock stretching.</li>
+</ol>
+<p>README.rst file provided guides to setup the simulation environment and the RESULT.rst file gives
+the details of tests and the test results.</p>
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" id='d2'>
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html"> (2v0)</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="summary.html">I2C interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-simple.html">module_i2c_simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-master.html">module_i2c_master</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i2c-master-write">i2c master write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i2c-master-read">i2c master read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#programming-guide">Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api-application-programming-interface">API (Application Programming Interface)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macros">Macros</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#resource-usage">Resource Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#timing-constraints">Timing Constraints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#validation">Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-single-port.html">module_i2c_simple</a></li>
+</ul>
+
+<div id="searchbox" style="display: none;margin-bottom: 10px;">
+  <h3>Search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+
+
+    <div class="footer">
+    </div>
+  </body>
+</html>
+
+
+
