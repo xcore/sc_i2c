@@ -16,6 +16,9 @@ The three restrictions of this module are:
 #. The speed of the bus is defined using a compile-time define
    (``I2C_BIT_TIME``).
 
+Note that on a single port it is impossible to implement clock stretching
+or multi-master.
+
 Symbolic constants
 ==================
 
