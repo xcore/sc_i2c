@@ -1,5 +1,5 @@
-module_i2c_master
-'''''''''''''''''
+Programmers guide to module_i2c_master
+''''''''''''''''''''''''''''''''''''''
 
 This module implements multi-master I2C, and can be instantiated with
 different bus speeds for each instantiation.

@@ -47,7 +47,7 @@
 /** This constant defines the bit value of the other bits of the I2C port.
  * The default value is 0xC, meaning that bits 2 and 3 are kept high. Note
  * that on occassions the other bits are left to float, so external
- * resistors shall be used to reinforce the detault value
+ * resistors shall be used to reinforce the default value
  */
 #define S_REST        0xC
 
