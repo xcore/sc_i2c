@@ -1,7 +1,10 @@
 XCORE.com I2C Master Component
 ..............................
 
-:Status:  Feature complete
+:Latest release: 2.0.0rc1
+:Maintainer: djpwilk
+:Description: I2C Software Component
+
 
 :Maintainer:  Dan Wilkinson (github: djpwilk)
 
@@ -47,11 +50,6 @@ does not support 10 bit addressing
 does not support CBUS capability.
 does not support HS-Mode.
 
-Required Modules
-=================
-
-* xcommon git\@github.com:xmos/xcommon.git
-
 Instructions for Building Project and running the simulation.
 ================================
 The Software Components for I2C are built using XMOS Development Environment (XDE) Version: 10.4.2 (build 1752) or later.
@@ -94,4 +92,8 @@ Support
 
 Issues may be submitted via the Issues tab in this github repo. Response to any issues submitted as at the discretion of the maintainer for this line.
 
+Required software (dependencies)
+================================
+
+  * xcommon (if using development tools earlier than 11.11.0)
 
