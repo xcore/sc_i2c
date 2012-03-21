@@ -1,5 +1,5 @@
-Documentation
--------------
+I2C Software Component
+----------------------
 
 .. toctree::
 
