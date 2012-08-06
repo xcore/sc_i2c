@@ -34,13 +34,15 @@ static void waitHalf(void) {
 static int highPulse(port i2c, int sdaValue) {
     if (sdaValue) {
         int temp;
-        i2c <: SDA_HIGH | SCL_LOW | S_REST;
+         i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        //i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
         waitQuarter();
         i2c :> void;
         waitQuarter();
         temp = (peek(i2c) & SDA_HIGH) != 0;
         waitQuarter();
-        i2c <: SDA_HIGH | SCL_LOW | S_REST;
+         i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        //i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
         waitQuarter();
         return temp;
     } else {
@@ -78,12 +80,26 @@ static void stopBit(port i2c) {
 
 static int tx8(port i2c, unsigned data) {
     int ack;
+    int temp;
     unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
     for (int i = 8; i != 0; i--) {
         highPulse(i2c, CtlAdrsData & 1);
         CtlAdrsData >>= 1;
     }
-    ack = highPulseSample(i2c);
+    //ack = highPulseSample(i2c); // Orig
+    /* JEG ... */
+            
+         //i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
+        waitQuarter();
+        i2c :> void;
+        waitQuarter();
+        temp = (peek(i2c) & SDA_HIGH) != 0;
+        waitQuarter();
+        // i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
+        waitQuarter();
+     /* end JEG */
 //    printf("Ack: %d\n", ack);
     return ack;
 }
