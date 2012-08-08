@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>I2C interface &mdash;  2v0 documentation</title>
+    <title>I2C interface summary &mdash; I2C Software Component  documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '2v0',
+        VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,11 +21,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://mathjax.connectmv.com/MathJax.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title=" 2v0 documentation" href="index.html" />
+    <link rel="top" title="I2C Software Component  documentation" href="index.html" />
     <link rel="next" title="Programmers guide to module_i2c_simple" href="api-simple.html" />
-    <link rel="prev" title="Documentation" href="index.html" /> 
+    <link rel="prev" title="I2C Software Component" href="index.html" /> 
 
 <script>
 function setheight() {
@@ -59,8 +58,8 @@ document.getElementById('d1').style.height=h2 + "px";
 </div>
 
             
-  <div class="section" id="i2c-interface">
-<h1>I2C interface<a class="headerlink" href="#i2c-interface" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="i2c-interface-summary">
+<h1>I2C interface summary<a class="headerlink" href="#i2c-interface-summary" title="Permalink to this headline">¶</a></h1>
 <p>I2C is the Philips 2 wire interface, used to configure many digital chips.
 I2C software has the following options:</p>
 <ul class="simple">
@@ -76,7 +75,7 @@ slaves, the master configures other devices.</li>
 <p>This module supports single master, at 100 or 400, 1000 kbit/s without clock
 stretching. If multiple I2C busses are required, they should use the same
 bit rate.</p>
-<table border="1" class="docutils">
+<table border="1" class="vertical-borders horizontal-borders docutils">
 <colgroup>
 <col width="37%" />
 <col width="15%" />
@@ -88,7 +87,7 @@ bit rate.</p>
 <td colspan="2">Resources required</td>
 <td rowspan="2">Status</td>
 </tr>
-<tr class="row-even"><td>ports</td>
+<tr class="row-even"><td>Ports</td>
 <td>Memory</td>
 </tr>
 <tr class="row-odd"><td>Single master</td>
@@ -105,8 +104,8 @@ that are called when required. No separate thread is required.</p>
 <h2>module_i2c_master<a class="headerlink" href="#module-i2c-master" title="Permalink to this headline">¶</a></h2>
 <p>This module will support must master, at 100 or 400, 1000 kbit/s with clock
 stretching on multiple I2C busses. It provides virtually the same interface as
-module_i2c_simple.</p>
-<table border="1" class="docutils">
+module_i2c_simple.2</p>
+<table border="1" class="vertical-borders horizontal-borders docutils">
 <colgroup>
 <col width="36%" />
 <col width="15%" />
@@ -118,7 +117,7 @@ module_i2c_simple.</p>
 <td colspan="2">Resources required</td>
 <td rowspan="2">Status</td>
 </tr>
-<tr class="row-even"><td>ports</td>
+<tr class="row-even"><td>Ports</td>
 <td>Memory</td>
 </tr>
 <tr class="row-odd"><td>Multi master</td>
@@ -140,7 +139,7 @@ that are called when required. No separate thread is required.</p>
 <p>This module supports single master, at 100 or 400, 1000 kbit/s without clock
 stretching, where both SCL and SDA are shared on a single port (4, 8, 16,
 or 32 bits wide).</p>
-<table border="1" class="docutils">
+<table border="1" class="vertical-borders horizontal-borders docutils">
 <colgroup>
 <col width="37%" />
 <col width="15%" />
@@ -152,7 +151,7 @@ or 32 bits wide).</p>
 <td colspan="2">Resources required</td>
 <td rowspan="2">Status</td>
 </tr>
-<tr class="row-even"><td>ports</td>
+<tr class="row-even"><td>Ports</td>
 <td>Memory</td>
 </tr>
 <tr class="row-odd"><td>Single master</td>
@@ -181,9 +180,9 @@ module_i2c_slave.</p>
       </div>
       <div class="sphinxsidebar" id='d2'>
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html"> (2v0)</a></h3>
+<h3><a href="index.html">I2C Software Component</a></h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">I2C interface</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">I2C interface summary</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-i2c-simple">module_i2c_simple</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-i2c-master">module_i2c_master</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-i2c-slave">module_i2c_slave</a></li>

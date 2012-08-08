@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Programmers guide to module_i2c_single_port &mdash;  2v0 documentation</title>
+    <title>Programmers guide to module_i2c_single_port &mdash; I2C Software Component  documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '2v0',
+        VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,9 +21,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://mathjax.connectmv.com/MathJax.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title=" 2v0 documentation" href="index.html" />
+    <link rel="top" title="I2C Software Component  documentation" href="index.html" />
     <link rel="next" title="Old I2C module" href="api-full.html" />
     <link rel="prev" title="Programmers guide to module_i2c_master" href="api-master.html" /> 
 
@@ -75,6 +74,8 @@ XCore is the only master on the I2C bus.</li>
 </ol>
 <p>Note that on a single port it is impossible to implement clock stretching
 or multi-master.</p>
+<p>Any constants that are to be overridden should be defined in an include
+file <tt class="docutils literal"><span class="pre">i2c_conf.h</span></tt>.</p>
 <div class="section" id="symbolic-constants">
 <h2>Symbolic constants<a class="headerlink" href="#symbolic-constants" title="Permalink to this headline">¶</a></h2>
 <dl class="macro">
@@ -102,7 +103,7 @@ or multi-master.</p>
 <dt id="S_REST">
 <tt class="descname">S_REST</tt><a class="headerlink" href="#S_REST" title="Permalink to this definition">¶</a></dt>
 <dd><p>This constant defines the bit value of the other bits of the I2C port.</p>
-<p>The default value is 0xC, meaning that bits 2 and 3 are kept high. Note that on occassions the other bits are left to float, so external resistors shall be used to reinforce the detault value</p>
+<p>The default value is 0xC, meaning that bits 2 and 3 are kept high. Note that on occassions the other bits are left to float, so external resistors shall be used to reinforce the default value</p>
 </dd></dl>
 
 </div>
@@ -198,43 +199,52 @@ connected to the lowest two bits of port 4A:</p>
 #include &lt;xs1.h&gt;
 #include &quot;i2c.h&quot;
 
-port i2cPort = XS1_PORT_4A;
+port i2c = XS1_PORT_4F;
+port gpio = XS1_PORT_4E;
 </pre></div>
 </div>
 <p>The main program calls <tt class="docutils literal"><span class="pre">_read_reg</span></tt> and <tt class="docutils literal"><span class="pre">_write_reg</span></tt> as appropriate:</p>
-<div class="highlight-none"><div class="highlight"><pre>int main(void) {
-    unsigned char data[10];
-    int device;
-    
-    i2c_master_init(i2cPort);
-    for(int i = 0; i &lt; 256; i+=2) {
-        i2c_master_read_reg(i, 0, data, 1, i2cPort);
-        if (data[0] != 0xff) {
-            printf(&quot;Device %02x: value %02x\n&quot;, i, data[0]);
-        }
-    }
-    device = 0xC0;
-    for(int i = 0; i &lt; 20; i++) {
-        printf(&quot;%02x: &quot;, i);
-        i2c_master_read_reg(device, i, data, 1, i2cPort);
-        printf(&quot;%02x\n&quot;, data[0]);
-    }
-    for(int i = 0; i &lt; 20; i++) {
-        data[0] = 0x12;
-        i2c_master_write_reg(device, i, data, 1, i2cPort);
-    }
-    data[0] = 0x12;
-    i2c_master_write_reg(device, 0x07, data, 1, i2cPort);
-    data[0] = 0x78;
-    i2c_master_write_reg(device, 0x08, data, 1, i2cPort);
-    i2c_master_read_reg(device, 0x07, data, 1, i2cPort);
-    printf(&quot;0x%02x (should be 0x12)\n&quot;, data[0]);
-    for(int i = 0; i &lt; 20; i++) {
-        printf(&quot;%02x: &quot;, i);
-        i2c_master_read_reg(device, i, data, 1, i2cPort);
-        printf(&quot;%02x\n&quot;, data[0]);
-    }
-    return 0;
+<div class="highlight-none"><div class="highlight"><pre>int main(void)
+{
+  unsigned char data[1];
+  int x;
+  int i;
+
+  i2c_master_init(i2c);
+
+  gpio &lt;: 0xF;
+
+  data[0] = 0xFF;
+  for(int j = 0; j &lt; 1000000; j++) {
+      for(i = 0x90; i &lt; 0x9E; i += 2) {
+          if (i == 0x94) i = 0x9C;
+          x = i2c_master_read_reg(i, 1, data, 1, i2c);
+          if ((i &lt; 0x94 &amp;&amp; data[0] != 0xc3) || (i &gt; 0x94 &amp;&amp; data[0] != 6)) printf(&quot;%d Device %x Reg 1 Value %x\n&quot;, j, i, data[0]);
+      }
+      for(i = 0x90; i &lt; 0x9E; i += 2) {
+          if (i == 0x94) i = 0x9C;
+          data[0] = ~i;
+          x = i2c_master_write_reg(i, 7, data, 1, i2c);
+      }
+      for(i = 0x90; i &lt; 0x9E; i += 2) {
+          if (i == 0x94) i = 0x9C;
+          data[0] = i;
+          x = i2c_master_write_reg(i, 8, data, 1, i2c);
+      }
+      for(i = 0x90; i &lt; 0x9E; i += 2) {
+          if (i == 0x94) i = 0x9C;
+          data[0] = 0;
+          x = i2c_master_read_reg(i, 8, data, 1, i2c);
+          if (data[0] != i) printf(&quot;%d Device %x Reg 8 Value %x\n&quot;, j, i, data[0]);
+      }
+      for(i = 0x90; i &lt; 0x9E; i += 2) {
+          if (i == 0x94) i = 0x9C;
+          data[0] = 0;
+          x = i2c_master_read_reg(i, 7, data, 1, i2c);
+          if (data[0] != (~i &amp; 0xff)) printf(&quot;%d Device %x Reg 7 Value %x\n&quot;, j, i, data[0]);
+      }
+  }
+  return 0;
 }
 </pre></div>
 </div>
@@ -248,9 +258,9 @@ port i2cPort = XS1_PORT_4A;
       </div>
       <div class="sphinxsidebar" id='d2'>
         <div class="sphinxsidebarwrapper">
-<h3><a href="index.html"> (2v0)</a></h3>
+<h3><a href="index.html">I2C Software Component</a></h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="summary.html">I2C interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">I2C interface summary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-simple.html">Programmers guide to module_i2c_simple</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html">Programmers guide to module_i2c_master</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Programmers guide to module_i2c_single_port</a><ul>

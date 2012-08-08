@@ -19,6 +19,9 @@ The three restrictions of this module are:
 Note that on a single port it is impossible to implement clock stretching
 or multi-master.
 
+Any constants that are to be overridden should be defined in an include
+file ``i2c_conf.h``.
+
 Symbolic constants
 ==================
 
