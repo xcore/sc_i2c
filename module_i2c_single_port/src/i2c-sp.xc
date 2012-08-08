@@ -86,7 +86,6 @@ static int tx8(port i2c, unsigned data) {
         CtlAdrsData >>= 1;
     }
     ack = highPulseSample(i2c, 0);
-//    printf("Ack: %d\n", ack);
     return ack != 0;
 }
 
