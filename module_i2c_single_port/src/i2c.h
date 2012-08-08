@@ -26,7 +26,7 @@
  * default value is 1, meaning that this is on bit 0 of the port. Set to 2,
  * 4, 8, ... for other bits of the port.
  */
-#define SDA_HIGH    1
+#define SDA_HIGH    2
 
 #endif
 
@@ -37,7 +37,7 @@
  * default value is 2, meaning that this is on bit 1 of the port. Set to 1,
  * 4, 8, ... for other bits of the port.
  */
-#define SCL_HIGH    2
+#define SCL_HIGH    1
 
 #endif
 

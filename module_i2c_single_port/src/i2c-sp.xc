@@ -31,32 +31,34 @@ static void waitHalf(void) {
     waitQuarter();
 }
 
-static int highPulse(port i2c, int sdaValue) {
+static void highPulseDrive(port i2c, int sdaValue) {
     if (sdaValue) {
-        int temp;
         i2c <: SDA_HIGH | SCL_LOW | S_REST;
         waitQuarter();
         i2c :> void;
-        waitQuarter();
-        temp = (peek(i2c) & SDA_HIGH) != 0;
-        waitQuarter();
+        waitHalf();
         i2c <: SDA_HIGH | SCL_LOW | S_REST;
         waitQuarter();
-        return temp;
     } else {
         i2c <: SDA_LOW | SCL_LOW | S_REST;
         waitQuarter();
         i2c <: SDA_LOW | SCL_HIGH | S_REST;
-        waitQuarter();
-        waitQuarter();
+        waitHalf();
         i2c <: SDA_LOW | SCL_LOW | S_REST;
         waitQuarter();
-        return 0;
     }
 }
 
-static int highPulseSample(port i2c) {
-    return highPulse(i2c, 1);
+static int highPulseSample(port i2c, int expectedSDA) {
+    i2c <: (expectedSDA ? SDA_HIGH : 0) | SCL_LOW | S_REST;
+    waitQuarter();
+    i2c :> void;
+    waitQuarter();
+    expectedSDA = peek(i2c) & SDA_HIGH;
+    waitQuarter();
+    i2c <: expectedSDA | SCL_LOW | S_REST;
+    waitQuarter();
+    return expectedSDA;
 }
 
 static void startBit(port i2c) {
@@ -80,26 +82,30 @@ static int tx8(port i2c, unsigned data) {
     int ack;
     unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
     for (int i = 8; i != 0; i--) {
-        highPulse(i2c, CtlAdrsData & 1);
+        highPulseDrive(i2c, CtlAdrsData & 1);
         CtlAdrsData >>= 1;
     }
-    ack = highPulseSample(i2c);
+    ack = highPulseSample(i2c, 0);
 //    printf("Ack: %d\n", ack);
-    return ack;
+    return ack != 0;
 }
 
 #ifndef I2C_TI_COMPATIBILITY
 int i2c_master_rx(int device, unsigned char data[], int nbytes, port i2c) {
    int i;
    int rdData = 0;
+   int temp = 0;
 
    startBit(i2c);
    tx8(i2c, device | 1);
    for (i = 8; i != 0; i--) {
-       int temp = highPulseSample(i2c);
-       rdData = (rdData << 1) | temp;
+       temp = highPulseSample(i2c, temp);
+       rdData = rdData << 1;
+       if (temp) {
+           rdData |= 1;
+       }
    }
-   (void) highPulseSample(i2c);
+   (void) highPulseSample(i2c, temp);
    stopBit(i2c);
    data[0] = rdData;
    return 1;
