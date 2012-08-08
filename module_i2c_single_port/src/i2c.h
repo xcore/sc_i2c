@@ -63,7 +63,7 @@
 
 /**Function that initialises the ports on an I2C device.
  *
- * \param i2c_master Bidirectional port connected to both SDA and SCL.
+ * \param i2c Bidirectional port connected to both SDA and SCL.
  */
 void i2c_master_init(port i2c);
 
@@ -80,7 +80,7 @@ void i2c_master_init(port i2c);
  *                   parameter is provided for compatibililty with
  *                   module_i2c_master.
  *
- * \param i2c_master Bidirectional port connected to both SDA and SCL.
+ * \param i2c  Bidirectional port connected to both SDA and SCL.
  */
 int i2c_master_rx(int device, unsigned char data[], int nbytes,
                   port i2c);
@@ -98,7 +98,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes,
  *                   parameter is provided for compatibililty with
  *                   module_i2c_master.
  *
- * \param i2c_master Bidirectional port connected to both SDA and SCL.
+ * \param i2c  Bidirectional port connected to both SDA and SCL.
  */
 int i2c_master_read_reg(int device, int reg_addr,
                         unsigned char data[],
@@ -121,7 +121,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *                   must be set to '1' and is ignored in this module.
  *                   This parameter is provided for compatibililty with module_i2c_master.
  *
- * \param i2c_master Bidirectional port connected to both SDA and SCL.
+ * \param i2c  Bidirectional port connected to both SDA and SCL.
  */
 int i2c_master_write_reg(int device, int reg_addr,
                          unsigned char data[],
