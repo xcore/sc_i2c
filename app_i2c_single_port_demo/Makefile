@@ -1,4 +1,4 @@
-TARGET = XK-1
+TARGET = l2
 APP_NAME =
 XCC_FLAGS = -g -O1
 USED_MODULES = module_i2c_single_port
