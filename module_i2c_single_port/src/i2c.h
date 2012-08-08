@@ -7,6 +7,10 @@
 #ifndef _i2c_h_
 #define _i2c_h_
 
+#ifdef __i2c_conf_h_exists__
+#include "i2c_conf.h"
+#endif
+
 #include <xs1.h>
 #include <xccompat.h>
 
@@ -16,7 +20,7 @@
  * By default set to 1000 for 100 Kbit devices, but it can be overriden to
  * 250 for 400 Kbit devices.
  */
-#define I2C_BIT_TIME 1000
+#define I2C_BIT_TIME 10000
 
 #endif
 
@@ -26,7 +30,7 @@
  * default value is 1, meaning that this is on bit 0 of the port. Set to 2,
  * 4, 8, ... for other bits of the port.
  */
-#define SDA_HIGH    2
+#define SDA_HIGH    1
 
 #endif
 
@@ -37,7 +41,7 @@
  * default value is 2, meaning that this is on bit 1 of the port. Set to 1,
  * 4, 8, ... for other bits of the port.
  */
-#define SCL_HIGH    1
+#define SCL_HIGH    2
 
 #endif
 
