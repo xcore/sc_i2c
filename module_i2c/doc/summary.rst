@@ -15,7 +15,6 @@ I2C software has the following options:
 
 * Whether clock stretching is supported.
 
-
 module_i2c
 ----------
 

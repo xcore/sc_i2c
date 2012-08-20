@@ -37,4 +37,3 @@ bit rate.
 The interface comprises four functions, init, rx, reg_read, and reg_write
 that are called when required. No separate thread is required.
 
-

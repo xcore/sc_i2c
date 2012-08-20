@@ -5,5 +5,3 @@ I2C Software Component
 
    summary.rst
    api-simple.rst
-   system.rst
-   
