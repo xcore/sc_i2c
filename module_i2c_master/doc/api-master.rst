@@ -1,12 +1,16 @@
+.. _sec_api:
+I2C API
+========
+
+
+
 Programmers guide to module_i2c_master
-''''''''''''''''''''''''''''''''''''''
+--------------------------------------
 
 This module implements multi-master I2C, and can be instantiated with
 different bus speeds for each instantiation.
 
-This I2C module comprises four functions that implement I2C master. A
-simpler restrictive version is available in the module
-``module_i2c_simple``.
+This I2C module comprises four functions that implement I2C master.
 
 Types
 =====

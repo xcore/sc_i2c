@@ -1,4 +1,4 @@
-REPO=../../sc_i2c/module_i2c
+REPO=../../sc_i2c
 VERSION=2v0
 DOXYGEN_DIRS=$(REPO)/module_i2c
 SOURCE_INCLUDE_DIRS=$(REPO)

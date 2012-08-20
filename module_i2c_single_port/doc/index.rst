@@ -5,7 +5,5 @@ I2C Software Component
 
    summary.rst
    api-single-port.rst
-   system.rst
-   
 
 
