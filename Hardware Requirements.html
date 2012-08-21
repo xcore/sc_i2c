@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; I2C Software Component v documentation</title>
+    <title>Hardware Requirements &mdash; I2C Software Component v documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +22,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title="I2C Software Component v documentation" href="index.html" /> 
+    <link rel="top" title="I2C Software Component v documentation" href="index.html" />
+    <link rel="next" title="I2C API" href="api-master.html" />
+    <link rel="prev" title="Resource Requirements" href="Resource Requirements.html" /> 
 
 <script>
 function setheight() {
@@ -51,65 +51,24 @@ document.getElementById('d1').style.height=h2 + "px";
         <div class="bodywrapper">
           <div class="body">
 <div style="float: right">
+<a href="Resource Requirements.html"
+                        title="previous chapter"> &lt&lt </a>
+<a href="api-master.html"
+                        title="next chapter"> &gt&gt </a></p>
 </div>
 
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#I"><strong>I</strong></a>
- | <a href="#R"><strong>R</strong></a>
- 
+  <div class="section" id="hardware-requirements">
+<h1>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pinouts-in-each-slots">
+<h2>Pinouts in each slots<a class="headerlink" href="#pinouts-in-each-slots" title="Permalink to this headline">¶</a></h2>
+<p>Requires 1 Bit ports for Clock and Data.</p>
 </div>
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_init (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_read_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_rx (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_write_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c (C type)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.clockTicks (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c.scl (C member)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.sda (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
+<div class="section" id="compatibility">
+<h2>Compatibility<a class="headerlink" href="#compatibility" title="Permalink to this headline">¶</a></h2>
+<p>Can be used by any application requires multi master I2C component</p>
+</div>
+</div>
 
 
 
@@ -119,10 +78,14 @@ document.getElementById('d1').style.height=h2 + "px";
       <div class="sphinxsidebar" id='d2'>
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">I2C Software Component</a></h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Overview.html">I2C interface summary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Resource Requirements.html">Resource Requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Hardware Requirements.html">Hardware Requirements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Hardware Requirements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pinouts-in-each-slots">Pinouts in each slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compatibility">Compatibility</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html">I2C API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html#types">Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html#api">API</a></li>

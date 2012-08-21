@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Programmers guide to module_i2c_master &mdash; I2C Software Component  documentation</title>
+    <title>I2C API &mdash; I2C Software Component v documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title="I2C Software Component  documentation" href="index.html" />
-    <link rel="next" title="Programmers guide to module_i2c_single_port" href="api-single-port.html" />
-    <link rel="prev" title="Programmers guide to module_i2c_simple" href="api-simple.html" /> 
+    <link rel="top" title="I2C Software Component v documentation" href="index.html" />
+    <link rel="next" title="Programming Guide" href="Programming Guide.html" />
+    <link rel="prev" title="Hardware Requirements" href="Hardware Requirements.html" /> 
 
 <script>
 function setheight() {
@@ -51,26 +51,28 @@ document.getElementById('d1').style.height=h2 + "px";
         <div class="bodywrapper">
           <div class="body">
 <div style="float: right">
-<a href="api-simple.html"
+<a href="Hardware Requirements.html"
                         title="previous chapter"> &lt&lt </a>
-<a href="api-single-port.html"
+<a href="Programming Guide.html"
                         title="next chapter"> &gt&gt </a></p>
 </div>
 
             
-  <div class="section" id="programmers-guide-to-module-i2c-master">
-<h1>Programmers guide to module_i2c_master<a class="headerlink" href="#programmers-guide-to-module-i2c-master" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="i2c-api">
+<h1>I2C API<a class="headerlink" href="#i2c-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="programmers-guide-to-module-i2c-master">
+<h2>Programmers guide to module_i2c_master<a class="headerlink" href="#programmers-guide-to-module-i2c-master" title="Permalink to this headline">¶</a></h2>
 <p>This module implements multi-master I2C, and can be instantiated with
 different bus speeds for each instantiation.</p>
-<p>This I2C module comprises four functions that implement I2C master. A
-simpler restrictive version is available in the module
-<tt class="docutils literal"><span class="pre">module_i2c_simple</span></tt>.</p>
+<p>This I2C module comprises four functions that implement I2C master.</p>
+</div>
+</div>
 <div class="section" id="types">
-<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<h1>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h1>
 <dl class="type">
 <dt id="r_i2c">
 <tt class="descname">r_i2c</tt><a class="headerlink" href="#r_i2c" title="Permalink to this definition">¶</a></dt>
-<dd><p>Struct that holds the data for instantiating the I2C module - it just comprises two ports (the clock port and the data port), the only other settable parameter is the speed of the bus which is a compile time define.</p>
+<dd><p>Struct that holds the data for instantiating the I2C module - it just comprises two ports (the clock port and the data port), and the speed of the bus which is a compile time define.</p>
 <p><strong>Structure Members:</strong></p>
 <dl class="member">
 <dt id="r_i2c.scl">
@@ -86,20 +88,26 @@ port <tt class="descname">sda</tt><a class="headerlink" href="#r_i2c.sda" title=
 <p>Must be on bit 0</p>
 </dd></dl>
 
+<dl class="member">
+<dt id="r_i2c.clockTicks">
+unsigned int <tt class="descname">clockTicks</tt><a class="headerlink" href="#r_i2c.clockTicks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of reference clocks per I2C clock, set to 1000 for 100 Khz.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="api">
-<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="i2c_master_init">
-void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_init" title="Permalink to this definition">¶</a></dt>
+void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that initialises the ports on an I2C device.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>i2c_master</strong> &#8211; struct containing the clock and data ports. Both should be declared as unbuffered bidirectional ports.</li>
 </ul>
 </td>
@@ -110,16 +118,16 @@ void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="refer
 
 <dl class="function">
 <dt id="i2c_master_rx">
-int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_rx" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_rx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that reads data from an I2C device.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>device</strong> &#8211; Bus address of device, even number between 0x00 and 0xFE.</li>
 <li><strong>data</strong> &#8211; Array where data is stored.</li>
-<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data. This parameter must be set to &#8216;1&#8217; and is ignored in this module. This parameter is provided for compatibililty with module_i2c_master.</li>
+<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data.</li>
 <li><strong>i2c</strong> &#8211; struct containing the clock and data ports. Both should be declared as unbuffered bidirectional ports.</li>
 </ul>
 </td>
@@ -130,17 +138,18 @@ int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>,
 
 <dl class="function">
 <dt id="i2c_master_read_reg">
-int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_read_reg" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_read_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that reads a register from an I2C device.</p>
+<p>Note that this function uses the same interface as module_i2c but that the fields master_num and clock_mul are ignored by this function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>device</strong> &#8211; Bus address of device, even number between 0x00 and 0xFE.</li>
 <li><strong>reg_addr</strong> &#8211; Address of register to read, value between 0x00 and 0x7F.</li>
 <li><strong>data</strong> &#8211; Array where data is stored.</li>
-<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data. This parameter must be set to &#8216;1&#8217; and is ignored in this module. This parameter is provided for compatibililty with module_i2c_master.</li>
+<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data.</li>
 <li><strong>i2c_master</strong> &#8211; struct containing the clock and data ports. Both should be declared as unbuffered bidirectional ports.</li>
 </ul>
 </td>
@@ -151,18 +160,18 @@ int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device
 
 <dl class="function">
 <dt id="i2c_master_write_reg">
-int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_write_reg" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_write_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that writes to a register on an I2C device.</p>
 <p>Note that this function uses the same interface as module_i2c but that the fields master_num and clock_mul are ignored by this function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>device</strong> &#8211; Bus address of device, even number between 0x00 and 0xFE.</li>
 <li><strong>reg_addr</strong> &#8211; Address of register to write to, value between 0x00 and 0x7F.</li>
 <li><strong>data</strong> &#8211; Array where data is stored.</li>
-<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data. This parameter must be set to &#8216;1&#8217; and is ignored in this module. This parameter is provided for compatibililty with module_i2c_master.</li>
+<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data.</li>
 <li><strong>i2c_master</strong> &#8211; struct containing the clock and data ports. Both should be declared as unbuffered bidirectional ports.</li>
 </ul>
 </td>
@@ -173,7 +182,7 @@ int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;devic
 
 </div>
 <div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h1>
 <p>An example program is shown below. Two unbuffered undirectional ports must be
 declared. Neither should be configured. In this example, SCL is
 connected to the lowest bit of port 4C, and SDA is connected to port 1G.
@@ -235,7 +244,6 @@ int main(void) {
 </pre></div>
 </div>
 </div>
-</div>
 
 
 
@@ -246,16 +254,17 @@ int main(void) {
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">I2C Software Component</a></h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="summary.html">I2C interface summary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-simple.html">Programmers guide to module_i2c_simple</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Programmers guide to module_i2c_master</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#types">Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#api">API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">I2C interface summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Resource Requirements.html">Resource Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hardware Requirements.html">Hardware Requirements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">I2C API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#programmers-guide-to-module-i2c-master">Programmers guide to module_i2c_master</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api-single-port.html">Programmers guide to module_i2c_single_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-full.html">Old I2C module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#types">Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Programming Guide.html">Programming Guide</a></li>
 </ul>
 
 <div id="searchbox" style="display: none;margin-bottom: 10px;">

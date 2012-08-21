@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; I2C Software Component v documentation</title>
+    <title>Programming Guide &mdash; I2C Software Component v documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +22,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title="I2C Software Component v documentation" href="index.html" /> 
+    <link rel="top" title="I2C Software Component v documentation" href="index.html" />
+    <link rel="prev" title="I2C API" href="api-master.html" /> 
 
 <script>
 function setheight() {
@@ -51,65 +50,45 @@ document.getElementById('d1').style.height=h2 + "px";
         <div class="bodywrapper">
           <div class="body">
 <div style="float: right">
+<a href="api-master.html"
+                        title="previous chapter"> &lt&lt </a>
 </div>
 
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#I"><strong>I</strong></a>
- | <a href="#R"><strong>R</strong></a>
- 
+  <div class="section" id="programming-guide">
+<h1>Programming Guide<a class="headerlink" href="#programming-guide" title="Permalink to this headline">¶</a></h1>
+<p>This section discusses the programming aspects of the I2c master component and typical implementation and usage of the API.</p>
+<div class="section" id="structure">
+<h2>Structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<p>This is an overview of the key header files that are required, as well as the thread structure and information regarding the requirements for the component.</p>
+<div class="section" id="source-code">
+<h3>Source Code<a class="headerlink" href="#source-code" title="Permalink to this headline">¶</a></h3>
+<p>All of the files required for operation are located in the <tt class="docutils literal"><span class="pre">module_i2c_master</span></tt> directory. The files that are need to be included for use of this component in an application are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">File</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">i2c.h</span></tt></td>
+<td>Header file for simplified I2C master module and API interfaces.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="programmers-guide-to-module-i2c-master">
+<h4>Programmers guide to module_i2c_master<a class="headerlink" href="#programmers-guide-to-module-i2c-master" title="Permalink to this headline">¶</a></h4>
+<p>This module implements multi-master I2C, and can be instantiated with
+different bus speeds for each instantiation.</p>
+<p>This I2C module comprises four functions that implement I2C master.</p>
 </div>
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_init (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_read_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_rx (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_write_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c (C type)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.clockTicks (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c.scl (C member)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.sda (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
+</div>
+</div>
+</div>
 
 
 
@@ -119,7 +98,7 @@ document.getElementById('d1').style.height=h2 + "px";
       <div class="sphinxsidebar" id='d2'>
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">I2C Software Component</a></h3>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Overview.html">I2C interface summary</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Resource Requirements.html">Resource Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hardware Requirements.html">Hardware Requirements</a></li>
@@ -127,7 +106,16 @@ document.getElementById('d1').style.height=h2 + "px";
 <li class="toctree-l1"><a class="reference internal" href="api-master.html#types">Types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html#api">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html#example">Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Programming Guide.html">Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#structure">Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#programmers-guide-to-module-i2c-master">Programmers guide to module_i2c_master</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
 <div id="searchbox" style="display: none;margin-bottom: 10px;">

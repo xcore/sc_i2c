@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Index &mdash; I2C Software Component v documentation</title>
+    <title>I2C interface summary &mdash; I2C Software Component v documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +22,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
-    <link rel="top" title="I2C Software Component v documentation" href="index.html" /> 
+    <link rel="top" title="I2C Software Component v documentation" href="index.html" />
+    <link rel="next" title="Resource Requirements" href="Resource Requirements.html" />
+    <link rel="prev" title="I2C Software Component" href="index.html" /> 
 
 <script>
 function setheight() {
@@ -51,65 +51,56 @@ document.getElementById('d1').style.height=h2 + "px";
         <div class="bodywrapper">
           <div class="body">
 <div style="float: right">
+<a href="index.html"
+                        title="previous chapter"> &lt&lt </a>
+<a href="Resource Requirements.html"
+                        title="next chapter"> &gt&gt </a></p>
 </div>
 
             
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#I"><strong>I</strong></a>
- | <a href="#R"><strong>R</strong></a>
- 
+  <div class="section" id="i2c-interface-summary">
+<h1>I2C interface summary<a class="headerlink" href="#i2c-interface-summary" title="Permalink to this headline">¶</a></h1>
+<p>I2C is the Philips 2 wire interface, used to configure many digital chips.
+I2C software has the following options:</p>
+<ul class="simple">
+<li>Whether we are a <em>master</em> or a <em>slave</em>. Devices that are configured are
+slaves, the master configures other devices.</li>
+<li>The speed supported. Normal speeds are 100 Kb/s and 400 Kb/s.</li>
+<li>Whether there is a single I2C bus or multiple I2C busses.</li>
+<li>Whether there is a single master or multiple masters.</li>
+<li>Whether clock stretching is supported.</li>
+</ul>
+<div class="section" id="module-i2c-master">
+<h2>module_i2c_master<a class="headerlink" href="#module-i2c-master" title="Permalink to this headline">¶</a></h2>
+<p>This module will support must master, at 100 or 400, 1000 kbit/s with clock
+stretching on multiple I2C busses. It provides virtually the same interface as
+module_i2c_simple.2</p>
+<table border="1" class="vertical-borders horizontal-borders docutils">
+<colgroup>
+<col width="36%" />
+<col width="15%" />
+<col width="16%" />
+<col width="32%" />
+</colgroup>
+<tbody valign="top">
+<tr><td rowspan="2">Functionality provided</td>
+<td colspan="2">Resources required</td>
+<td rowspan="2">Status</td>
+</tr>
+<tr><td>Ports</td>
+<td>Memory</td>
+</tr>
+<tr><td>Multi master</td>
+<td>2</td>
+<td>900 bytes</td>
+<td>Implemented</td>
+</tr>
+</tbody>
+</table>
+<p>The interface comprises four functions, init, rx, reg_read, and reg_write
+that are called when required. No separate thread is required.</p>
 </div>
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_init (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_read_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>i2c_master_rx (C function)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>i2c_master_write_reg (C function)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
-<h2 id="R">R</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c (C type)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.clockTicks (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
-      
-  <dt><a href="p"><strong>r_i2c.scl (C member)</strong></a>
-  </dt>
-
-      
-  <dt><a href="p"><strong>r_i2c.sda (C member)</strong></a>
-  </dt>
-
-  </dl></td>
-</tr></table>
-
+</div>
 
 
 
@@ -119,8 +110,11 @@ document.getElementById('d1').style.height=h2 + "px";
       <div class="sphinxsidebar" id='d2'>
         <div class="sphinxsidebarwrapper">
 <h3><a href="index.html">I2C Software Component</a></h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Overview.html">I2C interface summary</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">I2C interface summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-i2c-master">module_i2c_master</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Resource Requirements.html">Resource Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Hardware Requirements.html">Hardware Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-master.html">I2C API</a></li>
