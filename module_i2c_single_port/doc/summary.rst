@@ -16,7 +16,6 @@ I2C software has the following options:
 * Whether clock stretching is supported.
 
 
-
 module_i2c_single_port
 ----------------------
 
@@ -39,11 +38,4 @@ The interface comprises four functions, init, rx, reg_read, and reg_write
 that are called when required. No separate thread is required.
 
 Note that this module is not extensively tested.
-
-module_i2c
-----------
-
-This module will no longer be maintained, and new users are encouraged to
-use the new interface on module_i2c_simple, module_i2c_master, and/or
-module_i2c_slave.
 

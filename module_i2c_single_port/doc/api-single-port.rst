@@ -1,5 +1,5 @@
 Programmers guide to module_i2c_single_port
-'''''''''''''''''''''''''''''''''''''''''''
+-------------------------------------------
 
 This I2C module comprises four functions that implement I2C master. It is a
 small and simple version of the protocol with limitations (described

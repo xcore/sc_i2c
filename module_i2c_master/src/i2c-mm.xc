@@ -105,7 +105,6 @@ static int tx8(struct r_i2c &i2c, unsigned data) {
         }
         CtlAdrsData >>= 1;
     }
-//    printf("Sent all bits\n");
     return highPulse(i2c, 1) == 0;
 }
 

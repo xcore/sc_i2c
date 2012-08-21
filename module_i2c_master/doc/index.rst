@@ -3,8 +3,9 @@ I2C Software Component
 
 .. toctree::
 
-   summary.rst
+   Overview.rst
+   Resource Requirements.rst
+   Hardware Requirements.rst
    api-master.rst
-   system.rst
+   Programming Guide.rst
    
-
