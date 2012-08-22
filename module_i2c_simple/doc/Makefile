@@ -1,8 +1,8 @@
-REPO=../../sc_i2c
+REPO=../../../sc_i2c
 VERSION=2v0
 DOXYGEN_DIRS=$(REPO)/module_i2c_simple
 SOURCE_INCLUDE_DIRS=$(REPO)
-XDOC_DIR ?= ../../xdoc
+XDOC_DIR ?= ../../../xdoc
 include $(XDOC_DIR)/Makefile.inc
 
 all: html pdf
