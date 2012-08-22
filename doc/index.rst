@@ -1,12 +1,11 @@
-I2C Software Component
-----------------------
+Documentation
+-------------
 
 .. toctree::
 
    summary.rst
    api-simple.rst
    api-master.rst
-   api-single-port.rst
    api-full.rst
 
 

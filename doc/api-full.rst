@@ -1,6 +1,3 @@
-Old I2C module
-''''''''''''''
-
 Overview 
 ========
 

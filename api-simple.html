@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Programmers guide to module_i2c_master &mdash; I2C Software Component  documentation</title>
+    <title>Programmers guide to module_i2c_simple &mdash; I2C Software Component  documentation</title>
     <link rel="stylesheet" href="_static/xdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -23,8 +23,8 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/xcomment.js"></script>
     <link rel="top" title="I2C Software Component  documentation" href="index.html" />
-    <link rel="next" title="Programmers guide to module_i2c_single_port" href="api-single-port.html" />
-    <link rel="prev" title="Programmers guide to module_i2c_simple" href="api-simple.html" /> 
+    <link rel="next" title="Programmers guide to module_i2c_master" href="api-master.html" />
+    <link rel="prev" title="I2C interface summary" href="summary.html" /> 
 
 <script>
 function setheight() {
@@ -51,20 +51,39 @@ document.getElementById('d1').style.height=h2 + "px";
         <div class="bodywrapper">
           <div class="body">
 <div style="float: right">
-<a href="api-simple.html"
+<a href="summary.html"
                         title="previous chapter"> &lt&lt </a>
-<a href="api-single-port.html"
+<a href="api-master.html"
                         title="next chapter"> &gt&gt </a></p>
 </div>
 
             
-  <div class="section" id="programmers-guide-to-module-i2c-master">
-<h1>Programmers guide to module_i2c_master<a class="headerlink" href="#programmers-guide-to-module-i2c-master" title="Permalink to this headline">¶</a></h1>
-<p>This module implements multi-master I2C, and can be instantiated with
-different bus speeds for each instantiation.</p>
-<p>This I2C module comprises four functions that implement I2C master. A
-simpler restrictive version is available in the module
-<tt class="docutils literal"><span class="pre">module_i2c_simple</span></tt>.</p>
+  <div class="section" id="programmers-guide-to-module-i2c-simple">
+<h1>Programmers guide to module_i2c_simple<a class="headerlink" href="#programmers-guide-to-module-i2c-simple" title="Permalink to this headline">¶</a></h1>
+<p>This I2C module comprises four functions that implement I2C master. It is a
+small and simple version of the protocol with limitations (described
+below), a full version with a compatible interface is available in
+<tt class="docutils literal"><span class="pre">module_i2c_master</span></tt>, but is has a bigger memory footprint.</p>
+<p>The three restrictions of this module are:</p>
+<ol class="arabic simple">
+<li>It does not implement clock-stretching: it should only be used when
+slaves do not attempt to stretch the clock.</li>
+<li>It does not implement multi-master: it should only be used when the
+XCore is the only master on the I2C bus.</li>
+<li>The speed of the bus is defined using a compile-time define
+(<tt class="docutils literal"><span class="pre">I2C_BIT_TIME</span></tt>), and when using this module with multiple I2C busses
+they will all run at the same speed.</li>
+</ol>
+<div class="section" id="symbolic-constants">
+<h2>Symbolic constants<a class="headerlink" href="#symbolic-constants" title="Permalink to this headline">¶</a></h2>
+<dl class="macro">
+<dt id="I2C_BIT_TIME">
+<tt class="descname">I2C_BIT_TIME</tt><a class="headerlink" href="#I2C_BIT_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p>This constant defines the time in clock ticks between successive bits.</p>
+<p>By default set to 1000 for 100 Kbit devices, but it can be overriden to 250 for 400 Kbit devices.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="types">
 <h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
 <dl class="type">
@@ -93,7 +112,7 @@ port <tt class="descname">sda</tt><a class="headerlink" href="#r_i2c.sda" title=
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="i2c_master_init">
-void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_init" title="Permalink to this definition">¶</a></dt>
+void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that initialises the ports on an I2C device.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -110,7 +129,7 @@ void <tt class="descname">i2c_master_init</tt><big>(</big>struct <a class="refer
 
 <dl class="function">
 <dt id="i2c_master_rx">
-int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_rx" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c</em><big>)</big><a class="headerlink" href="#i2c_master_rx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that reads data from an I2C device.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -130,7 +149,7 @@ int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>,
 
 <dl class="function">
 <dt id="i2c_master_read_reg">
-int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_read_reg" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_read_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that reads a register from an I2C device.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -151,7 +170,7 @@ int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device
 
 <dl class="function">
 <dt id="i2c_master_write_reg">
-int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_write_reg" title="Permalink to this definition">¶</a></dt>
+int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_write_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that writes to a register on an I2C device.</p>
 <p>Note that this function uses the same interface as module_i2c but that the fields master_num and clock_mul are ignored by this function.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -176,60 +195,28 @@ int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;devic
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>An example program is shown below. Two unbuffered undirectional ports must be
 declared. Neither should be configured. In this example, SCL is
-connected to the lowest bit of port 4C, and SDA is connected to port 1G.
-Note that in comparison with <tt class="docutils literal"><span class="pre">module_i2c_simple</span></tt> the clock speed is
-defined as part of the I2C bus-declaration:</p>
+connected to the lowest bit of port 4C, and SDA is connected to port 1G:</p>
 <div class="highlight-none"><div class="highlight"><pre>#include &lt;stdio.h&gt;
 #include &lt;xs1.h&gt;
 #include &quot;i2c.h&quot;
 
-struct r_i2c i2cOne = {
-    XS1_PORT_1B,
-    XS1_PORT_1A,
-    1008,
-};
-
-struct r_i2c i2cTwo = {
-    XS1_PORT_1F,
-    XS1_PORT_1E,
-    1000,
+struct r_i2c i2cPorts = {
+    XS1_PORT_4C,
+    XS1_PORT_1G,
 };
 </pre></div>
 </div>
 <p>The main program calls <tt class="docutils literal"><span class="pre">_read_reg</span></tt> and <tt class="docutils literal"><span class="pre">_write_reg</span></tt> as appropriate:</p>
-<div class="highlight-none"><div class="highlight"><pre>void beMaster(int id, int device, struct r_i2c &amp;i2cPorts, streaming chanend sync) {
+<div class="highlight-none"><div class="highlight"><pre>int main(void) {
     unsigned char data[10];
-    timer t; unsigned t0, t1, time[10];
-
+    
     i2c_master_init(i2cPorts);
-    for(int i = 0; i &lt; 10; i++) {
-        sync &lt;: 1;
-        sync :&gt; int _;
-        t :&gt; t0;
-        if (i2c_master_read_reg(device, 0x0, data, 1, i2cPorts)) {
-            t :&gt; t1;
-            if (data[0] != 0xff) {
-//                printf(&quot;%d %3d: %02x\n&quot;, id, i, data[0]);
-            }                                   
-            time[i] = t1-t0;
-        } else {
-            printf(&quot;%d: Fail\n&quot;, id);
-        }
-    }
-    for(int i = 0; i &lt; 10; i++) {
-        printf(&quot;%d: %d\n&quot;, id, time[i]);
-    }
-}
-
-int main(void) {
-    streaming chan sync;
-    unsigned char data[1];
-    par {
-        beMaster(0, 82, i2cOne, sync);
-        beMaster(1, 82, i2cTwo, sync);
-    }
-    i2c_master_write_reg(82, 0x0, data, 1, i2cOne);
-
+    data[0] = 0x12;
+    i2c_master_write_reg(0x90, 0x07, data, 1, i2cPorts);
+    data[0] = 0x78;
+    i2c_master_write_reg(0x90, 0x08, data, 1, i2cPorts);
+    i2c_master_read_reg(0x90, 0x07, data, 1, i2cPorts);
+    printf(&quot;0x%02x (should be 0x12)\n&quot;, data[0]);
     return 0;
 }
 </pre></div>
@@ -247,13 +234,14 @@ int main(void) {
 <h3><a href="index.html">I2C Software Component</a></h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="summary.html">I2C interface summary</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api-simple.html">Programmers guide to module_i2c_simple</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Programmers guide to module_i2c_master</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Programmers guide to module_i2c_simple</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#symbolic-constants">Symbolic constants</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#types">Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api">API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="api-master.html">Programmers guide to module_i2c_master</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-single-port.html">Programmers guide to module_i2c_single_port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-full.html">Old I2C module</a></li>
 </ul>
