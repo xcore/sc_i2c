@@ -1,24 +1,33 @@
 .. _sec_api:
-I2C API
-========
 
+Programming Guide
+=================
 
+The module can be instantiated with different bus speeds with each instantiation, and comprises four functions that implement I2C master.
 
-Programmers guide to module_i2c_master
---------------------------------------
+Structure
+---------
 
-This module implements multi-master I2C, and can be instantiated with
-different bus speeds for each instantiation.
+All of the files required for operation are located in the ``module_i2c_master/src`` directory. The files that are need to be included for use of this component in an application are:
 
-This I2C module comprises four functions that implement I2C master.
+.. list-table::
+    :header-rows: 1
+    
+    * - File
+      - Description
+    * - ``i2c.h``
+      - Header file for simplified I2C master module and API interfaces.
+    * - ``i2c-mm.xc``
+      - Module function library
+
 
 Types
-=====
+-----
 
 .. doxygenstruct:: r_i2c
 
 API
-===
+---
 
 .. doxygenfunction:: i2c_master_init
 
@@ -29,22 +38,7 @@ API
 .. doxygenfunction:: i2c_master_write_reg
 
 
-Example
-=======
+Example Usage
+-------------
 
-
-An example program is shown below. Two unbuffered undirectional ports must be
-declared. Neither should be configured. In this example, SCL is
-connected to the lowest bit of port 4C, and SDA is connected to port 1G.
-Note that in comparison with ``module_i2c_simple`` the clock speed is
-defined as part of the I2C bus-declaration:
-
-.. literalinclude:: app_i2c_master_demo/src/main.xc
-  :start-after: //::declaration
-  :end-before: //::
-
-The main program calls ``_read_reg`` and ``_write_reg`` as appropriate:
-
-.. literalinclude:: app_i2c_master_demo/src/main.xc
-  :start-after: //::main program
-  :end-before: //::
+**Sethu, insert example code from sw_gpio_examples here**

@@ -7,5 +7,5 @@ I2C Software Component
    Resource Requirements.rst
    Hardware Requirements.rst
    api-master.rst
-   Programming Guide.rst
+   
    
