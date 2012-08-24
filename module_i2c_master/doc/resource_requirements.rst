@@ -1,9 +1,6 @@
 Resource Requirements
 ---------------------
 
-XCORE Ports
-+++++++++++
-
 The following resources on the XCore Tile are used:
 
 .. list-table::
