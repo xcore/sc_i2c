@@ -3,25 +3,35 @@ Resource Requirements
 
 The following resources on the XCore Tile are used:
 
+Resources
++++++++++
+
 .. list-table::
     :header-rows: 1
 
-    
-    * - Resource
-      - Quantity
+    * - Operation
+      - Resource Type
+      - Number required
       - Notes
-    * - 1 bit ports
-      - 2
-      - SCL (clock, output), SDA (data, inout)
-    * - Memory
-      - 1564 bytes
-      - code memory   
-    * - Channelends
-      - none
-      - 
-    * - Timers
-      - 2
-      - 
+    * - I2C master SCL
+      - 1 bit port (output)
+      - 1
+      - I2C master clock, needs external pull-up
+    * - I2C Master SDA
+      - 1 bit port
+      - 1
+      - data line, needs external pull-up
+    * - I2C IO timing
+      - timers
+      - 2 
+      -
+
+Memory
+++++++
+  
+The whole library uses approximately 1500 Bytes.
+
+      
 
 
 

@@ -1,0 +1,76 @@
+-------------------------------------------------------------------------------
+-- Descriptive metadata
+-------------------------------------------------------------------------------
+
+componentName = "xSOFTip I2C Master Function Library"
+componentFullName = ""
+alternativeNames = { }
+componentDescription = "A function library for implementing an I2C Master running at up to 400 Kbit/s "
+componentVersion = "1v0"
+
+-------------------------------------------------------------------------------
+-- Parameter descriptions.
+-------------------------------------------------------------------------------
+
+configPoints =
+{
+  ClockPeriod =
+  {
+    short   = "tClock",
+    long    = "I2C Clock Period",
+    help    = "Length of I2C clock period in reference clock ticks(10ns). E.g. Set to 1000 for 100kbit/s operation"
+    units   = "",
+    type    = "int",
+    min     = 250, 
+    resourceUsageFlags = {"noeffect"},
+    default = 3
+  },
+}
+
+derivedValues = {}
+
+ports = {
+  p_i2c_master_scl = {
+    short   = "SCL",
+    long    = "I2C clock from master",
+    help    = "",
+    width   = 1
+  },
+  p_i2c_master_sda = {
+    short   = "SDA",
+    long    = "I2C shared data line",
+    help    = "",
+    width   = 1
+  },
+}
+
+channels = {
+}        
+
+function getConfigStatus()
+  local status = "Trusted Configuration"
+  local issues = {}
+  return status, issues
+end
+            
+-------------------------------------------------------------------------------
+-- Source generation functions
+-------------------------------------------------------------------------------
+
+generatedCode = {
+  includes = { 
+    "i2c.h"
+  },
+  globals = [[
+    r_i2c i2c${swblock.id}_if = { ${swblock.ports.p_i2c_master_scl}, ${swblock.ports.p_i2c_master_sda}, 1000}
+  ]],
+  body = [[
+  ]]
+}
+
+struct r_i2c i2cTwo = {
+    XS1_PORT_1F,
+    XS1_PORT_1E,
+    ${swblock.configPoints.ClockPeriod}
+};
+

@@ -1,12 +1,20 @@
 <?xml version="1.0" ?>
 <xpd>
-    <dependency repo = "xcommon">
-        <githash>b7b5be59795a0a4b3fee4aeaff3c8e398bf76d27</githash>
-        <uri>ssh://git@github.com/xcore/xcommon</uri>
-        <version>1.0.0rc2</version>
-    </dependency>
+    <components>
+        <component description = "I2C Master function library for 1 bit ports" scope = "General Use" path = "module_i2c_master" type = "Library" id = "module_i2c_master" name = "I2C Master (1 bit ports)">
+            <board>XA-SK-GPIO</board>
+            <keyword>I2C</keyword>
+        </component>
+    </components>
     <description>I2C Software Component</description>
-    <docdir>doc</docdir>
+    <docdir>module_i2c_master/doc</docdir>
+    <exclude_dir>app_i2c_master_demo</exclude_dir>
+    <exclude_dir>app_i2c_simple_demo</exclude_dir>
+    <exclude_dir>app_i2c_single_port_demo</exclude_dir>
+    <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
+    <exclude_dir>module_i2c</exclude_dir>
+    <exclude_dir>module_i2c_simple</exclude_dir>
+    <exclude_dir>module_i2c_single_port</exclude_dir>
     <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
@@ -16,8 +24,7 @@
     <release parenthash = "bcc4482ec1a8e158d6321aa8f1bfdc7a213bb035" version = "2.0.0rc0" githash = "2ec286798c37e34a3130eb1b23471bf42ff6b2af"></release>
     <release parenthash = "459b3f4fe52124960c2d42b1932f204c3161d425" version = "2.0.0rc1" githash = "b89c5045029d8e8d7ef4a4ce6f94eb6791ea2735"></release>
     <release parenthash = "d8dff135311c6732ac3fa4a0081319fd5f4cebb2" version = "2.0.0rc2" githash = "3c44407c1a443919992568c0380e1661ffb9c3be"></release>
-    <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3"></release>
-    <scope>example</scope>
+    <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
     <subpartnumber>XM-000072-SW</subpartnumber>
     <vendor>XMOS</vendor>
     <xpd_version>1.0</xpd_version>
