@@ -18,12 +18,13 @@ configPoints =
   {
     short   = "tClock",
     long    = "I2C Clock Period",
-    help    = "Length of I2C clock period in reference clock ticks(10ns). E.g. Set to 1000 for 100kbit/s operation"
+    help    = "Length of I2C clock period in reference clock ticks(10ns). E.g. Set to 1000 for 100kbit/s operation",
     units   = "",
     type    = "int",
     min     = 250, 
+    max     = 1000000, 
     resourceUsageFlags = {"noeffect"},
-    default = 3
+    default = 1000
   },
 }
 
@@ -62,15 +63,9 @@ generatedCode = {
     "i2c.h"
   },
   globals = [[
-    r_i2c i2c${swblock.id}_if = { ${swblock.ports.p_i2c_master_scl}, ${swblock.ports.p_i2c_master_sda}, 1000}
+    r_i2c i2c${swblock.id}_if = { ${swblock.ports.p_i2c_master_scl}, ${swblock.ports.p_i2c_master_sda}, 1000};
   ]],
   body = [[
   ]]
 }
-
-struct r_i2c i2cTwo = {
-    XS1_PORT_1F,
-    XS1_PORT_1E,
-    ${swblock.configPoints.ClockPeriod}
-};
 
