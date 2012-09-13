@@ -60,7 +60,7 @@ end
 
 generatedCode = {
   includes = { 
-    "i2c.h"
+    "i2c.h",
   },
   globals = [[
     r_i2c i2c${swblock.id}_if = { ${swblock.ports.p_i2c_master_scl}, ${swblock.ports.p_i2c_master_sda}, 1000};
@@ -69,3 +69,4 @@ generatedCode = {
   ]]
 }
 
+api = {'i2c_master_init','i2c_master_rx','i2c_master_read_reg','i2c_master_write_reg'}

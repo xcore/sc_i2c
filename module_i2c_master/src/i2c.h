@@ -24,12 +24,12 @@
  * comprises two ports (the clock port and the data port), and the speed of
  * the bus which is a compile time define.
  */
-struct r_i2c {
+typedef struct r_i2c {
     port scl;      /**< Port on which clock wire is attached. Must be on bit 0 */
     port sda;      /**< Port on which data wire is attached. Must be on bit 0 */
     unsigned int clockTicks; /**< Number of reference clocks per I2C clock,
                               *   set to 1000 for 100 Khz. */
-};
+}  r_i2c;
 
 /**Function that initialises the ports on an I2C device.
  *
