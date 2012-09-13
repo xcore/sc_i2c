@@ -154,10 +154,12 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
    startBit(i2c, 1);
    if (!tx8(i2c, device<<1)) return floatWires(i2c);
+#ifndef AD7995_0
 #ifdef I2C_TI_COMPATIBILITY
    if (!tx8(i2c, addr << 1 | (s_data[0] >> 8) & 1)) return floatWires(i2c);
 #else
    if (!tx8(i2c, addr)) return floatWires(i2c);
+#endif
 #endif
    for(int j = 0; j < nbytes; j++) {
        if (!tx8(i2c, s_data[j])) return floatWires(i2c);
