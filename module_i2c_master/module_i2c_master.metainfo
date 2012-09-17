@@ -2,7 +2,7 @@
 -- Descriptive metadata
 -------------------------------------------------------------------------------
 
-componentName = "xSOFTip I2C Master Function Library"
+componentName = "I2C Master Function Library (Single Bit Ports)"
 componentFullName = ""
 alternativeNames = { }
 componentDescription = "A function library for implementing an I2C Master running at up to 400 Kbit/s "
