@@ -1,5 +1,5 @@
-XSoftIP I2C Master (Single Bit Ports) Function Library
-======================================================
+I2C Master (Single Bit Ports) Function Library
+==============================================
 
 :scope: General Use
 :description: Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports 

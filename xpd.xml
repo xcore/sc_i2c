@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <xpd>
     <components>
-        <component name = "XSoftIP I2C Master (Single Bit Ports) Function Library" buildresults_path = "module_i2c_master/.module_i2c_master.buildresults.xml" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" type = "component" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
+        <component name = "I2C Master (Single Bit Ports) Function Library" type = "component" buildresults_path = "module_i2c_master/.module_i2c_master.buildinfo" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" local = "false" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
             <board>XA-SK-GPIO</board>
             <keyword>I2C</keyword>
         </component>
@@ -27,5 +27,6 @@
     <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
     <subpartnumber>XM-000072-SW</subpartnumber>
     <vendor>XMOS</vendor>
+    <xcore_repo>sc_i2c</xcore_repo>
     <xpd_version>1.0</xpd_version>
 </xpd>
