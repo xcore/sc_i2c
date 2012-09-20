@@ -19,13 +19,11 @@
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
     <maintainer>djpwilk</maintainer>
-    <partnumber>XM-001649-DH</partnumber>
     <release parenthash = "c5638337ac2838336d2a02bfc7633d928e46536c" version = "2.0.0beta0" githash = "045a0e4d4a19484016300c1f635258b5d11dce0f"></release>
     <release parenthash = "bcc4482ec1a8e158d6321aa8f1bfdc7a213bb035" version = "2.0.0rc0" githash = "2ec286798c37e34a3130eb1b23471bf42ff6b2af"></release>
     <release parenthash = "459b3f4fe52124960c2d42b1932f204c3161d425" version = "2.0.0rc1" githash = "b89c5045029d8e8d7ef4a4ce6f94eb6791ea2735"></release>
     <release parenthash = "d8dff135311c6732ac3fa4a0081319fd5f4cebb2" version = "2.0.0rc2" githash = "3c44407c1a443919992568c0380e1661ffb9c3be"></release>
     <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
-    <subpartnumber>XM-000072-SW</subpartnumber>
     <vendor>XMOS</vendor>
     <xcore_repo>sc_i2c</xcore_repo>
     <xpd_version>1.0</xpd_version>
