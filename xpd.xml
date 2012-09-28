@@ -14,6 +14,7 @@
     <docdir>module_i2c_master/doc</docdir>
     <exclude_dir>app_i2c_master_demo</exclude_dir>
     <exclude_dir>app_i2c_simple_demo</exclude_dir>
+    <exclude_dir>app_i2c_single_port_demo</exclude_dir>
     <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
     <exclude_dir>module_i2c</exclude_dir>
     <exclude_dir>module_i2c_simple</exclude_dir>
