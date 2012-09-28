@@ -5,6 +5,10 @@
             <board>XA-SK-GPIO</board>
             <keyword>I2C</keyword>
         </component>
+        <component name = "I2C Master (Multi Bit Port) Function Library" type = "component" buildresults_path = "module_i2c_single_port/.module_i2c_single_port.buildinfo" scope = "General Use" path = "module_i2c_single_port" metainfo_path = "module_i2c_single_port/module_i2c_single_port.metainfo" local = "false" id = "module_i2c_single_port" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port">
+            <board>XA-SK-AUDIO</board>
+            <keyword>I2C</keyword>
+        </component>
     </components>
     <description>I2C Software Component</description>
     <docdir>module_i2c_master/doc</docdir>

@@ -1,5 +1,5 @@
 I2C Master (Multi Bit Port) Function Library
-==============================================
+============================================
 
 :scope: General Use
 :description: Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port
