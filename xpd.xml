@@ -13,7 +13,6 @@
     <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
     <exclude_dir>module_i2c</exclude_dir>
     <exclude_dir>module_i2c_simple</exclude_dir>
-    <exclude_dir>module_i2c_single_port</exclude_dir>
     <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
