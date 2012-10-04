@@ -8,14 +8,7 @@
     </components>
     <description>I2C Software Component</description>
     <docdir>module_i2c_master/doc</docdir>
-    <xsoftip_exclude>app_i2c_master_demo</xsoftip_exclude>
-    <xsoftip_exclude>app_i2c_simple_demo</xsoftip_exclude>
-    <xsoftip_exclude>app_i2c_single_port_demo</xsoftip_exclude>
     <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
-    <xsoftip_exclude>module_i2c</xsoftip_exclude>
-    <xsoftip_exclude>module_i2c_simple</xsoftip_exclude>
-    <xsoftip_exclude>module_i2c_single_port</xsoftip_exclude>
-    <xsoftip_exclude>app_xdk_xai_i2c_test</xsoftip_exclude>
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
     <maintainer>djpwilk</maintainer>
@@ -26,9 +19,16 @@
     <release parenthash = "d8dff135311c6732ac3fa4a0081319fd5f4cebb2" version = "2.0.0rc2" githash = "3c44407c1a443919992568c0380e1661ffb9c3be"></release>
     <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
     <release parenthash = "c8d766c249d1b13cdbf7a8140d613a143e62504e" version = "2.1.0alpha0" githash = "2109b9294da0af5872e8c596c80f8bba3d539559"></release>
-    <release parenthash = "69533c451e47767a270d61241f0286a1bfd7c730" version = "2.1.0alpha1"></release>
+    <release parenthash = "69533c451e47767a270d61241f0286a1bfd7c730" version = "2.1.0alpha1" githash = "621bd92b471743fabd51d11b86e361f1a426628c"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <xcore_repo>sc_i2c</xcore_repo>
     <xpd_version>1.0</xpd_version>
+    <xsoftip_exclude>app_i2c_master_demo</xsoftip_exclude>
+    <xsoftip_exclude>app_i2c_simple_demo</xsoftip_exclude>
+    <xsoftip_exclude>app_i2c_single_port_demo</xsoftip_exclude>
+    <xsoftip_exclude>module_i2c</xsoftip_exclude>
+    <xsoftip_exclude>module_i2c_simple</xsoftip_exclude>
+    <xsoftip_exclude>module_i2c_single_port</xsoftip_exclude>
+    <xsoftip_exclude>app_xdk_xai_i2c_test</xsoftip_exclude>
 </xpd>
