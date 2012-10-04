@@ -1,7 +1,7 @@
 XCORE.com I2C Master Component
 ..............................
 
-:Latest release: 2.1.0alpha1
+:Latest release: 2.1.0alpha2
 :Maintainer: djpwilk
 :Description: I2C Software Component
 

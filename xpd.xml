@@ -20,6 +20,7 @@
     <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
     <release parenthash = "c8d766c249d1b13cdbf7a8140d613a143e62504e" version = "2.1.0alpha0" githash = "2109b9294da0af5872e8c596c80f8bba3d539559"></release>
     <release parenthash = "69533c451e47767a270d61241f0286a1bfd7c730" version = "2.1.0alpha1" githash = "621bd92b471743fabd51d11b86e361f1a426628c"></release>
+    <release parenthash = "e5eb58e2046ac90ae4abe24dc0787563dae94e2d" version = "2.1.0alpha2"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <xcore_repo>sc_i2c</xcore_repo>
