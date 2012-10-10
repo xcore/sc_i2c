@@ -1,7 +1,7 @@
-I2C Master (Multi Bit Port) Function Library
-============================================
+I2C Master (Using A Single Multi Bit Port) Function Library
+===========================================================
 
-:scope: General Use
+:scope: Early Development
 :description: Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port
 :keywords: I2C
 :boards: XA-SK-AUDIO
