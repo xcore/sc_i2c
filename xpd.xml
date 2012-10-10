@@ -5,7 +5,7 @@
             <board>XA-SK-GPIO</board>
             <keyword>I2C</keyword>
         </component>
-        <component name = "I2C Master (Multi Bit Port) Function Library" type = "component" buildresults_path = "module_i2c_single_port/.module_i2c_single_port.buildinfo" scope = "General Use" path = "module_i2c_single_port" metainfo_path = "module_i2c_single_port/module_i2c_single_port.metainfo" local = "false" id = "module_i2c_single_port" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port">
+        <component name = "I2C Master (Using A Single Multi Bit Port) Function Library" type = "component" buildresults_path = "module_i2c_single_port/.module_i2c_single_port.buildinfo" scope = "Early Development" path = "module_i2c_single_port" metainfo_path = "module_i2c_single_port/module_i2c_single_port.metainfo" local = "false" id = "module_i2c_single_port" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port">
             <board>XA-SK-AUDIO</board>
             <keyword>I2C</keyword>
         </component>
@@ -30,7 +30,8 @@
     <release parenthash = "d8dff135311c6732ac3fa4a0081319fd5f4cebb2" version = "2.0.0rc2" githash = "3c44407c1a443919992568c0380e1661ffb9c3be"></release>
     <release parenthash = "ef93cc1de5143be8f5dc92e399c340c735a23cec" version = "2.0.0rc3" githash = "86cb497a5ee519fbc0c4bb597adeeb135d3e97e1"></release>
     <release parenthash = "c8d766c249d1b13cdbf7a8140d613a143e62504e" version = "2.1.0alpha0" githash = "2109b9294da0af5872e8c596c80f8bba3d539559"></release>
-    <release parenthash = "30b00a5e403978a1a7fc4300bd7b311a36ac7a27" version = "2.1.0alpha1"></release>
+    <release parenthash = "30b00a5e403978a1a7fc4300bd7b311a36ac7a27" version = "2.1.0alpha1" githash = "ca4402ef45d14bff260c4230950cfc4d30fc801e"></release>
+    <release parenthash = "bd763c072a9b94aa2c25beaf0e21392e3ae4b0d7" version = "2.1.0alpha2"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <xcore_repo>sc_i2c</xcore_repo>
