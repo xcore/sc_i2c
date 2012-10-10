@@ -161,152 +161,82 @@ targetID="org.eclipse.cdt.build.MakeTargetBuilder">
                                     <listOptionValue builtIn="false" value='&quot;${XMOS_DOC_PATH}/../target/include/gcc&quot;' />
                                     <listOptionValue builtIn="false" value='&quot;${XMOS_DOC_PATH}/../target/include/c++/4.2.1&quot;' />
                                     <listOptionValue builtIn="false" value='&quot;${XMOS_DOC_PATH}/../target/include/c++/4.2.1/xcore-xmos-elf&quot;' />
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                                 <inputType id = "com.xmos.cdt.xc.compiler.input.55422767" name="XC Sources" superClass="com.xmos.cdt.xc.compiler.input" />
                                 <option id = "gnu.c.compiler.option.include.paths.61093803" valueType="includePath" superClass="gnu.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                             </tool>
                             <tool id = "com.xmos.cdt.xc.compiler.base.53380591" name="com.xmos.cdt.xc.compiler.base" superClass="com.xmos.cdt.xc.compiler.base">
                                 <option id = "gnu.c.compiler.option.include.paths.78073927" valueType="includePath" superClass="gnu.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                                 <option id = "com.xmos.c.compiler.option.include.paths.84493335" valueType="includePath" superClass="com.xmos.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                             </tool>
                             <tool id = "com.xmos.cdt.c.compiler.base.39387384" name="com.xmos.cdt.c.compiler.base" superClass="com.xmos.cdt.c.compiler.base">
                                 <option id = "gnu.c.compiler.option.include.paths.62942135" valueType="includePath" superClass="gnu.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                                 <option id = "com.xmos.c.compiler.option.include.paths.11113741" valueType="includePath" superClass="com.xmos.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                             </tool>
                             <tool id = "com.xmos.cdt.cpp.compiler.base.72754514" name="com.xmos.cdt.cpp.compiler.base" superClass="com.xmos.cdt.cpp.compiler.base">
                                 <option id = "gnu.c.compiler.option.include.paths.28287365" valueType="includePath" superClass="gnu.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                                 <option id = "com.xmos.c.compiler.option.include.paths.3177697" valueType="includePath" superClass="com.xmos.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                             </tool>
                             <tool id = "com.xmos.cdt.core.assembler.base.28447923" name="com.xmos.cdt.core.assembler.base" superClass="com.xmos.cdt.core.assembler.base">
                                 <option id = "gnu.c.compiler.option.include.paths.7619410" valueType="includePath" superClass="gnu.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                                 <option id = "com.xmos.c.compiler.option.include.paths.51110658" valueType="includePath" superClass="com.xmos.c.compiler.option.include.paths">
-                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/bin}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c/src}&quot;' />
+                                    <listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/fake_inc}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/.build/sc_i2c/module_i2c}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c}&quot;' />
+<listOptionValue builtIn="false" value='&quot;${workspace_loc:/app_xdk_xai_i2c_test/src}&quot;' />
 
                                 </option>
                             </tool>

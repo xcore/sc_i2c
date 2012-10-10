@@ -13,13 +13,6 @@
     <description>I2C Software Component</description>
     <docdir>module_i2c_master/doc</docdir>
     <docdir>module_i2c_single_port/doc</docdir>
-    <exclude_dir>app_i2c_master_demo</exclude_dir>
-    <exclude_dir>app_i2c_simple_demo</exclude_dir>
-    <exclude_dir>app_i2c_single_port_demo</exclude_dir>
-    <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
-    <exclude_dir>module_i2c</exclude_dir>
-    <exclude_dir>module_i2c_simple</exclude_dir>
-    <exclude_dir>app_xdk_xai_i2c_test</exclude_dir>
     <location>ssh://git@github.com/xcore/sc_i2c</location>
     <name>sc_i2c</name>
     <maintainer>djpwilk</maintainer>
@@ -36,4 +29,10 @@
     <vendor>XMOS</vendor>
     <xcore_repo>sc_i2c</xcore_repo>
     <xpd_version>1.0</xpd_version>
+    <xsoftip_exclude>app_i2c_master_demo</xsoftip_exclude>
+    <xsoftip_exclude>app_i2c_simple_demo</xsoftip_exclude>
+    <xsoftip_exclude>app_i2c_single_port_demo</xsoftip_exclude>
+    <xsoftip_exclude>module_i2c</xsoftip_exclude>
+    <xsoftip_exclude>module_i2c_simple</xsoftip_exclude>
+    <xsoftip_exclude>app_xdk_xai_i2c_test</xsoftip_exclude>
 </xpd>
