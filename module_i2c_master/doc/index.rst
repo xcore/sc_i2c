@@ -1,5 +1,5 @@
-I2C Software Component
-----------------------
+I2C Master (Using 1-bit Ports) Component
+----------------------------------------
 
 .. toctree::
 
