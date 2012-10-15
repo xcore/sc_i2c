@@ -35,7 +35,7 @@ or 32 bits wide).
  +---------------------------+-----------+-----------+------------------------+
 
 The interface comprises four functions, init, rx, reg_read, and reg_write
-that are called when required. No separate thread is required.
+that are called when required. No separate logical core is required.
 
 
 

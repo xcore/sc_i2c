@@ -35,7 +35,7 @@ bit rate.
  +---------------------------+-----------+-----------+------------------------+
 
 The interface comprises four functions, init, rx, reg_read, and reg_write
-that are called when required. No separate thread is required.
+that are called when required. No separate logical core is required.
 
 module_i2c_master
 -----------------
@@ -56,7 +56,7 @@ module_i2c_simple.2
  +---------------------------+-----------+------------+------------------------+
 
 The interface comprises four functions, init, rx, reg_read, and reg_write
-that are called when required. No separate thread is required.
+that are called when required. No separate logical core is required.
 
 
 module_i2c_slave
@@ -83,7 +83,7 @@ or 32 bits wide).
  +---------------------------+-----------+-----------+------------------------+
 
 The interface comprises four functions, init, rx, reg_read, and reg_write
-that are called when required. No separate thread is required.
+that are called when required. No separate logical core is required.
 
 Note that this module is not extensively tested.
 

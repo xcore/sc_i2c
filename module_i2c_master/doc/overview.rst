@@ -19,5 +19,5 @@ This module supports:
    * clock stretching 
    * multiple I2C busses. 
 
-The interface comprises four functions, init, rx, reg_read, and reg_write that are called when required. This is a function library for integration with application code, no separate thread is required.
+The interface comprises four functions, init, rx, reg_read, and reg_write that are called when required. This is a function library for integration with application code, no separate logical core is required.
 
