@@ -149,6 +149,19 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
     return i2c_master_do_rx(device, data, nbytes, i2c);
 }
 
+int i2c_master_16bit_read_reg(int device, unsigned int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
+    startBit(i2c, 1);
+    if (!tx8(i2c, device<<1)) return floatWires(i2c);
+    if (!tx8(i2c, ((addr >> 8) & 0xFF))) return floatWires(i2c);
+    if (!tx8(i2c, (addr & 0xFF))) return floatWires(i2c);
+    i2c.sda :> void;       // stop bit, but not as we know it - restart.
+    waitQuarter(i2c);
+    i2c.scl :> void;       // stop bit, but not as we know it - restart.
+    waitQuarter(i2c);
+    startBit(i2c, 0);      // Do not wait on start-bit - just do it.
+    return i2c_master_do_rx(device, data, nbytes, i2c);
+}
+
 #endif
 
 int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
@@ -161,6 +174,21 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
    if (!tx8(i2c, addr)) return floatWires(i2c);
 #endif
 #endif
+   for(int j = 0; j < nbytes; j++) {
+       if (!tx8(i2c, s_data[j])) return floatWires(i2c);
+   }
+   stopBit(i2c);
+   return 1;
+}
+
+
+int i2c_master_16bit_write_reg(int device, unsigned int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
+   startBit(i2c, 1);
+   if (!tx8(i2c, device<<1)) return floatWires(i2c);
+
+   if (!tx8(i2c, ((addr >> 8) & 0xFF))) return floatWires(i2c);
+   if (!tx8(i2c, (addr & 0xFF))) return floatWires(i2c);
+
    for(int j = 0; j < nbytes; j++) {
        if (!tx8(i2c, s_data[j])) return floatWires(i2c);
    }
