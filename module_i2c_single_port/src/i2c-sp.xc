@@ -108,10 +108,11 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, port i2c) {
          }
       }
       data[j] = rdData;
-      if(j!=nbytes-1)
+      if(j != nbytes - 1) {
          (void) highPulseDrive(i2c, 0);
-      else
+      } else {
          (void) highPulseSample(i2c, temp);
+      }
    }
    stopBit(i2c);
    return 1;
@@ -141,7 +142,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
    {
         data = s_data[i];
         ack |= tx8(i2c, data);
-    }
+   }
    stopBit(i2c);
    return ack == 0;
 }
