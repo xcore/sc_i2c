@@ -97,16 +97,24 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, port i2c) {
 
    startBit(i2c);
    tx8(i2c, device | 1);
-   for (i = 8; i != 0; i--) {
-       temp = highPulseSample(i2c, temp);
-       rdData = rdData << 1;
-       if (temp) {
-           rdData |= 1;
-       }
+   for(int j = 0; j < nbytes; j++)
+   { 
+      rdData= 0;
+      for (i = 8; i != 0; i--) {
+         temp = highPulseSample(i2c, temp);
+         rdData = rdData << 1;
+         if (temp) {
+            rdData |= 1;
+         }
+      }
+      data[j] = rdData;
+      if(j != nbytes - 1) {
+         (void) highPulseDrive(i2c, 0);
+      } else {
+         (void) highPulseSample(i2c, temp);
+      }
    }
-   (void) highPulseSample(i2c, temp);
    stopBit(i2c);
-   data[0] = rdData;
    return 1;
 }
 
@@ -130,7 +138,11 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
 #else
    ack |= tx8(i2c, addr);
 #endif
-   ack |= tx8(i2c, data);
+   for(int i = 0; i< nbytes; i++)
+   {
+        data = s_data[i];
+        ack |= tx8(i2c, data);
+   }
    stopBit(i2c);
    return ack == 0;
 }
