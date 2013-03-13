@@ -31,34 +31,32 @@ static void waitHalf(void) {
     waitQuarter();
 }
 
-static void highPulseDrive(port i2c, int sdaValue) {
+static int highPulse(port i2c, int sdaValue) {
     if (sdaValue) {
+        int temp;
         i2c <: SDA_HIGH | SCL_LOW | S_REST;
         waitQuarter();
         i2c :> void;
-        waitHalf();
+        waitQuarter();
+        temp = (peek(i2c) & SDA_HIGH) != 0;
+        waitQuarter();
         i2c <: SDA_HIGH | SCL_LOW | S_REST;
         waitQuarter();
+        return temp;
     } else {
         i2c <: SDA_LOW | SCL_LOW | S_REST;
         waitQuarter();
         i2c <: SDA_LOW | SCL_HIGH | S_REST;
-        waitHalf();
+        waitQuarter();
+        waitQuarter();
         i2c <: SDA_LOW | SCL_LOW | S_REST;
         waitQuarter();
+        return 0;
     }
 }
 
-static int highPulseSample(port i2c, int expectedSDA) {
-    i2c <: (expectedSDA ? SDA_HIGH : 0) | SCL_LOW | S_REST;
-    waitQuarter();
-    i2c :> void;
-    waitQuarter();
-    expectedSDA = peek(i2c) & SDA_HIGH;
-    waitQuarter();
-    i2c <: expectedSDA | SCL_LOW | S_REST;
-    waitQuarter();
-    return expectedSDA;
+static int highPulseSample(port i2c) {
+    return highPulse(i2c, 1);
 }
 
 static void startBit(port i2c) {
@@ -80,38 +78,49 @@ static void stopBit(port i2c) {
 
 static int tx8(port i2c, unsigned data) {
     int ack;
+    int temp;
     unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
     for (int i = 8; i != 0; i--) {
-        highPulseDrive(i2c, CtlAdrsData & 1);
+        highPulse(i2c, CtlAdrsData & 1);
         CtlAdrsData >>= 1;
     }
-    ack = highPulseSample(i2c, 0);
-    return ack != 0;
+    //ack = highPulseSample(i2c); // Orig
+    /* JEG ... */
+            
+         //i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
+        waitQuarter();
+        i2c :> void;
+        waitQuarter();
+        temp = (peek(i2c) & SDA_HIGH) != 0;
+        waitQuarter();
+        // i2c <: SDA_HIGH | SCL_LOW | S_REST; // Orig
+        i2c <: SDA_LOW | SCL_LOW | S_REST; // JEG
+        waitQuarter();
+     /* end JEG */
+//    printf("Ack: %d\n", ack);
+    return ack;
 }
 
 #ifndef I2C_TI_COMPATIBILITY
 int i2c_master_rx(int device, unsigned char data[], int nbytes, port i2c) {
    int i;
    int rdData = 0;
-   int temp = 0;
 
    startBit(i2c);
    tx8(i2c, device | 1);
-   for(int j = 0; j < nbytes; j++)
-   { 
-      rdData= 0;
+
+   for (int j = 0; j < nbytes; j++) {
+      rdData = 0;
       for (i = 8; i != 0; i--) {
-         temp = highPulseSample(i2c, temp);
-         rdData = rdData << 1;
-         if (temp) {
-            rdData |= 1;
-         }
+         int temp = highPulseSample(i2c);
+         rdData = (rdData << 1) | temp;
       }
       data[j] = rdData;
-      if(j != nbytes - 1) {
-         (void) highPulseDrive(i2c, 0);
+      if(j != nbytes-1) {
+         (void) highPulse(i2c,0);
       } else {
-         (void) highPulseSample(i2c, temp);
+         (void) highPulseSample(i2c);
       }
    }
    stopBit(i2c);
@@ -138,10 +147,9 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
 #else
    ack |= tx8(i2c, addr);
 #endif
-   for(int i = 0; i< nbytes; i++)
-   {
-        data = s_data[i];
-        ack |= tx8(i2c, data);
+   for(int i = 0; i< nbytes; i++) {
+      data = s_data[i];
+      ack |= tx8(i2c, data);
    }
    stopBit(i2c);
    return ack == 0;
