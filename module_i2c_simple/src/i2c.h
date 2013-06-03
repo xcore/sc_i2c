@@ -30,6 +30,16 @@
 
 #endif
 
+#ifndef SDA_HIGH
+
+/** This constant defines the bit value of a high data bit on the I2C SDA port. The
+ * default value is 1, meaning that this is on bit 0 of the port. Set to 2,
+ * 4, 8, ... for other bits of the port.
+ */
+#define SDA_HIGH    1
+
+#endif
+
 /** Struct that holds the data for instantiating the I2C module - it just
  * comprises two ports (the clock port and the data port), the only other
  * settable parameter is the speed of the bus which is a compile time
