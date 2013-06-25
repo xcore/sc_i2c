@@ -1,7 +1,7 @@
-TARGET = XK-1
+TARGET = XK-1A
 APP_NAME =
-XCC_FLAGS = -g -O1
-USED_MODULES = module_i2c_simple
+XCC_FLAGS = -g -save-temps -O1 -report
+USED_MODULES = module_i2c
 
 
 #=============================================================================
