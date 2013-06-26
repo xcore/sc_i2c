@@ -82,11 +82,24 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 
    startBit(i2c.scl, i2c.sda);
    tx8(i2c.scl, i2c.sda, (device<<1) | 1);
-   for (i = 8; i != 0; i--) {
-       int temp = highPulseSample(i2c.scl, i2c.sda);
-       rdData = (rdData << 1) | temp;
+
+   for(int j = 0; j< nbytes; j++)
+   {
+       rdData = 0;
+       for (i = 8; i != 0; i--) {
+         int temp = highPulseSample(i2c.scl, i2c.sda);
+         rdData = (rdData << 1);
+         if(temp) {
+             rdData |=1;
+         }
+      }
+      data[j]= rdData;
+      if(j != nbytes -1){
+          (void) highPulse(i2c.scl);
+      } else {
+        (void) highPulseSample(i2c.scl, i2c.sda);
+      }
    }
-   (void) highPulseSample(i2c.scl, i2c.sda);
    stopBit(i2c.scl, i2c.sda);
    data[0] = rdData;
    return 1;
@@ -112,7 +125,12 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
 #else
    ack |= tx8(i2c.scl, i2c.sda, addr);
 #endif
-   ack |= tx8(i2c.scl, i2c.sda, data);
+   for(int i = 0; i<nbytes; i++)
+   {
+      data = s_data[i];
+      ack |= tx8(i2c.scl, i2c.sda, data);
+   }
+
    stopBit(i2c.scl, i2c.sda);
    return ack == 0;
 }
