@@ -79,6 +79,7 @@ static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
 int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2c) {
    int i;
    int rdData = 0;
+   int temp = 0;
 
    startBit(i2c.scl, i2c.sda);
    tx8(i2c.scl, i2c.sda, (device<<1) | 1);
@@ -87,10 +88,10 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
    {
        rdData = 0;
        for (i = 8; i != 0; i--) {
-         int temp = highPulseSample(i2c.scl, i2c.sda);
+         temp = highPulseSample(i2c.scl, i2c.sda);
          rdData = (rdData << 1);
          if(temp) {
-             rdData |=1;
+             rdData |= 1;
          }
       }
       data[j]= rdData;
@@ -101,7 +102,6 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       }
    }
    stopBit(i2c.scl, i2c.sda);
-   data[0] = rdData;
    return 1;
 }
 
