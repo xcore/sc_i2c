@@ -97,7 +97,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, port i2c) {
 
    startBit(i2c);
    tx8(i2c, device | 1);
-   for(int j = 0; j < nbytes; j++) { 
+   for(int j = 0; j < nbytes; j++) {
       rdData = 0;
       for (i = 8; i != 0; i--) {
          temp = highPulseSample(i2c, temp);

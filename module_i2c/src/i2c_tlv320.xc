@@ -24,8 +24,8 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
    unsigned time;
    int Temp, CtlAdrsData, i;
    // three device ACK
-   int DeviceACK[3]; 
-   
+   int DeviceACK[3];
+
    // sanity checking
    // only 9bits of data.
    if ((data & 0xFFFFFE00) != 0)
@@ -40,9 +40,9 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
       case SRC_REG: case DIA_REG: case RESET_REG:
          break;
       default:
-         return(0);      
+         return(0);
          break;
-   }   
+   }
    // initial values.
    r.scl <: 1;
    r.sda  <: 1;
@@ -56,7 +56,7 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
    gt :> time;
    time += CTL_SCLK_PERIOD_HIGH_TICKS;
    gt when timerafter(time) :> time;
-   r.scl <: 0;   
+   r.scl <: 0;
    // shift 7bits of address and 1bit R/W (fixed to write).
    // WARNING: Assume MSB first.
    for (i = 0; i < 8; i += 1)
@@ -70,7 +70,7 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
       gt :> time;
       time += CTL_SCLK_PERIOD_HIGH_TICKS;
       gt when timerafter(time) :> time;
-      r.scl <: 0;      
+      r.scl <: 0;
    }
    // turn the data to input
    r.sda :> Temp;
@@ -83,7 +83,7 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
    gt :> time;
    time += CTL_SCLK_PERIOD_HIGH_TICKS;
    gt when timerafter(time) :> time;
-   r.scl <: 0;      
+   r.scl <: 0;
    // this build funny TI data format
    CtlAdrsData = ((regn & 0x7F) << 9) | (data & 0x1FF);
    // shift first 8 bits.
@@ -98,8 +98,8 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
       gt :> time;
       time += CTL_SCLK_PERIOD_HIGH_TICKS;
       gt when timerafter(time) :> time;
-      r.scl <: 0;      
-   }   
+      r.scl <: 0;
+   }
    // turn the data to input
    r.sda :> Temp;
    gt :> time;
@@ -111,8 +111,8 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
    gt :> time;
    time += CTL_SCLK_PERIOD_HIGH_TICKS;
    gt when timerafter(time) :> time;
-   r.scl <: 0;      
-   
+   r.scl <: 0;
+
 
 
    // shift second 8 bits.
@@ -127,8 +127,8 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
       gt :> time;
       time += CTL_SCLK_PERIOD_HIGH_TICKS;
       gt when timerafter(time) :> time;
-      r.scl <: 0;      
-   }    
+      r.scl <: 0;
+   }
    // turn the data to input
    r.sda :> Temp;
    gt :> time;
@@ -140,7 +140,7 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
    gt :> time;
    time += CTL_SCLK_PERIOD_HIGH_TICKS;
    gt when timerafter(time) :> time;
-   r.scl <: 0;  
+   r.scl <: 0;
    gt :> time;
    time += CTL_SCLK_PERIOD_HIGH_TICKS;
    gt when timerafter(time) :> time;
@@ -155,7 +155,7 @@ int i2c_tlv320_tx(struct r_i2c &r, int addr, int regn, int data)
       {
          Result = 0;
       }
-   }   
-   
-   return(Result);        
+   }
+
+   return(Result);
 }

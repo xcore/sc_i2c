@@ -28,7 +28,7 @@ void i2c_master_init(struct r_i2c &x) {
 //::main program
 int main(void) {
     unsigned char data[10];
-    
+
     i2c_master_init(i2cPorts);
     data[0] = 0x12;
     i2c_master_write_reg(0x90, 0x07, data, 1, i2cPorts);

@@ -48,7 +48,7 @@ void beMaster(int id, int device, struct r_i2c &i2cPorts, streaming chanend sync
             t :> t1;
             if (data[0] != 0xff) {
 //                printf("%d %3d: %02x\n", id, i, data[0]);
-            }                                   
+            }
             time[i] = t1-t0;
         } else {
             printf("%d: Fail\n", id);
