@@ -26,7 +26,7 @@ typedef enum {
  *  It provides facilities for reading and writing to the bus.
  *
  */
-interface i2c_master_if {
+typedef interface i2c_master_if {
 
   /** Read data from an I2C bus.
    *
@@ -61,7 +61,7 @@ interface i2c_master_if {
    * \param data         The data to write to the bus.
    **/
   i2c_write_res_t write_reg(unsigned device_addr, unsigned reg_addr, unsigned char data);
-};
+} i2c_master_if;
 
 
 /** Implements I2C on the i2c_master_if interface using two ports.
