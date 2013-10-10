@@ -7,6 +7,7 @@
 #include <xs1.h>
 #include <xclib.h>
 #include <stdio.h>
+#include "xassert.h"
 
 #define SDA_LOW     0
 #define SCL_LOW     0
@@ -83,27 +84,6 @@ static int tx8(port p_i2c, unsigned data) {
     return ack != 0;
 }
 
-
-static unsigned char rx(int device, port p_i2c) {
-   int i;
-   int rdData;
-   int temp = 0;
-
-   start_bit(p_i2c);
-   tx8(p_i2c, device | 1);
-   rdData = 0;
-   for (i = 8; i != 0; i--) {
-     temp = high_pulse_sample(p_i2c, temp);
-     rdData = rdData << 1;
-     if (temp) {
-       rdData |= 1;
-     }
-   }
-   (void) high_pulse_sample(p_i2c, temp);
-   stop_bit(p_i2c);
-   return rdData;
-}
-
 [[distributable]]
 void i2c_master_single_port(server interface i2c_master_if c[n], unsigned n,
                             port p_i2c) {
@@ -111,9 +91,10 @@ void i2c_master_single_port(server interface i2c_master_if c[n], unsigned n,
   while (1) {
     select {
     case c[int i].rx(unsigned device, unsigned char buf[n], unsigned n):
-      for (int j = 0; j < n; j++)
-        buf[j] = rx(device, p_i2c);
+      fail("error: single port version of i2c does not support read operations");
       break;
+    case c[int i].read_reg(unsigned device, unsigned addr) -> char data:
+      fail("error: single port version of i2c does not support read operations");     break;
 
     case c[int i].tx(unsigned char buf[n], unsigned n) -> i2c_write_res_t result:
       int ack = 0;
@@ -122,14 +103,6 @@ void i2c_master_single_port(server interface i2c_master_if c[n], unsigned n,
         ack |= tx8(p_i2c, buf[j]);
       stop_bit(p_i2c);
       result = (ack == 0) ? I2C_WRITE_ACK_SUCCEEDED : I2C_WRITE_ACK_FAILED;
-      break;
-
-    case c[int i].read_reg(unsigned device, unsigned addr) -> char data:
-      start_bit(p_i2c);
-      tx8(p_i2c, device);
-      tx8(p_i2c, addr);
-      stop_bit(p_i2c);
-      data = rx(device, p_i2c);
       break;
 
     case c[int i].write_reg(unsigned device,
