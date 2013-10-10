@@ -46,7 +46,6 @@ static void start_bit(port i2c_scl, port i2c_sda) {
 }
 
 static void stop_bit(port i2c_scl, port i2c_sda) {
-    i2c_sda <: 0;
     wait_quarter();
     i2c_scl :> void;
     wait_half();
