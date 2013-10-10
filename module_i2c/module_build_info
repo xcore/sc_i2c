@@ -1,0 +1,3 @@
+MODULE_XCC_FLAGS = $(XCC_FLAGS) -Os
+
+DEPENDENT_MODULES = module_xassert
