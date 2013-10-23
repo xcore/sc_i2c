@@ -41,4 +41,58 @@ API
 Example Usage
 -------------
 
-**Sethu, insert example code from sw_gpio_examples here**
+Example usage of Module I2C Master is shown below::
+void app_manager()
+{
+	unsigned button_press_1,button_press_2,time;
+	int button =1;
+	timer t;
+	unsigned char data[1]={0x13};
+	unsigned char data1[2];
+	int adc_value;
+	unsigned led_value=0x0E;
+	p_PORT_BUT_1:> button_press_1;
+	set_port_drive_low(p_PORT_BUT_1);
+	i2c_master_write_reg(0x28, 0x00, data, 1, i2cOne); //Write configuration information to ADC
+	t:>time;
+	printstrln("** WELCOME TO SIMPLE GPIO DEMO **");
+	while(1)
+	{
+		select
+		{
+			case button => p_PORT_BUT_1 when pinsneq(button_press_1):> button_press_1: //checks if any button is pressed
+				button=0;
+				t:>time;
+				break;
+
+			case !button => t when timerafter(time+debounce_time):>void: //waits for 20ms and checks if the same button is pressed or not
+				p_PORT_BUT_1:> button_press_2;
+				if(button_press_1==button_press_2)
+				if(button_press_1 == BUTTON_PRESS_VALUE) //Button 1 is pressed
+				{
+					printstrln("Button 1 Pressed");
+					p_led<:(led_value);
+					led_value=led_value<<1;
+					led_value|=0x01;
+					led_value=led_value & 0x0F;
+					if(led_value == 15)
+					{
+						led_value=0x0E;
+					}
+				}
+				if(button_press_1 == BUTTON_PRESS_VALUE-1) //Button 2 is pressed
+				{
+					data1[0]=0;data1[1]=0;
+					i2c_master_rx(0x28, data1, 2, i2cOne); //Read ADC value using I2C read 
+					printstrln("Reading Temperature value....");
+					data1[0]=data1[0]&0x0F;
+					adc_value=(data1[0]<<6)|(data1[1]>>2);
+					printstr("Temperature is :");
+					printintln(linear_interpolation(adc_value));
+				}
+
+				button=1;
+				break;
+		}
+	}
+}

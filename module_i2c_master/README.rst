@@ -9,7 +9,7 @@ I2C Master (Single Bit Ports) Function Library
 I2C is the Philips 2 wire interface, used to configure many digital chips, typically offered with the following options
 
    * Whether the unit is a *master* or a *slave*. 
-   * The speed supported. Normal speeds are 100 Kb/s and 400 Kb/s. 
+   * The speed supported. Normal speeds are 100 Kbps and 400 Kbps. 
    * Whether there is a single master or multiple masters.
    * Whether clock stretching is supported.
 
@@ -19,7 +19,7 @@ Features
 This module supports:
 
    * multi-master
-   * 100 or 400 kbit/s with 
+   * 100 or 400 Kbps with 
    * clock stretching 
    * multiple I2C busses. 
 
