@@ -41,9 +41,15 @@ API
 Example Usage
 -------------
 
-Example usage of Module I2C Master is shown below:::
-void app_manager()
-{
+Example Usage
+-------------
+
+Example usage of Module I2C Master is shown below:
+
+::
+
+  void app_manager()
+  {
 	unsigned button_press_1,button_press_2,time;
 	int button =1;
 	timer t;
@@ -95,4 +101,5 @@ void app_manager()
 				break;
 		}
 	}
-}
+  }
+
