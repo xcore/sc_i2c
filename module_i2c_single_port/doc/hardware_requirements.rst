@@ -4,19 +4,19 @@ Evaluation Platforms
 Recommended Hardware
 --------------------
 
-This module may be evaluated using the Slicekit Modular Development Platform, available from digikey. Required board SKUs are:
+This module may be evaluated using the sliceKIT Modular Development Platform, available from digikey. Required board SKUs are:
 
-   * XP-SKC-L2 (Slicekit L2 Core Board) plus XA-SK-AUDIO plus XA-SK-ATAG2 (Slicekit XTAG adaptor) plus XTAG2 (debug adaptor)
+   * XP-SKC-L16 (sliceKIT L16 Core Board) plus XA-SK-AUDIO plus XA-SK-XTAG2 (sliceKIT xTAG adaptor) plus xTAG-2 (debug adaptor)
 
 Demonstration Application
 -------------------------
 
-Example usage of this module can be found within the XSoftIP suite as follows:
+Example usage of this module can be found within the xSOFTip suite as follows:
 
    * Package: sc_i2s
-   * Application: I2S Master Slicekit Loopback Demo
+   * Application: I2S Master sliceKIT Loop back Demo
 
-The module is used within this application to configure the codec on the Audio Slice Card.
+The module is used within this application to configure the codec on the Audio sliceCARD.
 
 Hardware Requirements
 =====================

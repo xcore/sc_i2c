@@ -1,7 +1,7 @@
 Resource Requirements
 ---------------------
 
-The following resources on the XCore Tile are used:
+The following resources on the xCORE Tile are used:
 
 Resources
 +++++++++

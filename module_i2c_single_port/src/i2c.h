@@ -60,51 +60,12 @@
 
 
 
-
 /**Function that initialises the ports on an I2C device.
  *
  * \param i2c Bidirectional port connected to both SDA and SCL.
  */
 void i2c_master_init(port i2c);
 
-#ifndef I2C_TI_COMPATIBILITY
-
-/**Function that reads data from an I2C device.
- *
- * \param device     Bus address of device, even number between 0x00 and 0xFE.
- *
- * \param data       Array where data is stored.
- *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
- *                   module_i2c_master.
- *
- * \param i2c  Bidirectional port connected to both SDA and SCL.
- */
-int i2c_master_rx(int device, unsigned char data[], int nbytes,
-                  port i2c);
-
-/**Function that reads a register from an I2C device.
- *
- * \param device     Bus address of device, even number between 0x00 and 0xFE.
- *
- * \param reg_addr   Address of register to read, value between 0x00 and 0x7F.
- *
- * \param data       Array where data is stored.
- *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
- *                   module_i2c_master.
- *
- * \param i2c  Bidirectional port connected to both SDA and SCL.
- */
-int i2c_master_read_reg(int device, int reg_addr,
-                        unsigned char data[],
-                        int nbytes,
-                        port i2c);
-#endif
 
 /**Function that writes to a register on an I2C device.
  *

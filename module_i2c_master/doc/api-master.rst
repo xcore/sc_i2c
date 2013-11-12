@@ -38,8 +38,6 @@ API
 .. doxygenfunction:: i2c_master_write_reg
 
 
-Example Usage
--------------
 
 Example Usage
 -------------

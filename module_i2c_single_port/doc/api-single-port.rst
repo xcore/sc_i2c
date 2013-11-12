@@ -40,25 +40,4 @@ API
 
 .. doxygenfunction:: i2c_master_rx
 
-.. doxygenfunction:: i2c_master_read_reg
-
 .. doxygenfunction:: i2c_master_write_reg
-
-
-Example
-=======
-
-
-An example program is shown below. Two unbuffered undirectional ports must be
-declared. Neither should be configured. In this example, SDA and SCL are
-connected to the lowest two bits of port 4A:
-
-.. literalinclude:: app_i2c_single_port_demo/src/main.xc
-  :start-after: //::declaration
-  :end-before: //::
-
-The main program calls ``_read_reg`` and ``_write_reg`` as appropriate:
-
-.. literalinclude:: app_i2c_single_port_demo/src/main.xc
-  :start-after: //::main program
-  :end-before: //::
