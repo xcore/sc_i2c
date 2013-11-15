@@ -1,6 +1,11 @@
 SPI Components Change Log
 =========================
 
+2.2.2
+-----
+
+  * Removed readreg() function from single_port module since it was not safe
+
 2.2.1
 -----
 
