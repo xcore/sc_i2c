@@ -3,17 +3,6 @@
 // University of Illinois/NCSA Open Source License posted in
 // LICENSE.txt and at <http://github.xcore.com/>
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// I2C master
-// Version 1.0
-// 8 Dec 2009
-//
-// i2c.h
-//
-// Limitations: ACK not returned
-
-
 #ifndef _i2c_h_
 #define _i2c_h_
 
