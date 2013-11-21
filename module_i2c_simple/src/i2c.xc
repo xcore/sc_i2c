@@ -107,8 +107,8 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
          return 1;
       }
    } else {
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, (device<<1) | 1);
+      startBit(i2c.scl, i2c.sda);
+      tx8(i2c.scl, i2c.sda, (device<<1) | 1);
    }
 
    for(int j = 0; j< nbytes; j++)
@@ -150,8 +150,8 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
          return 1;
       }
    } else {
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device<<1);
+      startBit(i2c.scl, i2c.sda);
+      tx8(i2c.scl, i2c.sda, device<<1);
    }
    tx8(i2c.scl, i2c.sda, addr);
    stopBit(i2c.scl, i2c.sda);
@@ -178,8 +178,8 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
          return 1;
       }
    } else {
-   startBit(i2c.scl, i2c.sda);
-   ack = tx8(i2c.scl, i2c.sda, device<<1);
+      startBit(i2c.scl, i2c.sda);
+      ack = tx8(i2c.scl, i2c.sda, device<<1);
    }
 #ifdef I2C_TI_COMPATIBILITY
    ack |= tx8(i2c.scl, i2c.sda, addr << 1 | (data >> 8) & 1);
