@@ -29,6 +29,34 @@
 
 #endif
 
+#ifndef I2C_REPEATED_START_ON_NACK
+
+/** This constant defines the I2C masters behaviour on receipt of a NACK from a busy
+ * slave device. By default the issuing of a repeated start is disabled, and the
+ * module will ignore NACKs when reading from the device.
+ */
+#define I2C_REPEATED_START_ON_NACK 0
+
+#endif
+
+#ifndef  I2C_REPEATED_START_MAX_RETRIES
+
+/** This constant defines the maximum number of times the I2C master should issue a
+ * repeated start on receipt of a NACK.
+ */
+#define I2C_REPEATED_START_MAX_RETRIES 10
+
+#endif
+
+#ifndef  I2C_REPEATED_START_DELAY
+
+/** This constant defines the delay in microseconds (us) that the I2C master must wait following
+ * the receipt of a NACK before issuing a repeated start.
+ */
+#define I2C_REPEATED_START_DELAY 500
+
+#endif
+
 /** Struct that holds the data for instantiating the I2C module - it just
  * comprises two ports (the clock port and the data port), the only other
  * settable parameter is the speed of the bus which is a compile time

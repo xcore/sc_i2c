@@ -23,6 +23,12 @@ Symbolic constants
 
 .. doxygendefine:: I2C_BIT_TIME
 
+.. doxygendefine:: I2C_REPEATED_START_ON_NACK
+
+.. doxygendefine:: I2C_REPEATED_START_MAX_RETRIES
+
+.. doxygendefine:: I2C_REPEATED_START_DELAY
+
 Types
 =====
 
