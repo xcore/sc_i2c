@@ -9,6 +9,10 @@
 #include <xs1.h>
 #include <xccompat.h>
 
+#ifdef __i2c_conf_h_exists__
+#include "i2c_conf.h"
+#endif
+
 #ifndef I2C_BIT_TIME
 
 /** This constant defines the time in clock ticks between successive bits.
