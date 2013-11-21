@@ -12,7 +12,7 @@
 #ifndef I2C_BIT_TIME
 
 /** This constant defines the time in clock ticks between successive bits.
- * By default set to 1000 for 100 Kbit devices, but it can be overriden to
+ * By default set to 1000 for 100 Kbit devices, but it can be overridden to
  * 250 for 400 Kbit devices.
  */
 #define I2C_BIT_TIME 1000
@@ -56,7 +56,7 @@ void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c));
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
+ *                   parameter is provided for compatibility with
  *                   module_i2c_master.
  *
  * \param i2c        struct containing the clock and data ports. Both
@@ -75,7 +75,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes,
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
+ *                   parameter is provided for compatibility with
  *                   module_i2c_master.
  *
  * \param i2c_master struct containing the clock and data ports. Both
@@ -100,7 +100,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module.
- *                   This parameter is provided for compatibililty with module_i2c_master.
+ *                   This parameter is provided for compatibility with module_i2c_master.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
