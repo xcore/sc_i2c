@@ -96,6 +96,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       }
       data[j]= rdData;
       if(j != nbytes -1){
+        i2c.sda <: 0; // Send an ACK
           (void) highPulse(i2c.scl);
       } else {
         (void) highPulseSample(i2c.scl, i2c.sda);
