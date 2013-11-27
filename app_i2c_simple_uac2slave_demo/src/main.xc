@@ -71,7 +71,7 @@ void i2c_test(void)
 int main() {
 
   par{
-    i2c_test();
+    on tile[0]: i2c_test();
   }
   return 0;
 }
