@@ -28,6 +28,17 @@ static void waitHalf(void) {
     waitQuarter();
 }
 
+static void waitAfterNACK(port i2c_scl) {
+    timer gt;
+    int time;
+
+    gt :> time;
+    time += (I2C_REPEATED_START_DELAY * XS1_TIMER_MHZ); // I2C_REPEATED_START_DELAY in us
+    gt when timerafter(time) :> int _;
+
+    i2c_scl :> void; // Allow SCL to float high ahead of repeated start bit
+}
+
 static int highPulseSample(port i2c_scl, port ?i2c_sda) {
     int temp;
     if (!isnull(i2c_sda)) {
@@ -80,9 +91,25 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
    int i;
    int rdData = 0;
    int temp = 0;
+   if (I2C_REPEATED_START_ON_NACK) {
+      int nacks = I2C_REPEATED_START_MAX_RETRIES;
 
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, (device<<1) | 1);
+      while (nacks) {
+         startBit(i2c.scl, i2c.sda);
+         if (!tx8(i2c.scl, i2c.sda, (device<<1) | 1)) {
+            break;
+         }
+         waitAfterNACK(i2c.scl);
+         nacks--;
+      }
+      if (!nacks) {
+         stopBit(i2c.scl, i2c.sda);
+         return 1;
+      }
+   } else {
+      startBit(i2c.scl, i2c.sda);
+      tx8(i2c.scl, i2c.sda, (device<<1) | 1);
+   }
 
    for(int j = 0; j< nbytes; j++)
    {
@@ -96,6 +123,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       }
       data[j]= rdData;
       if(j != nbytes -1){
+        i2c.sda <: 0; // Send an ACK
           (void) highPulse(i2c.scl);
       } else {
         (void) highPulseSample(i2c.scl, i2c.sda);
@@ -106,8 +134,25 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 }
 
 int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2c) {
-   startBit(i2c.scl, i2c.sda);
-   tx8(i2c.scl, i2c.sda, device<<1);
+   if (I2C_REPEATED_START_ON_NACK) {
+      int nacks = I2C_REPEATED_START_MAX_RETRIES;
+
+      while (nacks) {
+         startBit(i2c.scl, i2c.sda);
+         if (!tx8(i2c.scl, i2c.sda, device<<1)) {
+            break;
+         }
+         waitAfterNACK(i2c.scl);
+         nacks--;
+      }
+      if (!nacks) {
+         stopBit(i2c.scl, i2c.sda);
+         return 1;
+      }
+   } else {
+      startBit(i2c.scl, i2c.sda);
+      tx8(i2c.scl, i2c.sda, device<<1);
+   }
    tx8(i2c.scl, i2c.sda, addr);
    stopBit(i2c.scl, i2c.sda);
    return i2c_master_rx(device, data, nbytes, i2c);
@@ -117,9 +162,25 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
    int data = s_data[0];
    int ack;
+   if (I2C_REPEATED_START_ON_NACK) {
+      int nacks = I2C_REPEATED_START_MAX_RETRIES;
 
-   startBit(i2c.scl, i2c.sda);
-   ack = tx8(i2c.scl, i2c.sda, device<<1);
+      while (nacks) {
+         startBit(i2c.scl, i2c.sda);
+         if (!(ack = tx8(i2c.scl, i2c.sda, device<<1))) {
+            break;
+         }
+         waitAfterNACK(i2c.scl);
+         nacks--;
+      }
+      if (!nacks) {
+         stopBit(i2c.scl, i2c.sda);
+         return 1;
+      }
+   } else {
+      startBit(i2c.scl, i2c.sda);
+      ack = tx8(i2c.scl, i2c.sda, device<<1);
+   }
 #ifdef I2C_TI_COMPATIBILITY
    ack |= tx8(i2c.scl, i2c.sda, addr << 1 | (data >> 8) & 1);
 #else

@@ -3,27 +3,20 @@
 // University of Illinois/NCSA Open Source License posted in
 // LICENSE.txt and at <http://github.xcore.com/>
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// I2C master
-// Version 1.0
-// 8 Dec 2009
-//
-// i2c.h
-//
-// Limitations: ACK not returned
-
-
 #ifndef _i2c_h_
 #define _i2c_h_
 
 #include <xs1.h>
 #include <xccompat.h>
 
+#ifdef __i2c_conf_h_exists__
+#include "i2c_conf.h"
+#endif
+
 #ifndef I2C_BIT_TIME
 
 /** This constant defines the time in clock ticks between successive bits.
- * By default set to 1000 for 100 Kbit devices, but it can be overriden to
+ * By default set to 1000 for 100 Kbit devices, but it can be overridden to
  * 250 for 400 Kbit devices.
  */
 #define I2C_BIT_TIME 1000
@@ -37,6 +30,34 @@
  * 4, 8, ... for other bits of the port.
  */
 #define SDA_HIGH    1
+
+#endif
+
+#ifndef I2C_REPEATED_START_ON_NACK
+
+/** This constant defines the I2C masters behaviour on receipt of a NACK from a busy
+ * slave device. By default the issuing of a repeated start is disabled, and the
+ * module will ignore NACKs when reading from the device.
+ */
+#define I2C_REPEATED_START_ON_NACK 0
+
+#endif
+
+#ifndef  I2C_REPEATED_START_MAX_RETRIES
+
+/** This constant defines the maximum number of times the I2C master should issue a
+ * repeated start on receipt of a NACK.
+ */
+#define I2C_REPEATED_START_MAX_RETRIES 10
+
+#endif
+
+#ifndef  I2C_REPEATED_START_DELAY
+
+/** This constant defines the delay in microseconds (us) that the I2C master must wait following
+ * the receipt of a NACK before issuing a repeated start.
+ */
+#define I2C_REPEATED_START_DELAY 500
 
 #endif
 
@@ -67,7 +88,7 @@ void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c));
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
+ *                   parameter is provided for compatibility with
  *                   module_i2c_master.
  *
  * \param i2c        struct containing the clock and data ports. Both
@@ -86,7 +107,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes,
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibililty with
+ *                   parameter is provided for compatibility with
  *                   module_i2c_master.
  *
  * \param i2c_master struct containing the clock and data ports. Both
@@ -111,7 +132,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *
  * \param nbytes     Number of bytes to read and store in data. This parameter
  *                   must be set to '1' and is ignored in this module.
- *                   This parameter is provided for compatibililty with module_i2c_master.
+ *                   This parameter is provided for compatibility with module_i2c_master.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
