@@ -69,7 +69,9 @@ static void stopBit(port i2c_scl, port i2c_sda) {
 static int tx8(port i2c_scl, port i2c_sda, unsigned data) {
     unsigned CtlAdrsData = ((unsigned) bitrev(data)) >> 24;
     for (int i = 8; i != 0; i--) {
-        i2c_sda <: >> CtlAdrsData;
+        //i2c_sda <: >> CtlAdrsData;
+        i2c_sda <: CtlAdrsData & 1;
+        CtlAdrsData >>= 1;
         highPulse(i2c_scl);
     }
     return highPulseSample(i2c_scl, i2c_sda);
