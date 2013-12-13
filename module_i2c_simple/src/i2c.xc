@@ -106,7 +106,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       }
       if (!nacks) {
          stopBit(i2c.scl, i2c.sda);
-         return 1;
+         return 0;
       }
    } else {
       startBit(i2c.scl, i2c.sda);
@@ -149,7 +149,7 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
       }
       if (!nacks) {
          stopBit(i2c.scl, i2c.sda);
-         return 1;
+         return 0;
       }
    } else {
       startBit(i2c.scl, i2c.sda);
@@ -177,7 +177,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
       }
       if (!nacks) {
          stopBit(i2c.scl, i2c.sda);
-         return 1;
+         return 0;
       }
    } else {
       startBit(i2c.scl, i2c.sda);
