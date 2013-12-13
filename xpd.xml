@@ -10,6 +10,14 @@
             <board>XA-SK-GPIO</board>
             <keyword>I2C</keyword>
         </component>
+        <component description = "Allows accessing of i2c bus safely from multiple logical cores" type = "demoCode" scope = "General Use" path = "module_i2c_shared" local = "false" id = "module_i2c_shared" name = "module_i2c_shared Readme">
+            <board>XMOS Dev Kit</board>
+            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.3">module_locks</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.2.1">module_i2c_simple</componentDependency>
+            <keyword>I2C</keyword>
+            <keyword>sharing</keyword>
+            <keyword>locks</keyword>
+        </component>
         <component name = "I2C Master (Using A Single Multi Bit Port) Function Library" type = "component" buildresults_path = "module_i2c_single_port/.module_i2c_single_port.buildinfo" scope = "Early Development" path = "module_i2c_single_port" metainfo_path = "module_i2c_single_port/module_i2c_single_port.metainfo" local = "false" id = "module_i2c_single_port" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port">
             <board>XA-SK-AUDIO</board>
             <keyword>I2C</keyword>
