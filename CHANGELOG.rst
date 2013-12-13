@@ -1,5 +1,12 @@
-SPI Components Change Log
+I2C Components Change Log
 =========================
+
+2.3.0
+-----
+
+  * module_i2c_simple fixed to ACK correctly during multi-byte reads (all but the final byte will be now be ACKd)
+  * module_i2c_simple can now be built with support to send repeated starts and retry reads and writes NACKd by slave
+  * module_i2c_shared added to allow multiple logical cores to safely share a single I2C bus
 
 2.2.2
 -----
