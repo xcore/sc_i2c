@@ -1,15 +1,33 @@
 <?xml version="1.0" ?>
 <xpd>
     <components>
+        <component description = "I2C Master test app for USB Audio with I2C slave" type = "demoCode" scope = "Example" path = "app_i2c_simple_uac2slave_demo" local = "false" id = "app_i2c_simple_uac2slave_demo" name = "app_i2c_master_uac2slave_test">
+            <board>startKIT</board>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.2.1">module_i2c_simple</componentDependency>
+            <keyword>i2c master test demo uac2</keyword>
+        </component>
         <component name = "I2C Master (Single Bit Ports) Function Library" type = "component" buildresults_path = "module_i2c_master/.module_i2c_master.buildinfo" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" local = "false" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
             <board>XA-SK-GPIO</board>
             <keyword>I2C</keyword>
+        </component>
+        <component description = "Allows accessing of i2c bus safely from multiple logical cores" type = "demoCode" scope = "General Use" path = "module_i2c_shared" local = "false" id = "module_i2c_shared" name = "module_i2c_shared Readme">
+            <board>XMOS Dev Kit</board>
+            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.3">module_locks</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.2.1">module_i2c_simple</componentDependency>
+            <keyword>I2C</keyword>
+            <keyword>sharing</keyword>
+            <keyword>locks</keyword>
         </component>
         <component name = "I2C Master (Using A Single Multi Bit Port) Function Library" type = "component" buildresults_path = "module_i2c_single_port/.module_i2c_single_port.buildinfo" scope = "Early Development" path = "module_i2c_single_port" metainfo_path = "module_i2c_single_port/module_i2c_single_port.metainfo" local = "false" id = "module_i2c_single_port" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with  a multi bit port">
             <board>XA-SK-AUDIO</board>
             <keyword>I2C</keyword>
         </component>
     </components>
+    <dependency repo = "sc_util">
+        <githash>d0531d7c68ab67334582c324828e36d617baf8b3</githash>
+        <uri>git://github.com/xcore/sc_util</uri>
+        <version>1.0.3rc0</version>
+    </dependency>
     <description>I2C Software Component</description>
     <docdir>module_i2c_master/doc</docdir>
     <docdir>module_i2c_single_port/doc</docdir>
@@ -30,7 +48,8 @@
     <release parenthash = "e579e47c35b311302406bf7e8c9965390ee313d2" version = "2.1.0alpha5" githash = "31455b694241b99784120e0b2dc95b67d56eca0e"></release>
     <release parenthash = "31455b694241b99784120e0b2dc95b67d56eca0e" version = "2.1.0rc0" githash = "576de5f72f10954ce0eed83acb418890ed636bb8"></release>
     <release parenthash = "8613e28a7ad34d4b6c60e4facab6a66494fba968" version = "2.2.0rc0" githash = "53349e8bd6493701b1ec462187b14c9e74bdc6bd"></release>
-    <release parenthash = "ff404302aa1fbbb4a4bc9e472a22edf45c67991f" version = "2.2.1rc0"></release>
+    <release parenthash = "ff404302aa1fbbb4a4bc9e472a22edf45c67991f" version = "2.2.1rc0" githash = "d8e7a39aa0671340d33cf7b40610e15b9bc7a8f0"></release>
+    <release parenthash = "374ae36d29b4f8a2d71d794c66b5b11c9951c73f" version = "2.3.0beta0"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>

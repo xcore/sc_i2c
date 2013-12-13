@@ -98,4 +98,4 @@ generatedCode = {
   ]]
 }
 
-api = {'i2c_master_init','i2c_master_rx','i2c_master_read_reg','i2c_master_write_reg'}
+api = {'i2c_master_init','i2c_master_write_reg'}
