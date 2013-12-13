@@ -86,10 +86,7 @@ void i2c_master_init(REFERENCE_PARAM(struct r_i2c,i2c));
  *
  * \param data       Array where data is stored.
  *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibility with
- *                   module_i2c_master.
+ * \param nbytes     Number of bytes to read and store in data.
  *
  * \param i2c        struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
@@ -105,10 +102,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes,
  *
  * \param data       Array where data is stored.
  *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module. This
- *                   parameter is provided for compatibility with
- *                   module_i2c_master.
+ * \param nbytes     Number of bytes to read and store in data.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
@@ -130,9 +124,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *
  * \param data       Array where data is stored.
  *
- * \param nbytes     Number of bytes to read and store in data. This parameter
- *                   must be set to '1' and is ignored in this module.
- *                   This parameter is provided for compatibility with module_i2c_master.
+ * \param nbytes     Number of bytes to write from data.
  *
  * \param i2c_master struct containing the clock and data ports. Both
  *                   should be declared as unbuffered bidirectional ports.
