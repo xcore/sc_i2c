@@ -122,7 +122,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *
  * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
  *
- * \param data       Array where data is stored.
+ * \param data       Array containing data to be written.
  *
  * \param nbytes     Number of bytes to write from data.
  *
