@@ -25,7 +25,8 @@ void i2c_shared_master_init(REFERENCE_PARAM(struct r_i2c, i2cPorts));
  *
  * \param nbytes     Number of bytes to read and store in data.
  */
-int i2c_shared_master_rx(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, unsigned char data[], int nbytes);
+int i2c_shared_master_rx(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, unsigned char data[],
+    int nbytes);
 
 /**Function that reads a register from an I2C device.
  *
@@ -38,8 +39,7 @@ int i2c_shared_master_rx(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, un
  * \param nbytes     Number of bytes to read and store in data.
  */
 int i2c_shared_master_read_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, int reg_addr,
-                        unsigned char data[],
-                        int nbytes);
+    unsigned char data[], int nbytes);
 #endif
 
 /**Function that writes to a register on an I2C device.
@@ -55,8 +55,7 @@ int i2c_shared_master_read_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int devi
  *
  * \param nbytes     Number of bytes to read and store in data.
  */
-int i2c_shared_master_write_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, int reg_addr,
-                         unsigned char data[],
-                         int nbytes);
+int i2c_shared_master_write_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, int reg_addr, 
+    unsigned char data[], int nbytes);
 
 #endif
