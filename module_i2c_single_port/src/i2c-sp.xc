@@ -94,7 +94,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbyte
    int ack;
 
    startBit(i2c);
-   ack = tx8(i2c, device);
+   ack = tx8(i2c, device << 1);
 #ifdef I2C_TI_COMPATIBILITY
    ack |= tx8(i2c, addr << 1 | (data >> 8) & 1);
 #else
