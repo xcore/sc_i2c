@@ -8,6 +8,7 @@ I2C Components Change Log
   * module_i2c_simple can now be built with support to send repeated starts and retry reads and writes NACKd by slave
   * module_i2c_shared added to allow multiple logical cores to safely share a single I2C bus
   * Removed readreg() function from single_port module since it was not safe
+  * module_i2c_simple updated such that device addresse is now 7bit to match other modules (i.e. does not inclue read/write bit)
 
 2.2.1
 -----
