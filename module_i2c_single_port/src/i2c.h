@@ -72,7 +72,7 @@ void i2c_master_init(port i2c);
  * Note that this function uses the same interface as module_i2c but that
  * the fields master_num and clock_mul are ignored by this function.
  *
- * \param device     Bus address of device, even number between 0x00 and 0xFE.
+ * \param device     7bit address of device between 0x0 and 0x7F (i.e. does not include read/write bit)
  *
  * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
  *
