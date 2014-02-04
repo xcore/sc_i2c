@@ -43,12 +43,17 @@ The Component is in the form of a function library and can be called in a thread
 Module_i2c is meant to be deprecated, once module_i2c_master is completed,
 and once the slave part has been moved to module_i2c_slave.
 
+Note: Both 7- or 8-bit versions of I2C addresses are used in data-sheets. 7 bits identify the device, and the eighth bit 
+determines if it's being written to or read from. The modules in this repo use 7 bit addresses throughout. 
+If you encounter a datasheet that lists an 8 bit address, reove the the low bit (i.e. shift the value one bit to the right), 
+this giving an address between 0 and 127.
+
 Known Issues
 ============
 
-does not support 10 bit addressing
-does not support CBUS capability.
-does not support HS-Mode.
+ * does not support 10 bit addressing
+ * does not support CBUS capability.
+ * does not support HS-Mode.
 
 Instructions for Building Project and running the simulation.
 ================================
