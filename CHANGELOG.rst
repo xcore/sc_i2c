@@ -1,6 +1,11 @@
 I2C Components Change Log
 =========================
 
+2.4.0
+-----
+  * i2c_shared functions now take i2cPorts structure as param (rather than externed). This allows for
+    multiple i2c buses
+
 2.3.0
 -----
 
