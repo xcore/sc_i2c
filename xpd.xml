@@ -3,7 +3,7 @@
     <components>
         <component description = "I2C Master test app for USB Audio with I2C slave" type = "demoCode" scope = "Example" path = "app_i2c_simple_uac2slave_demo" local = "false" id = "app_i2c_simple_uac2slave_demo" name = "app_i2c_master_uac2slave_test">
             <board>startKIT</board>
-            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.3.0">module_i2c_simple</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.0">module_i2c_simple</componentDependency>
             <keyword>i2c master test demo uac2</keyword>
         </component>
         <component name = "I2C Master (Single Bit Ports) Function Library" type = "component" buildresults_path = "module_i2c_master/.module_i2c_master.buildinfo" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" local = "false" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
@@ -12,8 +12,8 @@
         </component>
         <component description = "Allows accessing of i2c bus safely from multiple logical cores" type = "demoCode" scope = "General Use" path = "module_i2c_shared" local = "false" id = "module_i2c_shared" name = "module_i2c_shared Readme">
             <board>XMOS Dev Kit</board>
-            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.3">module_locks</componentDependency>
-            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.3.0">module_i2c_simple</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.4">module_locks</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.0">module_i2c_simple</componentDependency>
             <keyword>I2C</keyword>
             <keyword>sharing</keyword>
             <keyword>locks</keyword>
@@ -52,6 +52,7 @@
     <release parenthash = "374ae36d29b4f8a2d71d794c66b5b11c9951c73f" version = "2.3.0beta0" githash = "6fe8660a95005478d125ab607a0cc25edc706236"></release>
     <release parenthash = "9e27b32305ff3857fd2b967969035db66f38f01b" version = "2.3.0beta1" githash = "e3829f0c0f6ae94679b31d766dd65b33b2c46b19"></release>
     <release parenthash = "4c9d7287439b26a4b227d05600980888089bc7e0" version = "2.4.0beta0" githash = "73cb9ec4fe060d1be10d0a12d83d0309eb8fb2b5"></release>
+    <release parenthash = "fb9c3a9640dd25b6839f735a63796b81d15cbe50" version = "2.4.0beta1"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
