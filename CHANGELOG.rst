@@ -1,12 +1,21 @@
-I2C Components Change Log
-=========================
+sc_i2c Change Log
+=================
 
 2.4.1
 -----
 
+  * Changes to dependencies:
+
+    - sc_util: 1.0.3rc0 -> 1.0.4rc0
+
+      + module_logging now compiled at -Os
+      + debug_printf in module_logging uses a buffer to deliver messages unfragmented
+      + Fix thread local storage calculation bug in libtrycatch
+      + Fix debug_printf itoa to work for unsigned values > 0x80000000
+
 2.4.0
 -----
-  
+
     * i2c_shared functions now take i2cPorts structure as param (rather than externed).
       This allows for multiple i2c buses
 
