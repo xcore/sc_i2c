@@ -1,6 +1,10 @@
 sc_i2c Change Log
 =================
 
+2.4.1
+-----
+  * module_i2c_simple header-file comments updated to correctly reflect API  
+
 2.4.0
 -----
   * i2c_shared functions now take i2cPorts structure as param (rather than externed). This allows for
