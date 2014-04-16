@@ -24,6 +24,7 @@
         </component>
     </components>
     <dependency repo = "sc_util">
+        <gitbranch>master</gitbranch>
         <githash>f09fda14976cf969ae792e7c28b4e5a30e4c1eb9</githash>
         <uri>git://github.com/xcore/sc_util</uri>
         <version>1.0.4rc0</version>
@@ -52,7 +53,8 @@
     <release parenthash = "374ae36d29b4f8a2d71d794c66b5b11c9951c73f" version = "2.3.0beta0" githash = "6fe8660a95005478d125ab607a0cc25edc706236"></release>
     <release parenthash = "9e27b32305ff3857fd2b967969035db66f38f01b" version = "2.3.0beta1" githash = "e3829f0c0f6ae94679b31d766dd65b33b2c46b19"></release>
     <release parenthash = "4c9d7287439b26a4b227d05600980888089bc7e0" version = "2.4.0beta0" githash = "73cb9ec4fe060d1be10d0a12d83d0309eb8fb2b5"></release>
-    <release parenthash = "fb9c3a9640dd25b6839f735a63796b81d15cbe50" version = "2.4.0beta1"></release>
+    <release parenthash = "fb9c3a9640dd25b6839f735a63796b81d15cbe50" version = "2.4.0beta1" githash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770"></release>
+    <release parenthash = "bf7250b70fbca2e69067c82bbb8ca1392d79bdd6" version = "2.4.1rc0"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
