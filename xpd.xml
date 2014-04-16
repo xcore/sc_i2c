@@ -12,8 +12,8 @@
         </component>
         <component description = "Allows accessing of i2c bus safely from multiple logical cores" type = "demoCode" scope = "General Use" path = "module_i2c_shared" local = "false" id = "module_i2c_shared" name = "module_i2c_shared Readme">
             <board>XMOS Dev Kit</board>
-            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.4">module_locks</componentDependency>
             <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.0">module_i2c_simple</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.4">module_locks</componentDependency>
             <keyword>I2C</keyword>
             <keyword>sharing</keyword>
             <keyword>locks</keyword>
@@ -24,7 +24,7 @@
         </component>
     </components>
     <dependency repo = "sc_util">
-        <gitbranch>(detached from f09fda1)</gitbranch>
+        <gitbranch>master</gitbranch>
         <githash>f09fda14976cf969ae792e7c28b4e5a30e4c1eb9</githash>
         <uri>git://github.com/xcore/sc_util</uri>
         <version>1.0.4rc0</version>
@@ -54,7 +54,8 @@
     <release parenthash = "9e27b32305ff3857fd2b967969035db66f38f01b" version = "2.3.0beta1" githash = "e3829f0c0f6ae94679b31d766dd65b33b2c46b19"></release>
     <release parenthash = "4c9d7287439b26a4b227d05600980888089bc7e0" version = "2.4.0beta0" githash = "73cb9ec4fe060d1be10d0a12d83d0309eb8fb2b5"></release>
     <release parenthash = "fb9c3a9640dd25b6839f735a63796b81d15cbe50" version = "2.4.0beta1" githash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770"></release>
-    <release parenthash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770" version = "2.4.0rc0"></release>
+    <release parenthash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770" version = "2.4.0rc0" githash = "9c9a75f7381209ad017a12bc10d53cd3cb9c0eca"></release>
+    <release parenthash = "b6fcce0bb1145abe9d431235592c4d83f38b1baf" version = "2.4.1rc0"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
