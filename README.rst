@@ -2,11 +2,11 @@ XCORE.com I2C Master Component
 ..............................
 
 :Latest release: 2.4.0rc0
-:Maintainer: djpwilk
+:Maintainer: XMOS
 :Description: I2C Software Component
 
 
-:Maintainer:  Dan Wilkinson (github: djpwilk)
+:Maintainer:  XMOS
 
 The I2C Component provides the ability to write and read the I2C Compatible Slave devices.
 
