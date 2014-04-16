@@ -3,7 +3,7 @@ sc_i2c Change Log
 
 2.4.1
 -----
-  * Initial Version  * module_i2c_simple header-file comments updated to correctly reflect API
+  * module_i2c_simple header-file comments updated to correctly reflect API
 
   * Changes to dependencies:
 
@@ -18,7 +18,7 @@ sc_i2c Change Log
 
 2.4.0
 -----
-  * Initial Version  * i2c_shared functions now take i2cPorts structure as param (rather than externed). This allows for
+  * i2c_shared functions now take i2cPorts structure as param (rather than externed). This allows for
     multiple i2c buses
 
   * Changes to dependencies:
@@ -32,7 +32,6 @@ sc_i2c Change Log
 
 2.3.0
 -----
-  * Initial Version
   * module_i2c_simple fixed to ACK correctly during multi-byte reads (all but the final byte will be now be ACKd)
   * module_i2c_simple can now be built with support to send repeated starts and retry reads and writes NACKd by slave
   * module_i2c_shared added to allow multiple logical cores to safely share a single I2C bus
@@ -40,12 +39,10 @@ sc_i2c Change Log
 
 2.2.1
 -----
-  * Initial Version
   * Documentation fixes
 
 2.2.0
 -----
-  * Initial Version
   * Added I2C read/write functions with support of 16bit addresses
   * reg_read and reg_write now use nbytes params to allow multiple byte register access
   * Added support for i2c simple SDA on a 4 bit port
@@ -53,7 +50,6 @@ sc_i2c Change Log
 
 2.1.0
 -----
-  * Initial Version
   * Updated documents for xSOFTip requirements
   * Added metainfo and XPD items
 
