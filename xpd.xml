@@ -3,7 +3,7 @@
     <components>
         <component description = "I2C Master test app for USB Audio with I2C slave" type = "demoCode" scope = "Example" path = "app_i2c_simple_uac2slave_demo" local = "false" id = "app_i2c_simple_uac2slave_demo" name = "app_i2c_master_uac2slave_test">
             <board>startKIT</board>
-            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.0">module_i2c_simple</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.1">module_i2c_simple</componentDependency>
             <keyword>i2c master test demo uac2</keyword>
         </component>
         <component name = "I2C Master (Single Bit Ports) Function Library" type = "component" buildresults_path = "module_i2c_master/.module_i2c_master.buildinfo" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" local = "false" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
@@ -12,8 +12,8 @@
         </component>
         <component description = "Allows accessing of i2c bus safely from multiple logical cores" type = "demoCode" scope = "General Use" path = "module_i2c_shared" local = "false" id = "module_i2c_shared" name = "module_i2c_shared Readme">
             <board>XMOS Dev Kit</board>
-            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.0">module_i2c_simple</componentDependency>
             <componentDependency repo = "git://github.com/xcore/sc_util" version = "1.0.4">module_locks</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.1">module_i2c_simple</componentDependency>
             <keyword>I2C</keyword>
             <keyword>sharing</keyword>
             <keyword>locks</keyword>
@@ -55,7 +55,8 @@
     <release parenthash = "4c9d7287439b26a4b227d05600980888089bc7e0" version = "2.4.0beta0" githash = "73cb9ec4fe060d1be10d0a12d83d0309eb8fb2b5"></release>
     <release parenthash = "fb9c3a9640dd25b6839f735a63796b81d15cbe50" version = "2.4.0beta1" githash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770"></release>
     <release parenthash = "1ed8eb6c16db36b70b1435a49f5a583a7d7ab770" version = "2.4.0rc0" githash = "9c9a75f7381209ad017a12bc10d53cd3cb9c0eca"></release>
-    <release parenthash = "b6fcce0bb1145abe9d431235592c4d83f38b1baf" version = "2.4.1rc0"></release>
+    <release parenthash = "b6fcce0bb1145abe9d431235592c4d83f38b1baf" version = "2.4.1rc0" githash = "8809971a9e74a6201cb7817050d98dc4dd4bb9c9"></release>
+    <release parenthash = "c175fc9b6d4b8fe468eadcbf17701bda1b9d35a5" version = "2.4.1rc1"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
