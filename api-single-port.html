@@ -60,13 +60,14 @@ document.getElementById('d1').style.height=h2 + "px";
             
   <div class="section" id="programmers-guide-to-module-i2c-single-port">
 <h1>Programmers guide to module_i2c_single_port<a class="headerlink" href="#programmers-guide-to-module-i2c-single-port" title="Permalink to this headline">¶</a></h1>
-<p>This I2C module comprises four functions that implement I2C master. It is a
+<p>This I2C module comprises three functions that implement I2C master. It is a
 small and simple version of the protocol with limitations (described
 below), and expects SCL and SDA on the same port.</p>
-<p>The three restrictions of this module are:</p>
+<p>The four restrictions of this module are:</p>
 <ol class="arabic simple">
 <li>It does not implement clock-stretching: it should only be used when
 slaves do not attempt to stretch the clock.</li>
+<li>It does not implement register read at present.</li>
 <li>It does not implement multi-master: it should only be used when the
 XCore is the only master on the I2C bus.</li>
 <li>The speed of the bus is defined using a compile-time define
@@ -147,27 +148,6 @@ int <tt class="descname">i2c_master_rx</tt><big>(</big>int<em>&nbsp;device</em>,
 </dd></dl>
 
 <dl class="function">
-<dt id="i2c_master_read_reg">
-int <tt class="descname">i2c_master_read_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_read_reg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that reads a register from an I2C device.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>device</strong> &#8211; Bus address of device, even number between 0x00 and 0xFE.</li>
-<li><strong>reg_addr</strong> &#8211; Address of register to read, value between 0x00 and 0x7F.</li>
-<li><strong>data</strong> &#8211; Array where data is stored.</li>
-<li><strong>nbytes</strong> &#8211; Number of bytes to read and store in data. This parameter must be set to &#8216;1&#8217; and is ignored in this module. This parameter is provided for compatibililty with module_i2c_master.</li>
-<li><strong>i2c_master</strong> &#8211; struct containing the clock and data ports. Both should be declared as unbuffered bidirectional ports.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="i2c_master_write_reg">
 int <tt class="descname">i2c_master_write_reg</tt><big>(</big>int<em>&nbsp;device</em>, int<em>&nbsp;reg_addr</em>, unsigned char<em>&nbsp;data[]</em>, int<em>&nbsp;nbytes</em>, struct <a class="reference internal" href="api-simple.html#r_i2c" title="r_i2c"><span>r_i2c</span></a><em>&nbsp;&amp;i2c_master</em><big>)</big><a class="headerlink" href="#i2c_master_write_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that writes to a register on an I2C device.</p>
@@ -203,7 +183,7 @@ port i2c = XS1_PORT_4F;
 port gpio = XS1_PORT_4E;
 </pre></div>
 </div>
-<p>The main program calls <tt class="docutils literal"><span class="pre">_read_reg</span></tt> and <tt class="docutils literal"><span class="pre">_write_reg</span></tt> as appropriate:</p>
+<p>The main program calls <tt class="docutils literal"><span class="pre">_write_reg</span></tt> as appropriate:</p>
 <div class="highlight-none"><div class="highlight"><pre>int main(void)
 {
   unsigned char data[1];
@@ -218,11 +198,6 @@ port gpio = XS1_PORT_4E;
   for(int j = 0; j &lt; 1000000; j++) {
       for(i = 0x90; i &lt; 0x9E; i += 2) {
           if (i == 0x94) i = 0x9C;
-          x = i2c_master_read_reg(i, 1, data, 1, i2c);
-          if ((i &lt; 0x94 &amp;&amp; data[0] != 0xc3) || (i &gt; 0x94 &amp;&amp; data[0] != 6)) printf(&quot;%d Device %x Reg 1 Value %x\n&quot;, j, i, data[0]);
-      }
-      for(i = 0x90; i &lt; 0x9E; i += 2) {
-          if (i == 0x94) i = 0x9C;
           data[0] = ~i;
           x = i2c_master_write_reg(i, 7, data, 1, i2c);
       }
@@ -230,18 +205,6 @@ port gpio = XS1_PORT_4E;
           if (i == 0x94) i = 0x9C;
           data[0] = i;
           x = i2c_master_write_reg(i, 8, data, 1, i2c);
-      }
-      for(i = 0x90; i &lt; 0x9E; i += 2) {
-          if (i == 0x94) i = 0x9C;
-          data[0] = 0;
-          x = i2c_master_read_reg(i, 8, data, 1, i2c);
-          if (data[0] != i) printf(&quot;%d Device %x Reg 8 Value %x\n&quot;, j, i, data[0]);
-      }
-      for(i = 0x90; i &lt; 0x9E; i += 2) {
-          if (i == 0x94) i = 0x9C;
-          data[0] = 0;
-          x = i2c_master_read_reg(i, 7, data, 1, i2c);
-          if (data[0] != (~i &amp; 0xff)) printf(&quot;%d Device %x Reg 7 Value %x\n&quot;, j, i, data[0]);
       }
   }
   return 0;
