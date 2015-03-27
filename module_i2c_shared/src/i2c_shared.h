@@ -56,6 +56,6 @@ int i2c_shared_master_read_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int devi
  * \param nbytes     Number of bytes to read and store in data.
  */
 int i2c_shared_master_write_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, int reg_addr,
-    unsigned char data[], int nbytes);
+    const unsigned char data[], int nbytes);
 
 #endif

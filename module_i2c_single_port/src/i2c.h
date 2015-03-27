@@ -57,14 +57,47 @@
 
 #endif
 
+#ifndef I2C_REPEATED_START_ON_NACK
 
+/** This constant defines the I2C masters behaviour on receipt of a NACK from a busy
+ * slave device. By default the issuing of a repeated start is disabled, and the
+ * module will ignore NACKs when reading from the device.
+ */
+#define I2C_REPEATED_START_ON_NACK 0
+#endif
 
+#ifndef  I2C_REPEATED_START_MAX_RETRIES
+
+/** This constant defines the maximum number of times the I2C master should issue a
+ * repeated start on receipt of a NACK.
+ */
+#define I2C_REPEATED_START_MAX_RETRIES 10
+
+#endif
+
+#ifndef  I2C_REPEATED_START_DELAY
+
+/** This constant defines the delay in microseconds (us) that the I2C master must wait following
+ * the receipt of a NACK before issuing a repeated start.
+ */
+#define I2C_REPEATED_START_DELAY 500
+
+#endif
+
+/** Struct that holds the data for instantiating the I2C module - it just
+ * comprises one port (the clock line and the data line are on the same port), 
+ * the only other settable parameter is the speed of the bus which is a compile time
+ * define.
+ */
+struct r_i2c {
+    port p_i2c;     
+};
 
 /**Function that initialises the ports on an I2C device.
  *
  * \param i2c Bidirectional port connected to both SDA and SCL.
  */
-void i2c_master_init(port i2c);
+void i2c_master_init(REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
 
 /**Function that writes to a register on an I2C device.
@@ -72,7 +105,7 @@ void i2c_master_init(port i2c);
  * Note that this function uses the same interface as module_i2c but that
  * the fields master_num and clock_mul are ignored by this function.
  *
- * \param device     Bus address of device, even number between 0x00 and 0xFE.
+ * \param device     Bus address of device, number between 0x00 and 0x7F.
  *
  * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
  *
@@ -85,8 +118,33 @@ void i2c_master_init(port i2c);
  * \param i2c  Bidirectional port connected to both SDA and SCL.
  */
 int i2c_master_write_reg(int device, int reg_addr,
-                         unsigned char data[],
+                         const unsigned char data[],
                          int nbytes,
-                         port i2c);
+                         REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
+#ifdef __XS2A__
+/**Function that reads a register on an I2C device. Supported on XCORE200 only.
+ *
+ * \param device     Bus address of device, number between 0x00 and 0x7F.
+ *
+ * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
+ *
+ * \param data       Array where return data will be stored.
+ *
+ * \param nbytes     Number of bytes to read and store in data. This parameter
+ *                   must be set to '1' and is ignored in this module.
+ *                   This parameter is provided for compatibililty with module_i2c_master.
+ *
+ * \param i2c  Bidirectional port connected to both SDA and SCL.
+ */
+int i2c_master_read_reg(int device, int addr,
+                        unsigned char data[],
+                        int nbytes,
+                        REFERENCE_PARAM(struct r_i2c, i2cPorts));
+
+
+int i2c_master_rx(int device, unsigned char data[], int nbytes, 
+        REFERENCE_PARAM(struct r_i2c, i2cPorts));
+
+#endif
 #endif

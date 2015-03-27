@@ -161,7 +161,7 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 }
 #endif
 
-int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
+int i2c_master_write_reg(int device, int addr, const unsigned char s_data[], int nbytes, struct r_i2c &i2c) {
    int data = s_data[0];
    int ack;
    if (I2C_REPEATED_START_ON_NACK) {

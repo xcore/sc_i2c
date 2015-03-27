@@ -130,7 +130,7 @@ int i2c_master_read_reg(int device, int reg_addr,
  *                   should be declared as unbuffered bidirectional ports.
  */
 int i2c_master_write_reg(int device, int reg_addr,
-                         unsigned char data[],
+                         const unsigned char data[],
                          int nbytes,
                          REFERENCE_PARAM(struct r_i2c, i2c_master));
 
