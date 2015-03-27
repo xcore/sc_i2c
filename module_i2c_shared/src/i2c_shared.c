@@ -35,7 +35,7 @@ int i2c_shared_master_read_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int devi
 #endif
 
 int i2c_shared_master_write_reg(REFERENCE_PARAM(struct r_i2c, i2cPorts), int device, int reg_addr,
-    unsigned char data[], int nbytes)
+    const unsigned char data[], int nbytes)
 {
     int retval;
     swlock_acquire(&i2c_swlock);
