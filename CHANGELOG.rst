@@ -1,6 +1,15 @@
 sc_i2c Change Log
 =================
 
+3.0.0
+-----
+  * Read support added to module_i2c_single_port (xCORE 200 only)
+  * Retry on NACK added to module_i2c_single_port (matches module_i2c_simple)
+  * module_i2c_single_port functions now takes struct for port resources (matches module_i2c_simple)
+  * module_i2c_simple removed from module_i2c_shared dependancies. Allows use with other i2c modules.
+    It is now the applications responsibilty to include the desired i2c module as a depenancy.
+  * Data arrays passed to write_reg functions now marked const
+
 2.4.1
 -----
   * module_i2c_simple header-file comments updated to correctly reflect API
