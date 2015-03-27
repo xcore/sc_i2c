@@ -97,7 +97,7 @@ struct r_i2c {
  *
  * \param i2c Bidirectional port connected to both SDA and SCL.
  */
-void i2c_master_init(port i2c);
+void i2c_master_init(REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
 
 /**Function that writes to a register on an I2C device.
