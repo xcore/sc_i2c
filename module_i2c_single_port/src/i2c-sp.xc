@@ -118,7 +118,7 @@ static int tx8(port i2c, unsigned data) {
     return ack != 0;
 }
 
-int i2c_master_write_reg(int device, int addr, unsigned char s_data[], int nbytes, port i2c) {
+int i2c_master_write_reg(int device, int addr, unsigned char const s_data[], int nbytes, struct r_i2c &i2cPorts) {
    int data;
    int ack;
 

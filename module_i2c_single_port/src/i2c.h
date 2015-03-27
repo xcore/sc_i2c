@@ -85,8 +85,33 @@ void i2c_master_init(port i2c);
  * \param i2c  Bidirectional port connected to both SDA and SCL.
  */
 int i2c_master_write_reg(int device, int reg_addr,
-                         unsigned char data[],
+                         const unsigned char data[],
                          int nbytes,
-                         port i2c);
+                         REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
+#ifdef __XS2A__
+/**Function that reads a register on an I2C device. Supported on XCORE200 only.
+ *
+ * \param device     Bus address of device, even number between 0x00 and 0xFE.
+ *
+ * \param reg_addr   Address of register to write to, value between 0x00 and 0x7F.
+ *
+ * \param data       Array where return data will be stored.
+ *
+ * \param nbytes     Number of bytes to read and store in data. This parameter
+ *                   must be set to '1' and is ignored in this module.
+ *                   This parameter is provided for compatibililty with module_i2c_master.
+ *
+ * \param i2c  Bidirectional port connected to both SDA and SCL.
+ */
+int i2c_master_read_reg(int device, int addr,
+                        unsigned char data[],
+                        int nbytes,
+                        REFERENCE_PARAM(struct r_i2c, i2cPorts));
+
+
+int i2c_master_rx(int device, unsigned char data[], int nbytes, 
+        REFERENCE_PARAM(struct r_i2c, i2cPorts));
+
+#endif
 #endif
