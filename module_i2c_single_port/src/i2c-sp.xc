@@ -127,7 +127,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char const s_data[], int
 
        while(nacks) {
           startBit(i2cPorts.p_i2c);
-          if(!(ack = tx8(i2cPorts.p_i2c, device))) {
+          if(!(ack = tx8(i2cPorts.p_i2c, device<<1))) {
              // Ack, break from loop;
              break;
           }
@@ -142,7 +142,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char const s_data[], int
     }
     else {      
        startBit(i2cPorts.p_i2c);
-       ack = tx8(i2cPorts.p_i2c, device);
+       ack = tx8(i2cPorts.p_i2c, device<<1);
     }
 #ifdef I2C_TI_COMPATIBILITY
    ack |= tx8(i2cPorts.p_i2c, addr << 1 | (data >> 8) & 1);
@@ -169,7 +169,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       
       while (nacks) {
          startBit(i2cPorts.p_i2c);
-         if (!tx8(i2cPorts.p_i2c, device | 1)) {
+         if (!tx8(i2cPorts.p_i2c, (device<<1) | 1)) {
             break;
          }
          waitAfterNACK(i2cPorts.p_i2c);
@@ -181,7 +181,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
       }
    } else {
       startBit(i2cPorts.p_i2c);
-      tx8(i2cPorts.p_i2c, device | 1);
+      tx8(i2cPorts.p_i2c, (device<<1) | 1);
    }
 
    for(int j = 0; j < nbytes; j++) {
@@ -211,7 +211,7 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
 
       while(nacks) {
         startBit(i2cPorts.p_i2c);
-         if (!tx8(i2cPorts.p_i2c, device)) {
+         if (!tx8(i2cPorts.p_i2c, device<<1)) {
             break;
          }
          waitAfterNACK(i2cPorts.p_i2c);
@@ -223,7 +223,7 @@ int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, 
       }
    } else {
       startBit(i2cPorts.p_i2c);
-      tx8(i2cPorts.p_i2c, device);
+      tx8(i2cPorts.p_i2c, device<<1);
    }
    tx8(i2cPorts.p_i2c, addr);
    stopBit(i2cPorts.p_i2c);
