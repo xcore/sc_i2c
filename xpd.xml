@@ -3,7 +3,7 @@
     <components>
         <component description = "I2C Master test app for USB Audio with I2C slave" type = "demoCode" scope = "Example" path = "app_i2c_simple_uac2slave_demo" local = "false" id = "app_i2c_simple_uac2slave_demo" name = "app_i2c_master_uac2slave_test">
             <board>startKIT</board>
-            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "2.4.1">module_i2c_simple</componentDependency>
+            <componentDependency repo = "git://github.com/xcore/sc_i2c" version = "3.0.0">module_i2c_simple</componentDependency>
             <keyword>i2c master test demo uac2</keyword>
         </component>
         <component name = "I2C Master (Single Bit Ports) Function Library" type = "component" buildresults_path = "module_i2c_master/.module_i2c_master.buildinfo" scope = "General Use" path = "module_i2c_master" metainfo_path = "module_i2c_master/module_i2c_master.metainfo" local = "false" id = "module_i2c_master" description = "Function Library implementing basic multi master I2C read and write functionality, designed for use with 1 bit ports">
@@ -57,6 +57,7 @@
     <release parenthash = "b6fcce0bb1145abe9d431235592c4d83f38b1baf" version = "2.4.1rc0" githash = "8809971a9e74a6201cb7817050d98dc4dd4bb9c9"></release>
     <release parenthash = "c175fc9b6d4b8fe468eadcbf17701bda1b9d35a5" version = "2.4.1rc1" githash = "1a67f08d6c2f2c488b11e2cf313b567fc0c276dd"></release>
     <release parenthash = "bf9064f7adba6cbd96633e281a33752a1570c5d8" version = "3.0.0alpha0" githash = "7c6f04922e0530ff223e90e79da980f05a039382"></release>
+    <release parenthash = "ceb10f692f07703e3e1a7f9258bdd037a32d2d0d" version = "3.0.0alpha1"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
