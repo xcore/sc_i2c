@@ -85,12 +85,12 @@
 #endif
 
 /** Struct that holds the data for instantiating the I2C module - it just
- * comprises one port (the clock line and the data line are on the same port), 
+ * comprises one port (the clock line and the data line are on the same port),
  * the only other settable parameter is the speed of the bus which is a compile time
  * define.
  */
 struct r_i2c {
-    port p_i2c;     
+    port p_i2c;
 };
 
 /**Function that initialises the ports on an I2C device.
@@ -143,7 +143,7 @@ int i2c_master_read_reg(int device, int addr,
                         REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
 
-int i2c_master_rx(int device, unsigned char data[], int nbytes, 
+int i2c_master_rx(int device, unsigned char data[], int nbytes,
         REFERENCE_PARAM(struct r_i2c, i2cPorts));
 
 #endif
