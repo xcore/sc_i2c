@@ -140,7 +140,7 @@ int i2c_master_write_reg(int device, int addr, unsigned char const s_data[], int
           return 0;
         }
     }
-    else {      
+    else {
        startBit(i2cPorts.p_i2c);
        ack = tx8(i2cPorts.p_i2c, device<<1);
     }
@@ -166,7 +166,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 
    if(I2C_REPEATED_START_ON_NACK) {
       int nacks = I2C_REPEATED_START_MAX_RETRIES;
-      
+
       while (nacks) {
          startBit(i2cPorts.p_i2c);
          if (!tx8(i2cPorts.p_i2c, (device<<1) | 1)) {
@@ -205,7 +205,7 @@ int i2c_master_rx(int device, unsigned char data[], int nbytes, struct r_i2c &i2
 }
 
 int i2c_master_read_reg(int device, int addr, unsigned char data[], int nbytes, struct r_i2c &i2cPorts) {
-   
+
    if(I2C_REPEATED_START_ON_NACK) {
       int nacks = I2C_REPEATED_START_MAX_RETRIES;
 

@@ -10,6 +10,12 @@ sc_i2c Change Log
     It is now the applications responsibilty to include the desired i2c module as a depenancy.
   * Data arrays passed to write_reg functions now marked const
 
+  * Changes to dependencies:
+
+    - sc_util: 1.0.4rc0 -> 1.0.5alpha0
+
+      + xCORE-200 Compatiblity fixes to module_locks
+
 2.4.1
 -----
   * module_i2c_simple header-file comments updated to correctly reflect API

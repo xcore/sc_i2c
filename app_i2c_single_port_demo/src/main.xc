@@ -3,7 +3,7 @@
 #include <xs1.h>
 #include "i2c.h"
 
-port i2c = XS1_PORT_4F;
+struct r_i2c i2c = {XS1_PORT_4F};
 port gpio = XS1_PORT_4E;
 //::
 

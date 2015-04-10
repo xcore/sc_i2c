@@ -43,7 +43,7 @@
                                 </outputEntries>
                             </builder>
                             <tool id = "com.xmos.cdt.xc.compiler.38163057" name="com.xmos.cdt.xc.compiler" superClass="com.xmos.cdt.xc.compiler">
-                                <option id = "com.xmos.c.compiler.option.defined.symbols.74617881" name="com.xmos.c.compiler.option.defined.symbols" superClass="com.xmos.c.compiler.option.defined.symbols" valueType="definedSymbols">
+                                <option id = "com.xmos.xc.compiler.option.defined.symbols.74617881" name="com.xmos.xc.compiler.option.defined.symbols" superClass="com.xmos.xc.compiler.option.defined.symbols" valueType="definedSymbols">
                                     <listOptionValue builtIn="false" value="__SHRT_MAX__=32767"/>
                                     <listOptionValue builtIn="false" value="__SCHAR_MAX__=127"/>
                                     <listOptionValue builtIn="false" value="__SIZE_TYPE__=unsigned"/>
@@ -158,8 +158,6 @@
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/gcc&quot;"/>
                                     <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks}&quot;' />
 
@@ -275,8 +273,6 @@
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/gcc&quot;"/>
                                     <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks}&quot;' />
 
@@ -398,8 +394,6 @@
 									<listOptionValue builtIn="false" value="&quot;${XMOS_TOOL_PATH}/target/include/c++/4.2.1/xcore-xmos-elf&quot;"/>
                                     <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_shared}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple/src}&quot;' />
-<listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_i2c_simple}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks/src}&quot;' />
 <listOptionValue builtIn="false" value='&quot;${workspace_loc:/module_locks}&quot;' />
 
