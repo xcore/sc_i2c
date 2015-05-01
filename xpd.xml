@@ -68,5 +68,4 @@
     <xsoftip_exclude>app_i2c_single_port_demo</xsoftip_exclude>
     <xsoftip_exclude>module_i2c</xsoftip_exclude>
     <xsoftip_exclude>module_i2c_simple</xsoftip_exclude>
-    <xsoftip_exclude>app_xdk_xai_i2c_test</xsoftip_exclude>
 </xpd>
