@@ -24,9 +24,9 @@
     </components>
     <dependency repo = "sc_util">
         <gitbranch>master</gitbranch>
-        <githash>490b9efd7f38f02bb5314c95fdfd727f08504c45</githash>
+        <githash>7840b23c0f18f7701a13a6e030aefc0cdd62ade3</githash>
         <uri>git://github.com/xcore/sc_util</uri>
-        <version>1.0.5alpha0</version>
+        <version>1.0.5rc0</version>
     </dependency>
     <description>I2C Software Component</description>
     <docdir>module_i2c_master/doc</docdir>
@@ -57,7 +57,8 @@
     <release parenthash = "b6fcce0bb1145abe9d431235592c4d83f38b1baf" version = "2.4.1rc0" githash = "8809971a9e74a6201cb7817050d98dc4dd4bb9c9"></release>
     <release parenthash = "c175fc9b6d4b8fe468eadcbf17701bda1b9d35a5" version = "2.4.1rc1" githash = "1a67f08d6c2f2c488b11e2cf313b567fc0c276dd"></release>
     <release parenthash = "bf9064f7adba6cbd96633e281a33752a1570c5d8" version = "3.0.0alpha0" githash = "7c6f04922e0530ff223e90e79da980f05a039382"></release>
-    <release parenthash = "ceb10f692f07703e3e1a7f9258bdd037a32d2d0d" version = "3.0.0alpha1"></release>
+    <release parenthash = "ceb10f692f07703e3e1a7f9258bdd037a32d2d0d" version = "3.0.0alpha1" githash = "a8c06b4d06534587070cd56acba1c7d4f36d910c"></release>
+    <release parenthash = "1e38f0a9f53e08a86a815ba1a773963d4b75564a" version = "3.0.0rc0"></release>
     <subpartnumber>XM-001898-SM</subpartnumber>
     <vendor>XMOS</vendor>
     <version_defines></version_defines>
